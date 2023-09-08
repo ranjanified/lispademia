@@ -1,7 +1,8 @@
 (defpackage cl-aol
   (:use :cl)
   (:export
-   :is-digit
-   :is-numeral
-   :is-letter
-   :is-literal))
+   :digit-p
+   :numeral-p
+   :atom-letter-p
+   :literal-atom-p
+   :atom-p))
