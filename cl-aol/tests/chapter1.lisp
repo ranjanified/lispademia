@@ -7,7 +7,10 @@
   (is-false (sexpr-p (list)))
   (is-true (sexpr-p '(#\A)))
   (is-true (sexpr-p '(#\( #\A #\. #\B #\))))
-  (is-true (sexpr-p '(#\( #\( #\( #\A #\. #\B #\) #\. #\C #\) #\. #\( #\A #\. #\B #\) #\))))
+  (is-true (sexpr-p (coerce "(((A.B).C).(A.B))" 'list)))
+  (is-true (sexpr-p (coerce "(A.B)" 'list)))
+  (is-true (sexpr-p (coerce "(A.(B.C))" 'list)))
+  (is-true (sexpr-p (coerce "((A . B) . C)" 'list)))
   
   (is-false (sexpr-p '(#\A #\. #\B)))
   (is-false (sexpr-p '(#\( #\A #\. #\B #\. #\C #\))))
