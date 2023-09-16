@@ -43,3 +43,35 @@
 	 (cond
 	   ((char= (first l) #\-) (numeral-p (rest l)))
 	   ((numeral-p l)))))))
+
+
+
+(defun sexpr-p (l)
+  (labels ((twist (l acc)
+	     (cond
+	       ((null l) acc)
+	       ((atom (first l)) (twist (rest l) (cons (first l) acc)))
+	       ((twist (rest l) (cons (twist (first l) (list)) acc)))))
+
+	   (parse-list (l acc)
+	     (cond
+	       ((null l) acc)
+	       ((atom l) l)
+	       ((char= (first l) #\)) (values acc (rest l)))
+	       ((char= (first l) #\.) (parse-list (rest l) acc))
+	       ((char= (first l) #\() (multiple-value-bind (parsed-list remaining) (parse-list (rest l) '()) (parse-list remaining (cons parsed-list acc))))
+	       (t (parse-list (rest l) (cons (first l) acc)))))
+
+	   (is-sexpr (l)
+	     (cond
+	       ((null l) nil)
+	       ((atom l) t)
+	       ((= (length l) 2) (and (is-sexpr (first l))
+				      (is-sexpr (second l)))))))
+    
+    (let ((parsed-list (twist (parse-list l '()) (list))))
+      (cond
+	((null parsed-list) nil)
+	((= (length parsed-list) 1) (is-sexpr (first parsed-list)))
+	;;((is-sexpr parsed-list))
+	))))

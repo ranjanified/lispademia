@@ -5,4 +5,5 @@
    :numeral-p
    :atom-letter-p
    :literal-atom-p
-   :atom-p))
+   :atom-p
+   :sexpr-p))

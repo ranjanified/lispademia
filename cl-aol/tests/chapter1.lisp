@@ -3,6 +3,16 @@
 (def-suite chapter1 :in cl-aol)
 (in-suite chapter1)
 
+(test sexpr-p
+  (is-false (sexpr-p (list)))
+  (is-true (sexpr-p '(#\A)))
+  (is-true (sexpr-p '(#\( #\A #\. #\B #\))))
+  (is-true (sexpr-p '(#\( #\( #\( #\A #\. #\B #\) #\. #\C #\) #\. #\( #\A #\. #\B #\) #\))))
+  
+  (is-false (sexpr-p '(#\A #\. #\B)))
+  (is-false (sexpr-p '(#\( #\A #\. #\B #\. #\C #\))))
+  (is-false (sexpr-p '(#\( #\( #\A #\. #\B #\) #\)))))
+
 (test digit-p
   (is-true (digit-p #\0))
   (is-true (digit-p #\1))
@@ -54,3 +64,8 @@
   (is-false (atom-p (list #\$ #\$ #\g)))
   (is-false (atom-p (list #\A #\B #\D #\.)))
   (is-false (atom-p (list #\( #\A #\. #\B #\)))))
+
+;; (test sexpr-p
+;;   (is-true (null (sexpr-p '())))
+;;   (is-true (sexpr-p (list #\A)))
+;;   (is-true (sexpr-p (list (list #\A #\B)))))
