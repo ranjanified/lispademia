@@ -11,10 +11,23 @@
   (is-true (sexpr-p (coerce "(A.B)" 'list)))
   (is-true (sexpr-p (coerce "(A.(B.C))" 'list)))
   (is-true (sexpr-p (coerce "((A . B) . C)" 'list)))
+
+  (is-true (sexpr-p (coerce "(X.Y)" 'list)))
+  (is-true (sexpr-p (coerce "((A.B).(B.(C.D)))" 'list)))
+  (is-true (sexpr-p (coerce "(((A.B).C).E)" 'list)))
+  (is-true (sexpr-p (coerce "((X.NIL).(Y.(Z.NIL)))" 'list)))
+  (is-true (sexpr-p (coerce "(NIL.NIL)" 'list)))
+
+  (is-true (sexpr-p (coerce "(A.(B.C))" 'list)))
+  (is-true (sexpr-p (coerce "(A.((A.NIL).(D.E)))" 'list)))
+  (is-true (sexpr-p (coerce "(A.(B.(C.(D.NIL))))" 'list)))
   
   (is-false (sexpr-p '(#\A #\. #\B)))
   (is-false (sexpr-p '(#\( #\A #\. #\B #\. #\C #\))))
-  (is-false (sexpr-p '(#\( #\( #\A #\. #\B #\) #\)))))
+  (is-false (sexpr-p '(#\( #\( #\A #\. #\B #\) #\))))
+
+  (is-false (sexpr-p (coerce "((A.(B.C))" 'list)))
+  (is-false (sexpr-p (coerce "(X.Y2.Z)" 'list))))
 
 (test digit-p
   (is-true (digit-p #\0))

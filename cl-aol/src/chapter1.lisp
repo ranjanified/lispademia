@@ -54,6 +54,17 @@
 	       ((twist (rest l) (cons (twist (first l) (list)) acc)))))
 
 	   (is-escapable (c) (member c (list #\. #\space #\tab)))
+
+	   (nil-p (l)
+	     (and (and (not (null (first l)))
+			  (or (char= (first l) #\N)
+			      (char= (first l) #\n)))
+		     (and (not (null (second l)))
+			  (or (char= (second l) #\I)
+			      (char= (second l) #\i)))
+		     (and (not (null (third l)))
+			  (or (char= (third l) #\L)
+			      (char= (third l) #\l)))))
 	   
 	   (parse-list (l acc)
 	     (cond
@@ -61,12 +72,13 @@
 	       ((atom l) l)
 	       ((char= (first l) #\)) (values acc (rest l)))
 	       ((is-escapable (first l)) (parse-list (rest l) acc))
-	       ((char= (first l) #\() (multiple-value-bind (parsed-list remaining) (parse-list (rest l) '()) (parse-list remaining (cons parsed-list acc))))
+	       ((char= (first l) #\() (multiple-value-bind (parsed-list remaining) (parse-list (rest l) (list)) (parse-list remaining (cons parsed-list acc))))
+	       ((nil-p l) (parse-list (nthcdr 3 l) (cons nil acc)))
 	       (t (parse-list (rest l) (cons (first l) acc)))))
 
 	   (is-sexpr (l)
 	     (cond
-	       ((null l) nil)
+	       ;; ((null l) t)
 	       ((atom l) t)
 	       ((= (length l) 2) (and (is-sexpr (first l))
 				      (is-sexpr (second l)))))))
