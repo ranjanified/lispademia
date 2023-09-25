@@ -16,12 +16,12 @@
       ((null l) nil)
       ((is-it l)))))
 
-(defun atom-letter-p (l)
+(defun atom-letter-p (c)
   ""
   ;; built-in: alpha-char-p
   (declare (type standard-char l))
-  (or (and (char>= l #\a) (char<= l #\z))
-      (and (char>= l #\A) (char<= l #\Z))))
+  (or (and (char>= c #\a) (char<= c #\z))
+      (and (char>= c #\A) (char<= c #\Z))))
 
 (defun literal-atom-p (l)
   ""
@@ -87,3 +87,13 @@
       (cond
 	((null parsed-list) nil)
 	((= (length parsed-list) 1) (is-sexpr (first parsed-list)))))))
+
+(defun identifier-p (l)
+  (labels ((identifier-rec-p (l)
+	     (cond
+	       ((null l) t)
+	       ((atom-letter-p (first l)) (identifier-rec-p (rest l)))
+	       ((digit-p (first l)) (identifier-rec-p (rest l))))))
+    (cond
+      ((null l) nil)
+      ((identifier-rec-p l)))))

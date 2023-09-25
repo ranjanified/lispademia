@@ -3,6 +3,14 @@
 (def-suite chapter1 :in cl-aol)
 (in-suite chapter1)
 
+(test identifier-p
+  (is-false (identifier-p (list)))
+  (is-true (identifier-p (list #\1)))
+  (is-true (identifier-p (coerce "luba123" 'list)))
+  (is-true (identifier-p (coerce "123cuba" 'list)))
+
+  (is-false (identifier-p (coerce "(luba123)" 'list))))
+
 (test sexpr-p
   (is-false (sexpr-p (list)))
   (is-true (sexpr-p '(#\A)))
