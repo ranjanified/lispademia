@@ -4,7 +4,8 @@
   :license ""
   :depends-on ("cl-pcl"
 	       "cl-aia"
-	       "cl-aol")
+	       "cl-aol"
+	       "ds-graph")
   :description ""
   :in-order-to ((test-op (test-op "lispademia/tests"))))
 
@@ -13,6 +14,7 @@
   :license ""
   :depends-on ("cl-pcl/tests"
 	       "cl-aia/tests"
-	       "cl-aol/tests")
+	       "cl-aol/tests"
+	       "ds-graph/tests")
   :description "Test system for lispademia"
   :perform (test-op (op c) (symbol-call :fiveam :run-all-tests)))
