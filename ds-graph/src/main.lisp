@@ -1,3 +1,4 @@
 (defpackage ds-graph
   (:use :cl)
-  (:export :make-graph))
+  (:export :make-graph
+	   :graph-p))
