@@ -1,6 +1,5 @@
 (in-package :cl-aoc/tests/main)
 
-(def-suite aoc-2023 :in cl-aoc)
 (in-suite aoc-2023)
 
 (test trebuchet

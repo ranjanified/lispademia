@@ -10,7 +10,10 @@
 		  :components
 		  ((:module "day-1"
 		    :components
-			    ((:file "trebuchet"))))))))
+			    ((:file "trebuchet")))
+		   (:module "day-2"
+		    :components
+			    ((:file "cube-conundrum"))))))))
   :description "Advent of Code"
   :in-order-to ((test-op (test-op "cl-aoc/tests"))))
 
@@ -26,6 +29,9 @@
 		  :components
 		  ((:module "day-1"
 		    :components
-			    ((:file "trebuchet"))))))))
+			    ((:file "trebuchet")))
+		   (:module "day-2"
+		    :components
+			    ((:file "cube-conundrum"))))))))
   :description "Test system for cl-aoc"
   :perform (test-op (op c) (symbol-call :fiveam :run-all-tests)))
