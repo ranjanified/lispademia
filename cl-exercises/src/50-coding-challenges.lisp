@@ -9,6 +9,13 @@
 (export 'celsius-fahrenheit)
 (export 'fahrenheit-celsius)
 (export 'sum-num-array)
+(export 'average-number-array)
+(export 'filter-positives)
+(export 'max-array)
+(export 'print-fibonacci)
+(export 'nth-fibonacci)
+(export 'prime-p)
+(export 'sum-digits)
 
 (defun print-numbers (from to)
   (loop for i :from from :to to
@@ -50,3 +57,51 @@
 (defun sum-num-array (num-arr)
   (loop for num :across num-arr
 	sum num))
+
+(defun average-number-array (num-array)
+  (loop for num across num-array
+	sum num into res
+	finally (return (float (/ res (length num-array))))))
+
+(defun filter-positives (num-array)
+  (loop for num across num-array
+	when (>= num 0) collect num into res
+	  finally (return (coerce res '(simple-vector *)))))
+
+(defun max-array (num-array)
+  (loop for num across num-array
+	maximize num))
+
+(defun print-fibonacci (num-fibs)
+  (terpri)
+  (loop for count from 1
+	for fib0 = 0 then fib1
+	for fib1 = 1 then curr-fib
+	for curr-fib = fib0 then (+ fib0 fib1)
+	do (princ (format nil "~a~t" curr-fib))
+	while (> num-fibs count)))
+
+(defun nth-fibonacci (n)
+  (cond
+    ((= n 0) 0)
+    ((= n 1) 1)
+    (t (+ (nth-fibonacci (1- n)) (nth-fibonacci (- n 2))))))
+
+(defun prime-p (num)
+  "https://stackoverflow.com/a/62150343/11697936"
+  (cond ((<= num 1) nil)
+	((<= num 3) t)
+	((or (zerop (rem num 2)) (zerop (rem num 3))) nil)
+	(t (loop for i = 5 then (+ i 6)
+		 with r = t
+		 while (and r (<= (* i i) num))
+		 do (setf r (not (or (zerop (rem num i)) (zerop (rem num (+ i 2))))))
+		 finally (return r)))))
+
+(defun sum-digits (num &optional (base 10))
+  (loop for digit-index = 1 then (1+ digit-index)
+	for curr-num = num then (floor (/ curr-num base))
+	for curr-digit = (rem curr-num base)
+	for total-sum = curr-digit then (+ curr-digit total-sum)
+	while (not (zerop curr-num))
+	finally (return total-sum)))
