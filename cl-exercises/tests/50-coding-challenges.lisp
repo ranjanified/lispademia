@@ -130,7 +130,13 @@
   (is-true (equalp (gen-primes 5 40 :as-array t) #(41 43 47 53 59))))
 
 ;; Rotate an array to the left 1 position
-
+(test rotate-array-left-1
+  (let ((an-array (vector))
+	(rotatable-array (vector 1 2 3 4 5)))
+    (rotate-left an-array)
+    (rotate-left rotatable-array)
+    (is-true (equalp an-array (vector)))
+    (is-true (equalp rotatable-array (vector 2 3 4 5 1)))))
 
 ;; Rotate an array to the right 1 position
 
