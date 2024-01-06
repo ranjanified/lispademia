@@ -16,6 +16,8 @@
 (export 'nth-fibonacci)
 (export 'prime-p)
 (export 'sum-digits)
+(export 'print-primes)
+(export 'gen-primes)
 
 (defun print-numbers (from to)
   (loop for i :from from :to to
@@ -105,3 +107,20 @@
 	for total-sum = curr-digit then (+ curr-digit total-sum)
 	while (not (zerop curr-num))
 	finally (return total-sum)))
+
+(defun gen-primes (num-primes &optional (upfrom 2) &key (as-array nil))
+  (loop :with prime-count = 0
+	:for num-index :upfrom upfrom
+	:until (= prime-count num-primes)
+	:when (prime-p num-index)
+	  :collect num-index :into primes
+	  :and :do (incf prime-count)
+	:finally (return (if as-array
+			     (coerce primes `(simple-vector ,num-primes))
+			     primes))))
+
+(defun print-primes (num-primes &optional (upfrom 2))
+  (terpri)
+  (loop for prime in (gen-primes num-primes upfrom)
+	do (princ (format nil "~a~t" prime)))
+  (terpri))

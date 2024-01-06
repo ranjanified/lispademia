@@ -122,12 +122,112 @@
 
 ;; Print the first 100 prime numbers
 (test print-first-100-prime-numbers
-  (finishes
-    (terpri)
-    (loop  with prime-count = 0
-	   for num-index upfrom 2
-	   while (not (= prime-count 100))
-	   when (prime-p num-index)
-	     do
-		(princ (format nil "~a~t" num-index))
-		(setf prime-count (1+ prime-count)))))
+  (finishes (print-primes 100)))
+
+;; Create a function that will return in an array the first “p” prime numbers greater than “n”
+(test first-p-primes-greater-than-n
+  (is-true (equalp (gen-primes 10 1 :as-array t) #(2 3 5 7 11 13 17 19 23 29)))
+  (is-true (equalp (gen-primes 5 40 :as-array t) #(41 43 47 53 59))))
+
+;; Rotate an array to the left 1 position
+
+
+;; Rotate an array to the right 1 position
+
+
+;; Reverse an array
+
+
+;; Reverse a string
+
+
+;; Create a function that will merge two arrays and return the result as a new array
+
+
+;; Create a function that will receive two arrays of numbers as arguments and return an array composed of all the numbers that are
+;; either in the first array or second array but not in both
+
+
+;; Create a function that will receive two arrays and will return an array with elements that are in the first array but not in the second
+
+
+;; Create a function that will receive an array of numbers as argument and will return a new array with distinct elements
+
+
+;; Calculate the sum of first 100 prime numbers and return them in an array
+
+
+;; Print the distance between the first 100 prime numbers
+
+
+;; Create a function that will add two positive numbers of indefinite size. The numbers are received as strings and the result should be also provided as string.
+
+
+;; Create a function that will return the number of words in a text
+
+
+;; Create a function that will capitalize the first letter of each word in a text
+
+
+;; Calculate the sum of numbers received in a comma delimited string
+
+
+;; Create a function that returns an array with words inside a text.
+
+
+;; Create a function to convert a CSV text to a “bi-dimensional” array
+
+
+;; Create a function that converts a string to an array of characters
+
+
+;; Create a function that will convert a string in an array containing the ASCII codes of each character
+
+
+;; Create a function that will convert an array containing ASCII codes in a string
+
+
+;; Implement the Caesar cypher
+
+
+;; Implement the bubble sort algorithm for an array of numbers
+
+
+;; Create a function to calculate the distance between two points defined by their x, y coordinates
+
+
+;; Create a function that will return a Boolean value indicating if two circles defined by center coordinates and radius are intersecting
+
+
+;; Create a function that will receive a bi-dimensional array as argument and a number and will extract as a unidimensional array the column specified by the number
+
+
+;; Create a function that will convert a string containing a binary number into a number
+
+
+;; Create a function to calculate the sum of all the numbers in a jagged array (contains numbers or other arrays of numbers on an unlimited number of levels)
+
+
+;; Find the maximum number in a jagged array of numbers or array of numbers
+
+
+;; Deep copy a jagged array with numbers or other arrays in a new array
+
+
+;; Create a function to return the longest word in a string
+
+
+;; Shuffle an array of strings
+
+
+;; Create a function that will receive n as argument and return an array of n random numbers from 1 to n. The numbers should be unique inside the array.
+
+
+;; Find the frequency of letters inside a string. Return the result as an array of arrays. Each subarray has 2 elements: letter and number of occurrences.
+
+
+;; Calculate Fibonacci(500) with high precision (all digits)
+
+
+;; Calculate 70! with high precision (all digits)
+
