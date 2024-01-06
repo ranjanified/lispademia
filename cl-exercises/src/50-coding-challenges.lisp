@@ -19,6 +19,7 @@
 (export 'print-primes)
 (export 'gen-primes)
 (export 'rotate-left)
+(export 'rotate-right)
 
 (defun print-numbers (from to)
   (loop
@@ -140,28 +141,18 @@
     :do (princ (format nil "~a~t" prime)))
   (terpri))
 
-
 (defun rotate-left (an-array &optional (rotation 1))
-  ;; (when (> (length an-array) rotation)
-  ;;   (loop
-  ;;     :with seed-initial := (subseq an-array 0 rotation)
-  ;;     :for start-index := 0 :then (incf start-index rotation)
-  ;;     :for copy-start-index := rotation :then (incf copy-start-index rotation)
-  ;;     :until (>= start-index (length an-array))
-  ;;     :do
-  ;; 	 ;; (print (format nil "~a~t~a" start-index copy-start-index))
-  ;; 	 (loop
-  ;; 	   :for curr :from 0 :to (1- rotation)
-  ;; 	   :until (>= (+ curr start-index) (length an-array))
-  ;; 	   :do 
-  ;; 	      ;; (print (list curr (+ curr start-index) (rem (+ curr copy-start-index) (length an-array))))
-  ;; 	      (if (>= (+ curr copy-start-index) (length an-array))
-  ;; 		  (setf (svref an-array (+ curr start-index)) (svref seed-initial (rem (+ curr copy-start-index) (length an-array))))
-  ;; 		  (setf (svref an-array (+ curr start-index)) (svref an-array (+ curr copy-start-index))))))
-  ;;   )
   (loop
     :repeat rotation
     :do (loop 
 	  :for curr-index :from 0 :to (- (length an-array) 2)
 	  :do (rotatef (svref an-array curr-index)
 		       (svref an-array (1+ curr-index))))))
+
+(defun rotate-right (an-array &optional (rotation 1))
+  (loop
+    :repeat rotation
+    :do (loop 
+	  :for curr-index :from (1- (length an-array)) :downto 1
+	  :do (rotatef (svref an-array curr-index)
+		       (svref an-array (1- curr-index))))))

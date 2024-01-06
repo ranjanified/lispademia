@@ -139,7 +139,13 @@
     (is-true (equalp rotatable-array (vector 2 3 4 5 1)))))
 
 ;; Rotate an array to the right 1 position
-
+(test rotate-array-right-1
+  (let ((an-array (vector))
+	(rotatable-array (vector 1 2 3 4 5)))
+    (rotate-right an-array)
+    (rotate-right rotatable-array)
+    (is-true (equalp an-array (vector)))
+    (is-true (equalp rotatable-array (vector 5 1 2 3 4)))))
 
 ;; Reverse an array
 
