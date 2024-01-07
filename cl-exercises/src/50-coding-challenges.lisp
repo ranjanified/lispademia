@@ -23,8 +23,9 @@
 (export 'array-reverse)
 (export 'reverse-string)
 (export 'merge-arrays)
-(export 'merge-unique)
+(export 'merge-in-either-or)
 (export 'filter-not-in)
+(export 'make-unique)
 
 (defun print-numbers (from to)
   (loop
@@ -181,9 +182,10 @@
     :do (vector-push-extend vector-element a-vec)
     :finally (return a-vec)))
 
-(defun merge-unique (first-vector second-vector)
+(defun merge-in-either-or (first-vector second-vector)
   (loop
-    :for f-ele :across first-vector :and second-array := second-vector :then (remove f-ele second-array)
+    :for f-ele :across first-vector
+    :for second-array := (remove f-ele second-vector) :then (remove f-ele second-array)
     :finally (return (merge-arrays first-vector (or second-array second-vector)))))
 
 (defun filter-not-in (first-vector second-vector)
@@ -194,3 +196,10 @@
 	:unless (find f-ele second-vector)
 	  :collect f-ele :into res
 	:finally (return (coerce res 'simple-vector)))))
+
+(defun make-unique (a-vector)
+  (loop
+    :for vector-element :across a-vector
+    :unless (find vector-element acc)
+      :collect vector-element :into acc
+    :finally (return (coerce acc 'simple-vector))))

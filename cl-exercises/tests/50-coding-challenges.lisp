@@ -169,11 +169,11 @@
 
 ;; Create a function that will receive two arrays of numbers as arguments and return an array composed of all the numbers that are
 ;; either in the first array or second array but not in both
-(test collect-unique-test
-  (is-true (equalp (merge-unique (vector) (vector)) (vector)))
-  (is-true (equalp (merge-unique (vector) (vector 1)) (vector 1)))
-  (is-true (equalp (merge-unique (vector 1) (vector)) (vector 1)))
-  (is-true (equalp (merge-unique (vector 1 2 3 4 5) (vector 2 4 6 4 7)) (vector 1 2 3 4 5 6 7))))
+(test merge-in-either-or-test
+  (is-true (equalp (merge-in-either-or (vector) (vector)) (vector)))
+  (is-true (equalp (merge-in-either-or (vector) (vector 1)) (vector 1)))
+  (is-true (equalp (merge-in-either-or (vector 1) (vector)) (vector 1)))
+  (is-true (equalp (merge-in-either-or (vector 1 2 3 4 5) (vector 2 4 6 4 7)) (vector 1 2 3 4 5 6 7))))
 
 ;; Create a function that will receive two arrays and will return an array with elements that are in the first array but not in the second
 (test filter-not-in-test
@@ -183,7 +183,11 @@
   (is-true (equalp (filter-not-in (vector 1 2 3 4 5 6) (vector 6 7 8 9)) (vector 1 2 3 4 5))))
 
 ;; Create a function that will receive an array of numbers as argument and will return a new array with distinct elements
-
+(test make-unique-test
+  (is-true (equalp (make-unique (vector)) (vector)))
+  (is-true (equalp (make-unique (vector 1)) (vector 1)))
+  (is-true (equalp (make-unique (vector 1 1)) (vector 1)))
+  (is-true (equalp (make-unique (vector 1 2 1 1 2 3)) (vector 1 2 3))))
 
 ;; Calculate the sum of first 100 prime numbers and return them in an array
 
