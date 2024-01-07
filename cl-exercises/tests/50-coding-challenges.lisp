@@ -126,8 +126,8 @@
 
 ;; Create a function that will return in an array the first “p” prime numbers greater than “n”
 (test first-p-primes-greater-than-n
-  (is-true (equalp (gen-primes 10 1 :as-array t) #(2 3 5 7 11 13 17 19 23 29)))
-  (is-true (equalp (gen-primes 5 40 :as-array t) #(41 43 47 53 59))))
+  (is-true (equalp (gen-primes 10 :upfrom 1 :as-array t) #(2 3 5 7 11 13 17 19 23 29)))
+  (is-true (equalp (gen-primes 5 :upfrom 40 :as-array t) #(41 43 47 53 59))))
 
 ;; Rotate an array to the left 1 position
 (test rotate-array-left-1
@@ -163,7 +163,9 @@
   (is-true (string-equal (reverse-string "hello") "olleh")))
 
 ;; Create a function that will merge two arrays and return the result as a new array
-
+(test merge-arrays-test
+  (is-true (equalp (merge-arrays (vector) (vector)) (vector)))
+  (is-true (equalp (merge-arrays (vector 1 2 3 4 5) (vector 6 7 8 9)) (vector 1 2 3 4 5 6 7 8 9))))
 
 ;; Create a function that will receive two arrays of numbers as arguments and return an array composed of all the numbers that are
 ;; either in the first array or second array but not in both

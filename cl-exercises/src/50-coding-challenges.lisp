@@ -22,6 +22,7 @@
 (export 'rotate-right)
 (export 'array-reverse)
 (export 'reverse-string)
+(export 'merge-arrays)
 
 (defun print-numbers (from to)
   (loop
@@ -124,7 +125,7 @@
     :while (not (zerop curr-num))
     :sum curr-digit))
 
-(defun gen-primes (num-primes &optional (upfrom 2) &key (as-array nil))
+(defun gen-primes (num-primes &key (upfrom 2) (as-array nil))
   (loop
     :with prime-count = 0
     :for num-index :upfrom upfrom
@@ -139,7 +140,7 @@
 (defun print-primes (num-primes &optional (upfrom 2))
   (terpri)
   (loop
-    :for prime :in (gen-primes num-primes upfrom)
+    :for prime :in (gen-primes num-primes :upfrom upfrom)
     :do (princ (format nil "~a~t" prime)))
   (terpri))
 
@@ -171,3 +172,9 @@
     (array-reverse string-as-array)
     (coerce string-as-array 'string)))
 
+(defun merge-arrays (vector-1 vector-2)
+  (loop
+    :with a-vec := (make-array (length vector-1) :initial-contents vector-1 :adjustable t :fill-pointer t)
+    :for vector-element :across vector-2
+    :do (vector-push-extend vector-element a-vec)
+    :finally (return a-vec)))
