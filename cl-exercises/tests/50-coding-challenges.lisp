@@ -190,7 +190,11 @@
   (is-true (equalp (make-unique (vector 1 2 1 1 2 3)) (vector 1 2 3))))
 
 ;; Calculate the sum of first 100 prime numbers and return them in an array
-
+(test collect-sum-of-primes
+  (is-true (equalp (sum-primes 0 :as-array t) (vector)))
+  (is-true (equalp (sum-primes 1 :as-array t) (vector 2)))
+  (is-true (equalp (sum-primes 2 :as-array t) (vector 2 5)))
+  (is-true (equalp (sum-primes 5 :as-array t) (vector 2 5 10 17 28))))
 
 ;; Print the distance between the first 100 prime numbers
 (test print-distance-between-primes
@@ -199,6 +203,7 @@
     (loop :for distance :across (distance-between-primes 100 :as-array t)
 	  :do (princ (format nil "~a~t" distance)))
     (terpri)))
+
 ;; Create a function that will add two positive numbers of indefinite size. The numbers are received as strings and the result should be also provided as string.
 
 
