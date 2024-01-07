@@ -24,6 +24,7 @@
 (export 'reverse-string)
 (export 'merge-arrays)
 (export 'collect-unique)
+(export 'filter-not-in)
 
 (defun print-numbers (from to)
   (loop
@@ -184,3 +185,12 @@
   (loop
     :for f-ele :across first-vector :and second-array := second-vector :then (remove f-ele second-array)
     :finally (return (merge-arrays first-vector (or second-array second-vector)))))
+
+(defun filter-not-in (first-vector second-vector)
+  (if (zerop (length second-vector))
+      first-vector
+      (loop
+	:for f-ele :across first-vector
+	:unless (find f-ele second-vector)
+	  :collect f-ele :into res
+	:finally (return (coerce res 'simple-vector)))))

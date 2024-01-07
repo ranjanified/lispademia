@@ -176,7 +176,11 @@
   (is-true (equalp (collect-unique (vector 1 2 3 4 5) (vector 2 4 6 4 7)) (vector 1 2 3 4 5 6 7))))
 
 ;; Create a function that will receive two arrays and will return an array with elements that are in the first array but not in the second
-
+(test filter-not-in-test
+  (is-true (equalp (filter-not-in (vector) (vector)) (vector)))
+  (is-true (equalp (filter-not-in (vector) (vector 1 2 3)) (vector)))
+  (is-true (equalp (filter-not-in (vector 1 2 3) (vector)) (vector 1 2 3)))
+  (is-true (equalp (filter-not-in (vector 1 2 3 4 5 6) (vector 6 7 8 9)) (vector 1 2 3 4 5))))
 
 ;; Create a function that will receive an array of numbers as argument and will return a new array with distinct elements
 
