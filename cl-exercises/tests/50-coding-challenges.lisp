@@ -148,7 +148,14 @@
     (is-true (equalp rotatable-array (vector 5 1 2 3 4)))))
 
 ;; Reverse an array
-
+(test array-reverse-test
+  (let ((an-array (vector))
+	(reversible-array (vector 1 2 3 4 5)))
+    (array-reverse an-array)
+    (array-reverse reversible-array)
+    
+    (is-true (equalp an-array (vector)))
+    (is-true (equalp reversible-array (vector 5 4 3 2 1)))))
 
 ;; Reverse a string
 

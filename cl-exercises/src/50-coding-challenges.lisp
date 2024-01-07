@@ -20,6 +20,7 @@
 (export 'gen-primes)
 (export 'rotate-left)
 (export 'rotate-right)
+(export 'array-reverse)
 
 (defun print-numbers (from to)
   (loop
@@ -156,3 +157,10 @@
 	  :for curr-index :from (1- (length an-array)) :downto 1
 	  :do (rotatef (svref an-array curr-index)
 		       (svref an-array (1- curr-index))))))
+
+(defun array-reverse (an-array)
+  (loop
+    :for start-index :from 0 :and end-index :downfrom (1- (length an-array))
+    :until (> start-index end-index)
+    :do (rotatef (svref an-array start-index)
+		 (svref an-array end-index))))
