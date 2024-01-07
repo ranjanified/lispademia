@@ -170,10 +170,10 @@
 ;; Create a function that will receive two arrays of numbers as arguments and return an array composed of all the numbers that are
 ;; either in the first array or second array but not in both
 (test collect-unique-test
-  (is-true (equalp (collect-unique (vector) (vector)) (vector)))
-  (is-true (equalp (collect-unique (vector) (vector 1)) (vector 1)))
-  (is-true (equalp (collect-unique (vector 1) (vector)) (vector 1)))
-  (is-true (equalp (collect-unique (vector 1 2 3 4 5) (vector 2 4 6 4 7)) (vector 1 2 3 4 5 6 7))))
+  (is-true (equalp (merge-unique (vector) (vector)) (vector)))
+  (is-true (equalp (merge-unique (vector) (vector 1)) (vector 1)))
+  (is-true (equalp (merge-unique (vector 1) (vector)) (vector 1)))
+  (is-true (equalp (merge-unique (vector 1 2 3 4 5) (vector 2 4 6 4 7)) (vector 1 2 3 4 5 6 7))))
 
 ;; Create a function that will receive two arrays and will return an array with elements that are in the first array but not in the second
 (test filter-not-in-test
