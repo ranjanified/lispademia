@@ -21,6 +21,7 @@
 (export 'rotate-left)
 (export 'rotate-right)
 (export 'array-reverse)
+(export 'reverse-string)
 
 (defun print-numbers (from to)
   (loop
@@ -164,3 +165,9 @@
     :until (> start-index end-index)
     :do (rotatef (svref an-array start-index)
 		 (svref an-array end-index))))
+
+(defun reverse-string (a-string)
+  (let ((string-as-array (coerce a-string 'simple-vector)))
+    (array-reverse string-as-array)
+    (coerce string-as-array 'string)))
+

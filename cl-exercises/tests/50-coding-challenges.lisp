@@ -158,7 +158,9 @@
     (is-true (equalp reversible-array (vector 5 4 3 2 1)))))
 
 ;; Reverse a string
-
+(test reverse-string-test
+  (is-true (string-equal (reverse-string "") ""))
+  (is-true (string-equal (reverse-string "hello") "olleh")))
 
 ;; Create a function that will merge two arrays and return the result as a new array
 
