@@ -23,6 +23,7 @@
 (export 'array-reverse)
 (export 'reverse-string)
 (export 'merge-arrays)
+(export 'collect-unique)
 
 (defun print-numbers (from to)
   (loop
@@ -178,3 +179,8 @@
     :for vector-element :across vector-2
     :do (vector-push-extend vector-element a-vec)
     :finally (return a-vec)))
+
+(defun collect-unique (first-vector second-vector)
+  (loop
+    :for f-ele :across first-vector :and second-array := second-vector :then (remove f-ele second-array)
+    :finally (return (merge-arrays first-vector (or second-array second-vector)))))
