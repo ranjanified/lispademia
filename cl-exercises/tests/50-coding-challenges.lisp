@@ -193,8 +193,12 @@
 
 
 ;; Print the distance between the first 100 prime numbers
-
-
+(test print-distance-between-primes
+  (finishes
+    (terpri)
+    (loop :for distance :across (distance-between-primes 100 :as-array t)
+	  :do (princ (format nil "~a~t" distance)))
+    (terpri)))
 ;; Create a function that will add two positive numbers of indefinite size. The numbers are received as strings and the result should be also provided as string.
 
 

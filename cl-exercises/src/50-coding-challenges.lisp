@@ -26,6 +26,7 @@
 (export 'merge-in-either-or)
 (export 'filter-not-in)
 (export 'make-unique)
+(export 'distance-between-primes)
 
 (defun print-numbers (from to)
   (loop
@@ -203,3 +204,9 @@
     :unless (find vector-element acc)
       :collect vector-element :into acc
     :finally (return (coerce acc 'simple-vector))))
+
+(defun distance-between-primes (num-primes &key (upfrom 2) (as-array nil))
+  (loop :for primes := (gen-primes num-primes :upfrom upfrom) :then (rest primes)
+	:until (null (second primes))
+	:collect (- (second primes) (first primes)) :into acc
+	:finally (return (if as-array (coerce acc 'simple-vector) acc))))
