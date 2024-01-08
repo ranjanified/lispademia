@@ -205,7 +205,12 @@
     (terpri)))
 
 ;; Create a function that will add two positive numbers of indefinite size. The numbers are received as strings and the result should be also provided as string.
-
+(test sum-number-strings-test
+  (is-true (string= (sum-number-strings "" "") ""))
+  (is (string= (sum-number-strings "" "123") "123"))
+  (is (string= (sum-number-strings "123" "") "123"))
+  (is (string= (sum-number-strings "123" "4567") "4690"))
+  (is (string= (sum-number-strings "1234" "445") "1679")))
 
 ;; Create a function that will return the number of words in a text
 

@@ -28,6 +28,7 @@
 (export 'make-unique)
 (export 'distance-between-primes)
 (export 'sum-primes)
+(export 'sum-number-strings)
 
 (defun print-numbers (from to)
   (loop
@@ -217,3 +218,17 @@
 	:until (null (second primes))
 	:collect (- (second primes) (first primes)) :into acc
 	:finally (return (if as-array (coerce acc 'simple-vector) acc))))
+
+(defun sum-number-strings (f-num-str s-num-str)
+  (loop
+    :with f-length := (length f-num-str) :and s-length := (length s-num-str)
+    :with desired-length := (max f-length s-length)
+
+    :with f-input := (reverse (concatenate 'string (make-string (- desired-length f-length) :initial-element #\0) f-num-str))
+    :and s-input := (reverse (concatenate 'string (make-string (- desired-length s-length) :initial-element #\0) s-num-str))
+
+    :for f-digit :across f-input :and s-digit :across s-input
+    :and carry := 0 :then (floor (/ (+ (digit-char-p f-digit) (digit-char-p s-digit)) 10))
+
+    :collect (digit-char (rem (+ carry (digit-char-p f-digit) (digit-char-p s-digit)) 10)) :into acc
+    :finally (return (coerce (reverse acc) 'string))))
