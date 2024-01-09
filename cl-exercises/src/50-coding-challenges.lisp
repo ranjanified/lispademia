@@ -264,4 +264,4 @@
 (defun sum-csv-numbers (csv-text &key (separators (list #\Space #\Newline #\Tab #\,)))
   (loop
     :for num-str :in (split-words csv-text :separators separators)
-    :sum (parse-integer (string-trim " " num-str))))
+    :sum (read-from-string (string-trim " " num-str))))

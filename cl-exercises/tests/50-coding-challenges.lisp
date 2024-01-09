@@ -243,7 +243,10 @@
   (is-true (= (sum-csv-numbers "123") 123))
   (is-true (= (sum-csv-numbers ",123") 123))
   (is-true (= (sum-csv-numbers "123,") 123))
-  (is-true (= (sum-csv-numbers ",123,  ,,") 123)))
+  (is-true (= (sum-csv-numbers ",123,  ,,") 123))
+  (is-true (= (sum-csv-numbers ",123.6,  ,,") 123.6))
+  (is-true (= (sum-csv-numbers ",123,  ,456,") 579))
+  (is-true (= (sum-csv-numbers ",123.55,224.45") 348.0)))
 
 ;; Create a function that returns an array with words inside a text.
 
