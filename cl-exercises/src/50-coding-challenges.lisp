@@ -36,6 +36,7 @@
 (export 'string-char-array)
 (export 'string-char-codes)
 (export 'char-codes-string)
+(export 'distance-between-two-points)
 
 (defun print-numbers (from to)
   (loop
@@ -289,3 +290,8 @@
     :for chr-code :across char-codes
     :collect (code-char chr-code) :into acc
     :finally (return (coerce acc 'string))))
+
+
+(defun distance-between-two-points (x1 y1 x2 y2)
+  (sqrt (+ (- (* x2 x2) (* x1 x1))
+	   (- (* y2 y2) (* y1 y1)))))
