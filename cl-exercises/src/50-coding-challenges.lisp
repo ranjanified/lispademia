@@ -40,6 +40,7 @@
 (export 'sum-bit-string)
 (export 'longest-word)
 (export 'n-randoms)
+(export 'circles-intersect-p)
 
 (defun print-numbers (from to)
   (loop
@@ -298,6 +299,15 @@
 (defun distance-between-two-points (x1 y1 x2 y2)
   (sqrt (+ (- (* x2 x2) (* x1 x1))
 	   (- (* y2 y2) (* y1 y1)))))
+
+(defun circles-intersect-p (&key (circle-1 (vector 0 0 0)) (circle-2 (vector 0 0 0)))
+  (and
+   (> (svref circle-1 2) 0)
+   (> (svref circle-2 2) 0)
+   (let ((center-distance (distance-between-two-points (svref circle-1 0) (svref circle-1 1) (svref circle-2 0) (svref circle-2 1))))
+     (and
+      (>= center-distance (abs (- (svref circle-1 2) (svref circle-2 2))))
+      (<= center-distance (+ (svref circle-1 2) (svref circle-2 2)))))))
 
 (defun sum-bit-string (bit-string)
   (loop 

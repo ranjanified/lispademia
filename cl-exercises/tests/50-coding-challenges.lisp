@@ -290,7 +290,12 @@
   (is-true (= (distance-between-two-points 0 0 5 5) 7.071068)))
 
 ;; Create a function that will return a Boolean value indicating if two circles defined by center coordinates and radius are intersecting
-
+(test circles-intersect
+  (is-false (circles-intersect-p))
+  (is-false (circles-intersect-p :circle-1 (vector 0 0 5)))
+  (is-false (circles-intersect-p :circle-2 (vector 0 0 5)))
+  (is-false (circles-intersect-p :circle-1 (vector 0 0 5) :circle-2 (vector 0 0 3)))
+  (is-true (circles-intersect-p :circle-1 (vector 2 3 22) :circle-2 (vector 15 28 10))))
 
 ;; Create a function that will receive a bi-dimensional array as argument and a number and will extract as a unidimensional array the column specified by the number
 
