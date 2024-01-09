@@ -35,6 +35,7 @@
 (export 'sum-csv-numbers)
 (export 'string-char-array)
 (export 'string-char-codes)
+(export 'char-codes-string)
 
 (defun print-numbers (from to)
   (loop
@@ -282,3 +283,9 @@
     :for chr :across val-str
     :collect (char-code chr) :into acc
     :finally (return (coerce acc 'simple-vector))))
+
+(defun char-codes-string (char-codes)
+  (loop
+    :for chr-code :across char-codes
+    :collect (code-char chr-code) :into acc
+    :finally (return (coerce acc 'string))))

@@ -272,7 +272,11 @@
   (is-true (equalp (string-char-codes "Nalin Ranjan") (vector 78 97 108 105 110 32 82 97 110 106 97 110))))
 
 ;; Create a function that will convert an array containing ASCII codes in a string
-
+(test char-codes-string-test
+  (is-true (string= (char-codes-string (vector)) ""))
+  (is-true (string= (char-codes-string (vector 32)) " "))
+  (is-true (string= (char-codes-string (vector 78 97 108 105 110)) "Nalin"))
+  (is-true (string= (char-codes-string (vector 78 97 108 105 110 32 82 97 110 106 97 110)) "Nalin Ranjan")))
 
 ;; Implement the Caesar cypher
 
