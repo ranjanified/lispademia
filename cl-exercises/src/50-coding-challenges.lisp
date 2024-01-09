@@ -32,6 +32,7 @@
 (export 'split-words)
 (export 'count-words)
 (export 'capitalize-words)
+(export 'sum-csv-numbers)
 
 (defun print-numbers (from to)
   (loop
@@ -259,3 +260,8 @@
     :for word :in (split-words text-str :separators separators)
     :collect (string-capitalize word) :into capitalized-words
     :finally (return (string-trim " " (format nil "~{~a~t~}" capitalized-words)))))
+
+(defun sum-csv-numbers (csv-text &key (separators (list #\Space #\Newline #\Tab #\,)))
+  (loop
+    :for num-str :in (split-words csv-text :separators separators)
+    :sum (parse-integer (string-trim " " num-str))))

@@ -233,7 +233,17 @@
   (is-true (string= (capitalize-words "hello, How do we do?" :separators (list #\Space)) "Hello, How Do We Do?")))
 
 ;; Calculate the sum of numbers received in a comma delimited string
-
+(test sum-csv-numbers-test
+  (is-true (zerop (sum-csv-numbers "")))
+  (is-true (zerop (sum-csv-numbers "    ")))
+  (is-true (zerop (sum-csv-numbers ",")))
+  (is-true (zerop (sum-csv-numbers ",     ,")))
+  (is-true (zerop (sum-csv-numbers ",,,,,,")))
+  (is-true (zerop (sum-csv-numbers ",,    ,,, ,,,   ,,")))
+  (is-true (= (sum-csv-numbers "123") 123))
+  (is-true (= (sum-csv-numbers ",123") 123))
+  (is-true (= (sum-csv-numbers "123,") 123))
+  (is-true (= (sum-csv-numbers ",123,  ,,") 123)))
 
 ;; Create a function that returns an array with words inside a text.
 
