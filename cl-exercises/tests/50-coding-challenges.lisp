@@ -258,7 +258,11 @@
 
 
 ;; Create a function that converts a string to an array of characters
-
+(test string-to-char-array
+  (is-true (equalp (string-char-array "") (vector)))
+  (is-true (equalp (string-char-array " ") (vector #\Space)))
+  (is-true (equalp (string-char-array "Nalin") (vector #\N #\a #\l #\i #\n)))
+  (is-true (equalp (string-char-array "Nalin Ranjan") (vector #\N #\a #\l #\i #\n #\Space #\R #\a #\n #\j #\a #\n))))
 
 ;; Create a function that will convert a string in an array containing the ASCII codes of each character
 
