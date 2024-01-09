@@ -41,6 +41,7 @@
 (export 'sum-bit-string)
 (export 'longest-word)
 (export 'n-randoms)
+(export 'shuffle-strings)
 
 (defun print-numbers (from to)
   (loop
@@ -322,6 +323,17 @@
     :when (>= (length word) (length longest))
       :do (setf longest word)
     :finally (return longest)))
+
+;;; -- To shuffle an array a of n elements (indices 0..n-1):
+;;; for i from n−1 down to 1 do
+;;;     j <- random integer such that 0 ≤ j ≤ i
+;;;     exchange a[j] and a[i]
+(defun shuffle-strings (strings)
+  "Donal E Knuth: Art of Computer Programming"
+  (loop
+    :for index :from (1- (length strings)) :downto 1
+    :do (rotatef (aref strings (random index))
+		 (aref strings index))))
 
 (defun n-randoms (num-rands)
   (if (zerop num-rands)

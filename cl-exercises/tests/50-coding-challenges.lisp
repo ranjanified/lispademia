@@ -324,7 +324,16 @@
   (is-true (string= (longest-word "Hey, are we doing a hello to Mr Nalin") "Nalin")))
 
 ;; Shuffle an array of strings
-
+(test shuffle-strings-test
+  (finishes (let ((strings (vector)))
+	      (shuffle-strings strings)
+	      (equalp strings (vector))))
+  (finishes (let ((strings (vector "who" "is" "going" "berserk")))
+	      (shuffle-strings strings)
+	      (print strings)))
+  (finishes (let ((strings (vector "To" "shuffle" "an" "array" "a" "of" "n" "elements" "(indices 0..n-1)" ":")))
+	      (shuffle-strings strings)
+	      (print strings))))
 
 ;; Create a function that will receive n as argument and return an array of n random numbers from 1 to n. The numbers should be unique inside the array.
 (test n-random-tests
