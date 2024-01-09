@@ -31,6 +31,7 @@
 (export 'sum-number-strings)
 (export 'split-words)
 (export 'count-words)
+(export 'capitalize-words)
 
 (defun print-numbers (from to)
   (loop
@@ -252,3 +253,9 @@
 
 (defun count-words (text-str &key (separators (list #\Space #\Newline #\Tab #\, #\? #\.)))
   (length (split-words text-str :separators separators)))
+
+(defun capitalize-words (text-str &key (separators (list #\Space #\Newline #\Tab #\, #\? #\.)))
+  (loop
+    :for word :in (split-words text-str :separators separators)
+    :collect (string-capitalize word) :into capitalized-words
+    :finally (return (string-trim " " (format nil "~{~a~t~}" capitalized-words)))))

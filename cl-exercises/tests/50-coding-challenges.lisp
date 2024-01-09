@@ -226,7 +226,11 @@
   (is-true (= (count-words "hello, how do we do?") 5)))
 
 ;; Create a function that will capitalize the first letter of each word in a text
-
+(test capitalized-words
+  (is-true (string= (capitalize-words "") ""))
+  (is-true (string= (capitalize-words "hello") "Hello"))
+  (is-true (string= (capitalize-words "hello,     how" :separators (list #\Space)) "Hello, How"))
+  (is-true (string= (capitalize-words "hello, How do we do?" :separators (list #\Space)) "Hello, How Do We Do?")))
 
 ;; Calculate the sum of numbers received in a comma delimited string
 
