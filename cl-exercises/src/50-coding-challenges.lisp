@@ -38,6 +38,7 @@
 (export 'char-codes-string)
 (export 'distance-between-two-points)
 (export 'sum-bit-string)
+(export 'longest-word)
 
 (defun print-numbers (from to)
   (loop
@@ -302,3 +303,11 @@
     :for b-it :across (reverse bit-string)
     :for cnt := 0 :then (1+ cnt)
     :sum (* (digit-char-p b-it) (expt 2 cnt))))
+
+(defun longest-word (val-str &key (separators (list #\Space #\Newline #\Tab #\, #\? #\.)))
+  (loop
+    :with longest := ""
+    :for word :in (split-words val-str :separators separators)
+    :when (>= (length word) (length longest))
+      :do (setf longest word)
+    :finally (return longest)))

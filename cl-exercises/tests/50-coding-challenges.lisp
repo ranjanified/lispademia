@@ -312,7 +312,11 @@
 
 
 ;; Create a function to return the longest word in a string
-
+(test longest-word-in-a-string
+  (is-true (string= (longest-word "") ""))
+  (is-true (string= (longest-word "  ") ""))
+  (is-true (string= (longest-word "  hi, ") "hi"))
+  (is-true (string= (longest-word "Hey, are we doing a hello to Mr Nalin") "Nalin")))
 
 ;; Shuffle an array of strings
 
