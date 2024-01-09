@@ -37,6 +37,7 @@
 (export 'string-char-codes)
 (export 'char-codes-string)
 (export 'distance-between-two-points)
+(export 'sum-bit-string)
 
 (defun print-numbers (from to)
   (loop
@@ -295,3 +296,9 @@
 (defun distance-between-two-points (x1 y1 x2 y2)
   (sqrt (+ (- (* x2 x2) (* x1 x1))
 	   (- (* y2 y2) (* y1 y1)))))
+
+(defun sum-bit-string (bit-string)
+  (loop 
+    :for b-it :across (reverse bit-string)
+    :for cnt := 0 :then (1+ cnt)
+    :sum (* (digit-char-p b-it) (expt 2 cnt))))

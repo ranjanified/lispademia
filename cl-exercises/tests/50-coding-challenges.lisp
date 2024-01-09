@@ -296,7 +296,11 @@
 
 
 ;; Create a function that will convert a string containing a binary number into a number
-
+(test sum-bit-string-test
+  (is-true (zerop (sum-bit-string "")))
+  (is-true (= (sum-bit-string "1") 1))
+  (is-true (= (sum-bit-string "10") 2))
+  (is-true (= (sum-bit-string "1011") 11)))
 
 ;; Create a function to calculate the sum of all the numbers in a jagged array (contains numbers or other arrays of numbers on an unlimited number of levels)
 
