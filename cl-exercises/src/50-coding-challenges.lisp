@@ -239,13 +239,12 @@
   (loop 
     :with in-word := nil :and words := (list) :and curr-word := (list)
     :for curr-char :across text-str
-    :for break-char-p := (find curr-char separators) :then (find curr-char separators)
-    :when break-char-p
+    :when (find curr-char separators)
       :when in-word
 	:do (setf in-word nil)
 	:and :do (setf words (append words (list (coerce curr-word 'string))))    
 	:and :do (setf curr-word (list))
-    :end
+      :end
     :else
       :do (setf in-word t)
       :and :do (setf curr-word (append curr-word (list curr-char)))
