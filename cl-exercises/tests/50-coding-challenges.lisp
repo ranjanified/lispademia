@@ -322,7 +322,10 @@
 
 
 ;; Create a function that will receive n as argument and return an array of n random numbers from 1 to n. The numbers should be unique inside the array.
-
+(test n-random-tests
+  (is-true (let ((randoms (n-randoms 0))) (equalp randoms (vector))))
+  (is-true (let ((randoms (n-randoms 1))) (equalp randoms (vector 1))))
+  (is-true (let ((randoms (n-randoms 5))) (and (= (length randoms) 5) (= (length (make-unique randoms)) 5)))))
 
 ;; Find the frequency of letters inside a string. Return the result as an array of arrays. Each subarray has 2 elements: letter and number of occurrences.
 

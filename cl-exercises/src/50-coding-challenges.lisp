@@ -39,6 +39,7 @@
 (export 'distance-between-two-points)
 (export 'sum-bit-string)
 (export 'longest-word)
+(export 'n-randoms)
 
 (defun print-numbers (from to)
   (loop
@@ -311,3 +312,15 @@
     :when (>= (length word) (length longest))
       :do (setf longest word)
     :finally (return longest)))
+
+(defun n-randoms (num-rands)
+  (if (zerop num-rands)
+      (vector)
+      (loop
+	:with  cnt := 0
+	:for curr-rand := (1+ (random num-rands)) :then (1+ (random num-rands))
+	:unless (find curr-rand acc-rand)
+	  :collect curr-rand :into acc-rand
+	  :and :do (incf cnt)
+	:until (= cnt num-rands)
+	:finally (return (coerce acc-rand 'simple-vector)))))
