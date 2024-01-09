@@ -237,7 +237,7 @@
     :collect (digit-char (rem (+ carry (digit-char-p f-digit) (digit-char-p s-digit)) 10)) :into acc
     :finally (return (coerce (if (zerop (or carry 0)) (reverse acc) (cons carry (reverse acc))) 'string))))
 
-(defun split-words (text-str &key (separators (list #\Space #\Newline #\Tab #\, #\? #\.)) )
+(defun split-words (text-str &key (separators (list #\Space #\Newline #\Tab #\, #\? #\.)) (as-array nil))
   (loop 
     :with in-word := nil :and words := (list) :and curr-word := (list)
     :for curr-char :across text-str
@@ -250,7 +250,10 @@
     :else
       :do (setf in-word t)
       :and :do (setf curr-word (append curr-word (list curr-char)))
-    :finally (return (if curr-word (append words (list (coerce curr-word 'string))) words))))
+    :finally (return (let ((words-list (if curr-word (append words (list (coerce curr-word 'string))) words)))
+		       (if as-array
+			   (coerce words-list 'simple-vector)
+			   words-list)))))
 
 (defun count-words (text-str &key (separators (list #\Space #\Newline #\Tab #\, #\? #\.)))
   (length (split-words text-str :separators separators)))
@@ -265,3 +268,4 @@
   (loop
     :for num-str :in (split-words csv-text :separators separators)
     :sum (read-from-string (string-trim " " num-str))))
+

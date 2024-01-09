@@ -249,7 +249,10 @@
   (is-true (= (sum-csv-numbers ",123.55,224.45") 348.0)))
 
 ;; Create a function that returns an array with words inside a text.
-
+(test split-words-as-array
+  (is-true (equalp (split-words "" :as-array t) (vector)))
+  (is-true (equalp (split-words "     " :as-array t) (vector)))
+  (is-true (equalp (split-words "who tells you   this is a ,  dog" :as-array t) (vector "who" "tells" "you" "this" "is" "a" "dog"))))
 
 ;; Create a function to convert a CSV text to a “bi-dimensional” array
 
