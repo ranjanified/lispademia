@@ -265,7 +265,11 @@
   (is-true (equalp (string-char-array "Nalin Ranjan") (vector #\N #\a #\l #\i #\n #\Space #\R #\a #\n #\j #\a #\n))))
 
 ;; Create a function that will convert a string in an array containing the ASCII codes of each character
-
+(test string-to-char-codes-array
+  (is-true (equalp (string-char-codes "") (vector)))
+  (is-true (equalp (string-char-codes " ") (vector 32)))
+  (is-true (equalp (string-char-codes "Nalin") (vector 78 97 108 105 110)))
+  (is-true (equalp (string-char-codes "Nalin Ranjan") (vector 78 97 108 105 110 32 82 97 110 106 97 110))))
 
 ;; Create a function that will convert an array containing ASCII codes in a string
 

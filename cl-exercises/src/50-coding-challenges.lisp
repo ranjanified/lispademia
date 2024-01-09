@@ -34,6 +34,7 @@
 (export 'capitalize-words)
 (export 'sum-csv-numbers)
 (export 'string-char-array)
+(export 'string-char-codes)
 
 (defun print-numbers (from to)
   (loop
@@ -274,4 +275,10 @@
   (loop
     :for chr :across val-str
     :collect chr :into acc
+    :finally (return (coerce acc 'simple-vector))))
+
+(defun string-char-codes (val-str)
+  (loop
+    :for chr :across val-str
+    :collect (char-code chr) :into acc
     :finally (return (coerce acc 'simple-vector))))
