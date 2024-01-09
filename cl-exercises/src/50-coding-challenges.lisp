@@ -36,11 +36,11 @@
 (export 'string-char-array)
 (export 'string-char-codes)
 (export 'char-codes-string)
-(export 'distance-between-two-points)
+(export 'distance-between-points)
+(export 'circles-intersect-p)
 (export 'sum-bit-string)
 (export 'longest-word)
 (export 'n-randoms)
-(export 'circles-intersect-p)
 
 (defun print-numbers (from to)
   (loop
@@ -296,7 +296,7 @@
     :finally (return (coerce acc 'string))))
 
 
-(defun distance-between-two-points (x1 y1 x2 y2)
+(defun distance-between-points (x1 y1 x2 y2)
   (sqrt (+ (- (* x2 x2) (* x1 x1))
 	   (- (* y2 y2) (* y1 y1)))))
 
@@ -304,7 +304,7 @@
   (and
    (> (svref circle-1 2) 0)
    (> (svref circle-2 2) 0)
-   (let ((center-distance (distance-between-two-points (svref circle-1 0) (svref circle-1 1) (svref circle-2 0) (svref circle-2 1))))
+   (let ((center-distance (distance-between-points (svref circle-1 0) (svref circle-1 1) (svref circle-2 0) (svref circle-2 1))))
      (and
       (>= center-distance (abs (- (svref circle-1 2) (svref circle-2 2))))
       (<= center-distance (+ (svref circle-1 2) (svref circle-2 2)))))))

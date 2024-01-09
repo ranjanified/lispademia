@@ -286,8 +286,8 @@
 
 ;; Create a function to calculate the distance between two points defined by their x, y coordinates
 (test distance-between-two-points-test
-  (is-true (zerop (distance-between-two-points 0 0 0 0)))
-  (is-true (= (distance-between-two-points 0 0 5 5) 7.071068)))
+  (is-true (zerop (distance-between-points 0 0 0 0)))
+  (is-true (= (distance-between-points 0 0 5 5) 7.071068)))
 
 ;; Create a function that will return a Boolean value indicating if two circles defined by center coordinates and radius are intersecting
 (test circles-intersect
