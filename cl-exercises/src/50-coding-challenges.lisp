@@ -29,6 +29,8 @@
 (export 'distance-between-primes)
 (export 'sum-primes)
 (export 'sum-number-strings)
+(export 'split-words)
+(export 'count-words)
 
 (defun print-numbers (from to)
   (loop
@@ -231,4 +233,23 @@
     :and carry := 0 :then (floor (/ (+ (digit-char-p f-digit) (digit-char-p s-digit)) 10))
 
     :collect (digit-char (rem (+ carry (digit-char-p f-digit) (digit-char-p s-digit)) 10)) :into acc
-    :finally (return (coerce (reverse acc) 'string))))
+    :finally (return (coerce (if (zerop (or carry 0)) (reverse acc) (cons carry (reverse acc))) 'string))))
+
+(defun split-words (text-str &key (separators (list #\Space #\Newline #\Tab #\, #\? #\.)) )
+  (loop 
+    :with in-word := nil :and words := (list) :and curr-word := (list)
+    :for curr-char :across text-str
+    :for break-char-p := (find curr-char separators) :then (find curr-char separators)
+    :when break-char-p
+      :when in-word
+	:do (setf in-word nil)
+	:and :do (setf words (append words (list (coerce curr-word 'string))))    
+	:and :do (setf curr-word (list))
+    :end
+    :else
+      :do (setf in-word t)
+      :and :do (setf curr-word (append curr-word (list curr-char)))
+    :finally (return (if curr-word (append words (list (coerce curr-word 'string))) words))))
+
+(defun count-words (text-str &key (separators (list #\Space #\Newline #\Tab #\, #\? #\.)))
+  (length (split-words text-str :separators separators)))

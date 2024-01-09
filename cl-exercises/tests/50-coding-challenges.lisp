@@ -213,7 +213,17 @@
   (is (string= (sum-number-strings "1234" "445") "1679")))
 
 ;; Create a function that will return the number of words in a text
-
+(test count-words-in-text
+  (is-true (zerop (count-words "")))
+  (is-true (zerop (count-words "    ")))
+  (is-true (zerop (count-words "   , , .")))
+  (is-true (zerop (count-words ",")))
+  (is-true (zerop (count-words ".")))
+  (is-true (zerop (count-words "?")))
+  (is-true (zerop (count-words "    .")))
+  (is-true (zerop (count-words ".    ?")))
+  (is-true (= (count-words "hello.") 1))
+  (is-true (= (count-words "hello, how do we do?") 5)))
 
 ;; Create a function that will capitalize the first letter of each word in a text
 
