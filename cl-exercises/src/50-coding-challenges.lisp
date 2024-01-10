@@ -44,6 +44,7 @@
 (export 'shuffle-strings)
 (export 'caeser-cipher)
 (export 'caeser-plain)
+(export 'array-column)
 
 (defun print-numbers (from to)
   (loop
@@ -322,6 +323,12 @@
      (and
       (>= center-distance (abs (- (svref circle-1 2) (svref circle-2 2))))
       (<= center-distance (+ (svref circle-1 2) (svref circle-2 2)))))))
+
+(defun array-column (an-array &optional (col-index 0))
+  (loop
+    :for row-index :from 0 :upto (1- (array-dimension an-array 0))
+    :collect (aref an-array row-index col-index) :into acc
+    :finally (return (coerce acc 'simple-vector))))
 
 (defun sum-bit-string (bit-string)
   (loop 

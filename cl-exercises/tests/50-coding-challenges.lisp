@@ -307,7 +307,12 @@
   (is-true (circles-intersect-p :circle-1 (vector 2 3 22) :circle-2 (vector 15 28 10))))
 
 ;; Create a function that will receive a bi-dimensional array as argument and a number and will extract as a unidimensional array the column specified by the number
-
+(test access-array-column
+  ;; (is-true (equalp (array-column (make-array nil)) (vector)))
+  (is-true (equalp (array-column (make-array (list 1 1))) (vector 0)))
+  (is-true (equalp (array-column (make-array (list 1 1) :initial-contents '((4)))) (vector 4)))
+  (is-true (equalp (array-column (make-array (list 5 2) :initial-contents '((1 2) (3 4) (5 6) (7 8) (9 10)))) (vector 1 3 5 7 9)))
+  (is-true (equalp (array-column (make-array (list 5 2) :initial-contents '((1 2) (3 4) (5 6) (7 8) (9 10))) 1) (vector 2 4 6 8 10))))
 
 ;; Create a function that will convert a string containing a binary number into a number
 (test sum-bit-string-test
