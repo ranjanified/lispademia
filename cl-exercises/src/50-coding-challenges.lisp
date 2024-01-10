@@ -42,6 +42,8 @@
 (export 'longest-word)
 (export 'n-randoms)
 (export 'shuffle-strings)
+(export 'caeser-cipher)
+(export 'caeser-plain)
 
 (defun print-numbers (from to)
   (loop
@@ -296,6 +298,17 @@
     :collect (code-char chr-code) :into acc
     :finally (return (coerce acc 'string))))
 
+(defun caeser-cipher (plain-text key)
+  (loop
+    :for curr-char :across plain-text
+    :collect (+ (char-code curr-char) key) :into acc
+    :finally (return (coerce acc 'simple-vector))))
+
+(defun caeser-plain (cipher-text key)
+  (loop
+    :for curr-char :across cipher-text
+    :collect (code-char (- curr-char key)) :into acc
+    :finally (return (coerce acc 'string))))
 
 (defun distance-between-points (x1 y1 x2 y2)
   (sqrt (+ (- (* x2 x2) (* x1 x1))

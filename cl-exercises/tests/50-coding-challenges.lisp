@@ -279,7 +279,16 @@
   (is-true (string= (char-codes-string (vector 78 97 108 105 110 32 82 97 110 106 97 110)) "Nalin Ranjan")))
 
 ;; Implement the Caesar cypher
-
+(test caeser-ciphers
+  (is-true (and (equalp (caeser-cipher "" 25) (vector))
+		(string= (caeser-plain (vector) 25) "")))
+  (is-true
+   (let ((key 25)
+	 (plain-text "hello")
+	 (cipher-text (vector 129 126 133 133 136)))
+     (and
+      (equalp (caeser-cipher plain-text key) cipher-text)
+      (string= (caeser-plain cipher-text key) plain-text)))))
 
 ;; Implement the bubble sort algorithm for an array of numbers
 
