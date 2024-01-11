@@ -39,6 +39,7 @@
 (export 'distance-between-points)
 (export 'circles-intersect-p)
 (export 'sum-bit-string)
+(export 'sum-jagged)
 (export 'longest-word)
 (export 'n-randoms)
 (export 'shuffle-strings)
@@ -343,6 +344,14 @@
     :when (>= (length word) (length longest))
       :do (setf longest word)
     :finally (return longest)))
+
+(defun sum-jagged (an-array)
+  (loop
+    :for j-ele :across an-array
+    :when (typep j-ele 'simple-vector)
+      :sum (sum-jagged j-ele)
+    :else
+      :sum j-ele))
 
 ;;; -- To shuffle an array a of n elements (indices 0..n-1):
 ;;; for i from n−1 down to 1 do
