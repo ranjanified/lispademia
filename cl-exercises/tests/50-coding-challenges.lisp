@@ -336,6 +336,7 @@
   (is-true (zerop (jagged-max (vector 0))))
   (is-true (= (jagged-max (vector 0 (vector 1))) 1))
   (is-true (= (jagged-max (vector 0 (vector 1) 7 5 (vector 17 18 44))) 44)))
+
 ;; Deep copy a jagged array with numbers or other arrays in a new array
 
 
@@ -365,7 +366,12 @@
   (is-true (let ((randoms (n-randoms 5))) (and (= (length randoms) 5) (= (length (make-unique randoms)) 5)))))
 
 ;; Find the frequency of letters inside a string. Return the result as an array of arrays. Each subarray has 2 elements: letter and number of occurrences.
-
+(test letter-frequencies-test
+  (is-true (equalp (letter-frequencies "") (vector)))
+  (is-true (equalp (letter-frequencies "  ") (vector)))
+  (is-true (equalp (letter-frequencies "     h hh   h   ") (vector (vector #\h 4))))
+  (is-true (equalp (letter-frequencies "how           to      ?") (vector (vector #\h 1) (vector #\o 2) (vector #\w 1) (vector #\t 1))))
+  (is-true (equalp (letter-frequencies "this is big --!") (vector (vector #\t 1) (vector #\h 1) (vector #\i 3) (vector #\s 2) (vector #\b 1) (vector #\g 1)))))
 
 ;; Calculate Fibonacci(500) with high precision (all digits)
 

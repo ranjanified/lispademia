@@ -47,6 +47,7 @@
 (export 'caeser-cipher)
 (export 'caeser-plain)
 (export 'array-column)
+(export 'letter-frequencies)
 
 (defun print-numbers (from to)
   (loop
@@ -384,3 +385,21 @@
 	  :and :do (incf cnt)
 	:until (= cnt num-rands)
 	:finally (return (coerce acc-rand 'simple-vector)))))
+
+(defun letter-frequencies (val-str)
+  (loop
+    ;; :with member-p := (lambda (chr freq-table) (member chr freq-table :key #'first :test #'char=))
+    :with is-letter := (lambda (chr) (or (and (>= (char-code chr) 48) (<= (char-code chr) 57)) 
+					(and (>= (char-code chr) 97) (<= (char-code chr) 122))))
+    :for curr-char :across val-str
+    ;; :for curr-entry := nil :then (member-p curr-char freq-table) 
+    :when (funcall is-letter curr-char)
+      :unless (member curr-char freq-table :key #'first :test #'char=)
+	:collect (list curr-char 1) :into freq-table
+      :else
+        :do (incf (second (first (member curr-char freq-table :key #'first :test #'char=))))
+    :finally (return (coerce
+		      (loop
+			:for entry :in freq-table
+			:collect (coerce entry 'simple-vector))
+		      'simple-vector))))
