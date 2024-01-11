@@ -40,6 +40,7 @@
 (export 'circles-intersect-p)
 (export 'sum-bit-string)
 (export 'sum-jagged)
+(export 'jagged-max)
 (export 'longest-word)
 (export 'n-randoms)
 (export 'shuffle-strings)
@@ -352,6 +353,14 @@
       :sum (sum-jagged j-ele)
     :else
       :sum j-ele))
+
+(defun jagged-max (an-array)
+  (loop
+    :for j-ele :across an-array
+    :when (typep j-ele 'simple-vector)
+      :maximize (jagged-max j-ele)
+    :else
+      :maximize j-ele))
 
 ;;; -- To shuffle an array a of n elements (indices 0..n-1):
 ;;; for i from n−1 down to 1 do

@@ -330,8 +330,12 @@
   (is-true (= (sum-jagged (vector 1 2 (vector 3) 4)) 10)))
 
 ;; Find the maximum number in a jagged array of numbers or array of numbers
-
-
+(test max-jagged-number
+  (is-true (zerop (jagged-max (vector))))
+  (is-true (zerop (jagged-max (vector (vector)))))
+  (is-true (zerop (jagged-max (vector 0))))
+  (is-true (= (jagged-max (vector 0 (vector 1))) 1))
+  (is-true (= (jagged-max (vector 0 (vector 1) 7 5 (vector 17 18 44))) 44)))
 ;; Deep copy a jagged array with numbers or other arrays in a new array
 
 
