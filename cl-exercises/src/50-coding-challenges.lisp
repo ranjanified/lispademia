@@ -13,6 +13,7 @@
 (export 'filter-positives)
 (export 'max-array)
 (export 'print-fibonacci)
+(export 'fib-n)
 (export 'nth-fibonacci)
 (export 'prime-p)
 (export 'sum-digits)
@@ -49,6 +50,7 @@
 (export 'shuffle-strings)
 (export 'array-column)
 (export 'letter-frequencies)
+(export 'fact)
 
 (defun print-numbers (from to)
   (loop
@@ -124,6 +126,15 @@
     :for curr-fib := fib0 :then (+ fib0 fib1)
     :do (princ (format nil "~a~t" curr-fib))
     :while (> num-fibs count)))
+
+(defun fib-n (num-fib)
+  (loop
+    :for count :from 1
+    :for fib0 := 0 :then fib1
+    :for fib1 := 1 :then curr-fib
+    :for curr-fib := fib0 :then (+ fib0 fib1)
+    :maximize curr-fib
+    :while (> num-fib count)))
 
 (defun nth-fibonacci (n)
   (cond
@@ -415,3 +426,8 @@
 			:for entry :in freq-table
 			:collect (coerce entry 'simple-vector))
 		      'simple-vector))))
+
+(defun fact (num)
+  (loop
+    :for curr-num :from num :downto 1
+    :for acc := curr-num :then (* curr-num acc)  finally (return (or acc 0))))

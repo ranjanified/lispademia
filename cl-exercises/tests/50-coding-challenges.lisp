@@ -386,7 +386,13 @@
   (is-true (equalp (letter-frequencies "this is big --!") (vector (vector #\t 1) (vector #\h 1) (vector #\i 3) (vector #\s 2) (vector #\b 1) (vector #\g 1)))))
 
 ;; Calculate Fibonacci(500) with high precision (all digits)
-
+(test fibonacci-500
+  (finishes (print (fib-n 500))))
 
 ;; Calculate 70! with high precision (all digits)
+(test factorial
+  (is-true (zerop (fact 0)))
+  (is-true (= (fact 1) 1)))
 
+(test factorial-70
+  (finishes (print (fact 70))))
