@@ -34,6 +34,7 @@
 (export 'count-words)
 (export 'capitalize-words)
 (export 'sum-csv-numbers)
+(export 'csv-array)
 (export 'string-char-array)
 (export 'string-char-codes)
 (export 'char-codes-string)
@@ -296,6 +297,12 @@
   (loop
     :for num-str :in (split-words csv-text :separators separators)
     :sum (read-from-string (string-trim " " num-str))))
+
+(defun csv-array (csv)
+  (loop
+    :for curr-word :in (split-words csv :separators (list #\,))
+    :collect (coerce curr-word 'simple-vector) :into acc
+    :finally (return (coerce acc 'simple-vector))))
 
 (defun string-char-array (val-str)
   (loop

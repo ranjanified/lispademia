@@ -255,7 +255,11 @@
   (is-true (equalp (split-words "who tells you   this is a ,  dog" :as-array t) (vector "who" "tells" "you" "this" "is" "a" "dog"))))
 
 ;; 35. Create a function to convert a CSV text to a “bi-dimensional” array
-
+(test csv-2d-array
+  (is-true (equalp (csv-array "") (vector)))
+  (is-true (equalp (csv-array ",") (vector)))
+  (is-true (equalp (csv-array " , ") (vector (vector #\Space) (vector #\Space))))
+  (is-true (equalp (csv-array "asdf, hjy, know me, you, must  ") (vector (vector #\a #\s #\d #\f) (vector #\Space #\h #\j #\y) (vector #\Space #\k #\n #\o #\w #\Space #\m #\e)(vector #\Space #\y #\o #\u) (vector #\Space #\m #\u #\s #\t #\Space #\Space)))))
 
 ;; 36. Create a function that converts a string to an array of characters
 (test string-to-char-array
