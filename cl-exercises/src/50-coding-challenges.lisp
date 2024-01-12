@@ -36,6 +36,9 @@
 (export 'string-char-array)
 (export 'string-char-codes)
 (export 'char-codes-string)
+(export 'caeser-cipher)
+(export 'caeser-plain)
+(export 'bubble-sort)
 (export 'distance-between-points)
 (export 'circles-intersect-p)
 (export 'sum-bit-string)
@@ -44,8 +47,6 @@
 (export 'longest-word)
 (export 'n-randoms)
 (export 'shuffle-strings)
-(export 'caeser-cipher)
-(export 'caeser-plain)
 (export 'array-column)
 (export 'letter-frequencies)
 
@@ -314,6 +315,17 @@
     :collect (code-char (- curr-char key)) :into acc
     :finally (return (coerce acc 'string))))
 
+(defun bubble-sort (an-array &key (comparer #'>))
+  (loop
+    :with switching-required := t
+    :for pass :from 0 :to (1- (length an-array))
+    :while switching-required
+    :do (setf switching-required nil) 
+	(loop :for curr-index :from 0 :upto (1- (- (1- (length an-array)) pass))
+	      :when (funcall comparer (svref an-array curr-index) (svref an-array (1+ curr-index)))
+		:do (rotatef (svref an-array curr-index) (svref an-array (1+ curr-index)))
+		    (setf switching-required t))))
+
 (defun distance-between-points (x1 y1 x2 y2)
   (sqrt (+ (- (* x2 x2) (* x1 x1))
 	   (- (* y2 y2) (* y1 y1)))))
@@ -368,7 +380,7 @@
 ;;;     j <- random integer such that 0 ≤ j ≤ i
 ;;;     exchange a[j] and a[i]
 (defun shuffle-strings (strings)
-  "Donal E Knuth: Art of Computer Programming"
+  "Donald E Knuth: Art of Computer Programming"
   (loop
     :for index :from (1- (length strings)) :downto 1
     :do (rotatef (aref strings (random index))

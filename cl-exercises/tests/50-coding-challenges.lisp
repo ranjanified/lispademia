@@ -291,7 +291,19 @@
       (string= (caeser-plain cipher-text key) plain-text)))))
 
 ;; Implement the bubble sort algorithm for an array of numbers
-
+(test bubble-sort-tests
+  (is-true (let ((an-array (vector)))
+	     (bubble-sort an-array)
+	     (equalp an-array (vector))))
+  (is-true (let ((an-array (vector 1)))
+	     (bubble-sort an-array)
+	     (equalp an-array (vector 1))))
+  (is-true (let ((an-array (vector 10 10 10 10)))
+	     (bubble-sort an-array)
+	     (equalp an-array (vector 10 10 10 10))))
+  (is-true (let ((an-array (vector 25 57 48 37 12 92 86 33)))
+		 (bubble-sort an-array)
+		 (equalp an-array (vector 12 25 33 37 48 57 86 92)))))
 
 ;; Create a function to calculate the distance between two points defined by their x, y coordinates
 (test distance-between-two-points-test
