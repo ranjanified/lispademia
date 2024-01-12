@@ -350,7 +350,13 @@
   (is-true (= (jagged-max (vector 0 (vector 1) 7 5 (vector 17 18 44))) 44)))
 
 ;; Deep copy a jagged array with numbers or other arrays in a new array
-
+(test deep-copy-jagged-array
+  (is-true (let ((an-array (vector)))
+	     (and (not (eq an-array (jagged-deep-copy an-array)))
+		  (equalp (jagged-deep-copy an-array) (vector)))))
+  (is-true (let ((an-array (vector 1 2 (vector 3 4 (vector 5 6 7) (vector 8) (vector 9 10)))))
+	     (and (not (eq an-array (jagged-deep-copy an-array)))
+		  (equalp (jagged-deep-copy an-array) (vector 1 2 (vector 3 4 (vector 5 6 7) (vector 8) (vector 9 10))))))))
 
 ;; Create a function to return the longest word in a string
 (test longest-word-in-a-string

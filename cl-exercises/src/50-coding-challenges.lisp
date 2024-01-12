@@ -45,6 +45,7 @@
 (export 'sum-bit-string)
 (export 'sum-jagged)
 (export 'jagged-max)
+(export 'jagged-deep-copy)
 (export 'longest-word)
 (export 'n-randoms)
 (export 'shuffle-strings)
@@ -385,6 +386,15 @@
       :maximize (jagged-max j-ele)
     :else
       :maximize j-ele))
+
+(defun jagged-deep-copy (an-array)
+  (loop
+    :for j-ele :across an-array
+    :when (typep j-ele 'simple-vector)
+      :collect (jagged-deep-copy j-ele) :into acc
+    :else
+      :collect j-ele :into acc
+    :finally (return (coerce acc 'simple-vector))))
 
 ;;; -- To shuffle an array a of n elements (indices 0..n-1):
 ;;; for i from n−1 down to 1 do
