@@ -86,3 +86,11 @@
 
     ;; assertion
     (is-true (equal '(saw wrench pliers hammer screwdriver) (symbol-value 'tools)))))
+
+(test 2.7-eval-expressions
+  (is-true (= 3 (length '(plato socrates aristotle))))
+  (is-true (= 3 (length '((plato) (socrates) (aristotle)))))
+  (is-true (= 1 (length '((plato socrates aristotle)))))
+  (is-true (equal '(aristotle socrates plato) (reverse '(plato socrates aristotle))))
+  (is-true (equal '((aristotle) (socrates) (plato)) (reverse '((plato) (socrates) (aristotle)))))
+  (is-true (equal '((plato socrates aristotle)) (reverse '((plato socrates aristotle))))))
