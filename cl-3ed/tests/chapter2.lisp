@@ -99,3 +99,8 @@
   (is-true (= 3 (length '((car chevrolet) (drink coke) (cereal wheaties)))))
   (is-true (equal '((cereal wheaties) (drink coke) (car chevrolet)) (reverse '((car chevrolet) (drink coke) (cereal wheaties)))))
   (is-true (equal '((car chevrolet) (drink coke) (drink coke) (car chevrolet)) (append '((car chevrolet) (drink coke)) (reverse '((car chevrolet) (drink coke)))))))
+
+(test 2.9-eval-expressions
+  (is-true (equal '(short skirts are out) (subst 'out 'in '(short skirts are in))))
+  (is-true (eql '(short skirts are in) (subst 'in 'out '(short skirts are in))))
+  (is-true (eql '(in) (last '(short skirts are in)))))
