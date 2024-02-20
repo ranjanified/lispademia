@@ -104,3 +104,32 @@
   (is-true (equal '(short skirts are out) (subst 'out 'in '(short skirts are in))))
   (is-true (eql '(short skirts are in) (subst 'in 'out '(short skirts are in))))
   (is-true (eql '(in) (last '(short skirts are in)))))
+
+(test 2.10-eval-expressions
+  (progv '(method1 method2 meth) ()
+    ;; expression
+    (setq method1 'plus)
+
+    ;; expression
+    (setq method2 'difference)
+
+    ;; expression
+    (setq meth method1)
+
+    ;; assertion
+    (is-true (eql 'plus meth))
+
+    ;; assertion
+    (is-true (eql 'plus (eval 'meth)))
+
+    ;; expression
+    (setq meth 'method1)
+
+    ;; assertion
+    (is-true (eql 'method1 meth))
+
+    ;; assertion
+    (is-true (eql 'plus (eval meth)))
+
+    ;; assertion
+    (is-true (eql 'method1 (eval (eval '(quote meth)))))))
