@@ -59,3 +59,30 @@
   (is-true (eql 'pear (car (car (car (cdr (cdr '(apple (orange) ((pear)) (((grapefruit)))))))))))
   (is-true (eql 'pear (car (car (cdr (cdr '((((apple))) ((orange)) (pear) grapefruit)))))))
   (is-true (eql 'pear (car (cdr (car '((((apple) orange) pear) grapefruit)))))))
+
+(test 2.6-eval-expressions
+  (progv '(tools) ()
+    ;; expression
+    (set 'tools (list 'hammer 'screwdriver))
+    (cons 'pliers (symbol-value 'tools))
+
+    ;; assertion
+    (is-true (equal '(hammer screwdriver) (symbol-value 'tools)))
+
+    ;; expression
+    (set 'tools (cons 'pliers (symbol-value 'tools)))
+
+    ;; assertion
+    (is-true (equal '(pliers hammer screwdriver) (symbol-value 'tools)))
+
+    ;; expression
+    (append '(saw wrench) (symbol-value 'tools))
+
+    ;; assertion
+    (is-true (equal '(pliers hammer screwdriver) (symbol-value 'tools)))
+
+    ;; expression
+    (set 'tools (append '(saw wrench) (symbol-value 'tools)))
+
+    ;; assertion
+    (is-true (equal '(saw wrench pliers hammer screwdriver) (symbol-value 'tools)))))
