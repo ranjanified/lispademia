@@ -94,3 +94,8 @@
   (is-true (equal '(aristotle socrates plato) (reverse '(plato socrates aristotle))))
   (is-true (equal '((aristotle) (socrates) (plato)) (reverse '((plato) (socrates) (aristotle)))))
   (is-true (equal '((plato socrates aristotle)) (reverse '((plato socrates aristotle))))))
+
+(test 2.8-eval-expressions
+  (is-true (= 3 (length '((car chevrolet) (drink coke) (cereal wheaties)))))
+  (is-true (equal '((cereal wheaties) (drink coke) (car chevrolet)) (reverse '((car chevrolet) (drink coke) (cereal wheaties)))))
+  (is-true (equal '((car chevrolet) (drink coke) (drink coke) (car chevrolet)) (append '((car chevrolet) (drink coke)) (reverse '((car chevrolet) (drink coke)))))))
