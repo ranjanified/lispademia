@@ -1,32 +1,41 @@
 (in-package #:cl-3ed)
 
+;; 3.1
 (defun first (lst)
   (car lst))
 
+;; 3.1
 (defun rest (lst)
   (cdr lst))
 
+;; 3.1
 (defun insert (ele lst)
   (cons ele lst))
 
+;; 3.2
 (defun rotate-l (lst)
   (if lst
       (append (rest lst) (list (first lst)))))
 
+;; 3.3
 (defun rotate-r (lst)
   (if lst
       `(,@(last lst) ,@(butlast lst))))
 
+;; 3.4
 (defun palindromize (lst)
   (if lst
       `(,@lst ,@(reverse lst))))
 
+;; 3.5
 (defun f-to-c (f)
   (- (/ (+ f 40) 1.8) 40))
 
+;; 3.5
 (defun c-to-f (c)
   (- (* (+ c 40) 1.8) 40))
 
+;; 3.6
 (defun roots (a b c)
   (if (zerop a)
       (values 0.0 0.0)
@@ -54,3 +63,7 @@
     (<= (/ (* 100 (abs (- longest-square shortest-square)))
 	   longest-square)
 	2)))
+
+;; 3.10
+(defun complex-p (a b c)
+  (minusp (- (* b b) (* 4 a c))))

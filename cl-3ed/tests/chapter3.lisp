@@ -88,3 +88,9 @@
   (is-true (right-p 3 4 5))
   (is-true (right-p 1.2 2.3 2.6))
   (is-false (right-p 7 6.9 9)))
+
+(test 3.10-complexp
+  (is-false (complex-p 0 0 0))
+  (is-false (complex-p 1 6 4))
+
+  (is-true (complex-p 1 2 9)))

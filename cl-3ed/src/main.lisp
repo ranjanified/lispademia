@@ -8,4 +8,5 @@
   (:export #:roots)
   (:export #:evenp)
   (:export #:palindrome-p)
-  (:export #:right-p))
+  (:export #:right-p)
+  (:export #:complex-p))
