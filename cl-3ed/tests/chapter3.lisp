@@ -27,4 +27,15 @@
   (is-true (equal (list 'b 'c 'a) (rotate-l (list 'a 'b 'c))))
   (is-true (equal (list (list 'a 'b 'c)) (rotate-l (list (list 'a 'b 'c)))))
   (is-true (equal (list 'c 'a 'b) (rotate-l (rotate-l (list 'a 'b 'c)))))
-  (is-true (equal (list 'a 'b 'c) (rotate-l (rotate-l (rotate-l (list 'a 'b 'c)))))))
+  (is-true (equal (list 'c 'd 'a 'b) (rotate-l (rotate-l (list 'a 'b 'c 'd)))))
+  (is-true (equal (list 'a 'b 'c) (rotate-l (rotate-l (rotate-l (list 'a 'b 'c))))))
+  (is-true (equal (list 'd 'a 'b 'c) (rotate-l (rotate-l (rotate-l (list 'a 'b 'c 'd)))))))
+
+(test 3.3-rotate-r
+  (is-true (null (rotate-r (list))))
+  (is-true (equal (list 1) (rotate-r (list 1))))
+  (is-true (equal (list 'c 'a 'b) (rotate-r (list 'a 'b 'c))))
+  (is-true (equal (list (list 'a 'b 'c)) (rotate-r (list (list 'a 'b 'c)))))
+  (is-true (equal (list 'b 'c 'a) (rotate-r (rotate-r (list 'a 'b 'c)))))
+  (is-true (equal (list 'c 'd 'a 'b) (rotate-r (rotate-r (list 'a 'b 'c 'd)))))
+  (is-true (equal (list 'a 'b 'c) (rotate-r (rotate-r (rotate-r (list 'a 'b 'c)))))))

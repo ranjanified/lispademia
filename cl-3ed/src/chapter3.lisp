@@ -12,3 +12,7 @@
 (defun rotate-l (lst)
   (if lst
       (append (rest lst) (list (first lst)))))
+
+(defun rotate-r (lst)
+  (if lst
+      `(,@ (last lst) ,@(butlast lst))))

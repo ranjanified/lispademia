@@ -2,4 +2,4 @@
   (:use #:cl)
   (:shadow #:first #:rest)
   (:export #:first #:rest #:insert)
-  (:export #:rotate-l))
+  (:export #:rotate-l #:rotate-r))
