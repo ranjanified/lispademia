@@ -9,4 +9,5 @@
   (:export #:evenp)
   (:export #:palindrome-p)
   (:export #:right-p)
-  (:export #:complex-p))
+  (:export #:complex-p)
+  (:export #:nilcar #:nilcdr))

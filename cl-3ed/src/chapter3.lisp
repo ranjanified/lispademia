@@ -67,3 +67,11 @@
 ;; 3.10
 (defun complex-p (a b c)
   (minusp (- (* b b) (* 4 a c))))
+
+;; 3.11
+(defun nilcar (lst)
+  (if lst (car lst)))
+
+;; 3.11
+(defun nilcdr (lst)
+  (if lst (cdr lst)))

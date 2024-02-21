@@ -94,3 +94,11 @@
   (is-false (complex-p 1 6 4))
 
   (is-true (complex-p 1 2 9)))
+
+(test 3.11-nilcar
+  (is-false (nilcar nil))
+  (is-true (nilcar (list 1 2 3))))
+
+(test 3.11-nilcdr
+  (is-false (nilcdr nil))
+  (is-true (nilcdr (list 1 2 3))))
