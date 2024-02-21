@@ -102,3 +102,10 @@
 (test 3.11-nilcdr
   (is-false (nilcdr nil))
   (is-true (nilcdr (list 1 2 3))))
+
+(test 3.12-check-temperature
+  (is-true (string= "ridiculously-cold" (check-temperature -13)))
+  (is-true (string= "ridiculously-hot" (check-temperature 101)))
+  (is-true (string= "ok" (check-temperature 23)))
+  (is-true (string= "ok" (check-temperature 0)))
+  (is-true (string= "ok" (check-temperature 100))))

@@ -10,4 +10,5 @@
   (:export #:palindrome-p)
   (:export #:right-p)
   (:export #:complex-p)
-  (:export #:nilcar #:nilcdr))
+  (:export #:nilcar #:nilcdr)
+  (:export #:check-temperature))

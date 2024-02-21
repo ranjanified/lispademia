@@ -75,3 +75,10 @@
 ;; 3.11
 (defun nilcdr (lst)
   (if lst (cdr lst)))
+
+;; 3.12
+(defun check-temperature (temp)
+    (cond
+      ((> temp 100) "ridiculously-hot")
+      ((< temp 0) "ridiculously-cold")
+      (t "ok")))
