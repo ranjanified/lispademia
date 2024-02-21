@@ -69,3 +69,10 @@
 	     (and (= 2.0 root1) (= 1.0 root2))))
   (is-true (multiple-value-bind (root1 root2) (roots 1 -9 20)
 	     (and (= 5.0 root1) (= 4.0 root2)))))
+
+(test 3.7-evenp
+  (is-true (evenp 0))
+  (is-false (evenp 1))
+  (is-true (evenp 2))
+  (is-false (evenp 23))
+  (is-true (evenp 1024)))

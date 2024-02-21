@@ -33,3 +33,6 @@
       (let ((b^2-4ac (- (* b b) (* 4 a c))))
 	(values (/ (+ (- b) (sqrt b^2-4ac)) (* 2 a))
 		(/ (- (- b) (sqrt b^2-4ac)) (* 2 a))))))
+
+(defun evenp (num)
+  (zerop (rem num 2)))

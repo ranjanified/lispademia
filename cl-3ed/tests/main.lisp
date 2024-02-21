@@ -1,5 +1,5 @@
 (defpackage #:cl-3ed/tests
-  (:shadowing-import-from #:cl-3ed #:first #:rest)
+  (:shadowing-import-from #:cl-3ed #:first #:rest #:evenp)
   (:use #:cl
         #:cl-3ed
         #:fiveam)
