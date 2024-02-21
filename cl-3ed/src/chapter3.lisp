@@ -15,4 +15,8 @@
 
 (defun rotate-r (lst)
   (if lst
-      `(,@ (last lst) ,@(butlast lst))))
+      `(,@(last lst) ,@(butlast lst))))
+
+(defun palindromize (lst)
+  (if lst
+      `(,@lst ,@(reverse lst))))

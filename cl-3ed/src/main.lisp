@@ -2,4 +2,5 @@
   (:use #:cl)
   (:shadow #:first #:rest)
   (:export #:first #:rest #:insert)
-  (:export #:rotate-l #:rotate-r))
+  (:export #:rotate-l #:rotate-r)
+  (:export #:palindromize))

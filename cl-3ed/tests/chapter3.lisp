@@ -39,3 +39,10 @@
   (is-true (equal (list 'b 'c 'a) (rotate-r (rotate-r (list 'a 'b 'c)))))
   (is-true (equal (list 'c 'd 'a 'b) (rotate-r (rotate-r (list 'a 'b 'c 'd)))))
   (is-true (equal (list 'a 'b 'c) (rotate-r (rotate-r (rotate-r (list 'a 'b 'c)))))))
+
+(test 3.4-palindromize
+  (is-true (null (palindromize (list))))
+  (is-true (equal (list nil nil) (palindromize (list (list)))))
+  (is-true (equal (list t nil nil t) (palindromize (list t nil))))
+  (is-true (equal (list t t t t) (palindromize (list t t))))
+  (is-true (equal (list t t t t t t) (palindromize (list t t t)))))
