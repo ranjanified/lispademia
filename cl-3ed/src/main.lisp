@@ -11,4 +11,5 @@
   (:export #:right-p)
   (:export #:complex-p)
   (:export #:nilcar #:nilcdr)
-  (:export #:check-temperature))
+  (:export #:check-temperature)
+  (:export #:circle))

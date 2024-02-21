@@ -82,3 +82,8 @@
       ((> temp 100) "ridiculously-hot")
       ((< temp 0) "ridiculously-cold")
       (t "ok")))
+
+;; 3.13
+(defun circle (radius)
+  (list (* 2 (symbol-value 'pi) radius)
+	(* (symbol-value 'pi) (* radius radius))))

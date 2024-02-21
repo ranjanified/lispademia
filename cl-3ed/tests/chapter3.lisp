@@ -109,3 +109,8 @@
   (is-true (string= "ok" (check-temperature 23)))
   (is-true (string= "ok" (check-temperature 0)))
   (is-true (string= "ok" (check-temperature 100))))
+
+(test 3.13-circle
+  (is-true (equal (list 0.0d0 0.0d0) (circle 0)))
+  (is-true (equal (list (* 2 pi) pi) (circle 1)))
+  (is-true (equal (list 12.566370614359172d0 12.566370614359172d0) (circle 2))))
