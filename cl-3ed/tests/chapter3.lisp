@@ -46,3 +46,11 @@
   (is-true (equal (list t nil nil t) (palindromize (list t nil))))
   (is-true (equal (list t t t t) (palindromize (list t t))))
   (is-true (equal (list t t t t t t) (palindromize (list t t t)))))
+
+(test 3.5-f-to-c
+  (is-true (= (f-to-c -40) -40))
+  (is-true (eql 37.0 (ffloor (f-to-c 98.6)))))
+
+(test 3.5-c-to-f
+  (is-true (= (c-to-f -40) -40))
+  (is-true (= 98.6 (* (fround (c-to-f 37.00) 0.1) 0.1))))

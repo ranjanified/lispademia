@@ -20,3 +20,9 @@
 (defun palindromize (lst)
   (if lst
       `(,@lst ,@(reverse lst))))
+
+(defun f-to-c (f)
+  (- (/ (+ f 40) 1.8) 40))
+
+(defun c-to-f (c)
+  (- (* (+ c 40) 1.8) 40))
