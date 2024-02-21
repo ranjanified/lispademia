@@ -8,3 +8,7 @@
 
 (defun insert (ele lst)
   (cons ele lst))
+
+(defun rotate-l (lst)
+  (if lst
+      (append (rest lst) (list (first lst)))))

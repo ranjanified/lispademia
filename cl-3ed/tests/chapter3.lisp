@@ -20,3 +20,11 @@
   (is-true (equal (list 1 2 3) (insert 1 (list 2 3))))
   (is-true (equal (list (list nil) nil) (insert (list nil) (list nil))))
   (is-true (equal (list (list 1 2 3) (list 4 5 6)) (insert (list 1 2 3) (list (list 4 5 6))))))
+
+(test 3.2-rotate-l
+  (is-true (null (rotate-l (list))))
+  (is-true (equal (list 1) (rotate-l (list 1))))
+  (is-true (equal (list 'b 'c 'a) (rotate-l (list 'a 'b 'c))))
+  (is-true (equal (list (list 'a 'b 'c)) (rotate-l (list (list 'a 'b 'c)))))
+  (is-true (equal (list 'c 'a 'b) (rotate-l (rotate-l (list 'a 'b 'c)))))
+  (is-true (equal (list 'a 'b 'c) (rotate-l (rotate-l (rotate-l (list 'a 'b 'c)))))))
