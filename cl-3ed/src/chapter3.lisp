@@ -85,5 +85,5 @@
 
 ;; 3.13
 (defun circle (radius)
-  (list (* 2 (symbol-value 'pi) radius)
-	(* (symbol-value 'pi) (* radius radius))))
+  (list (* 2 pi radius)
+	(* pi (* radius radius))))
