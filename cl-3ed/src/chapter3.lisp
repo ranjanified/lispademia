@@ -34,8 +34,23 @@
 	(values (/ (+ (- b) (sqrt b^2-4ac)) (* 2 a))
 		(/ (- (- b) (sqrt b^2-4ac)) (* 2 a))))))
 
+;; 3.7
 (defun evenp (num)
   (zerop (rem num 2)))
 
+;; 3.8
 (defun palindrome-p (lst)
   (eval `(and ,@(mapcar (lambda (a b) (eql a b)) lst (reverse lst)))))
+
+;; 3.9
+(defun right-p (side1 side2 side3)
+  (let* ((sorted (sort (list side1 side2 side3) #'<))
+	 (f-shortest (first sorted))
+	 (s-shortest (second sorted))
+	 (longest (first (last sorted)))
+	 (shortest-square (+ (* f-shortest f-shortest)
+			     (* s-shortest s-shortest)))
+	 (longest-square (* longest longest)))
+    (<= (/ (* 100 (abs (- longest-square shortest-square)))
+	   longest-square)
+	2)))

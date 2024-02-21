@@ -83,3 +83,8 @@
   (is-false (palindrome-p (list 1 2)))
   (is-false (palindrome-p (list 1 2 3)))
   (is-true (palindrome-p (list 1 2 2 1))))
+
+(test 3.9-right-p
+  (is-true (right-p 3 4 5))
+  (is-true (right-p 1.2 2.3 2.6))
+  (is-false (right-p 7 6.9 9)))

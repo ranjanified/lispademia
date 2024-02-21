@@ -7,4 +7,5 @@
   (:export #:f-to-c #:c-to-f)
   (:export #:roots)
   (:export #:evenp)
-  (:export #:palindrome-p))
+  (:export #:palindrome-p)
+  (:export #:right-p))
