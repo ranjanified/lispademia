@@ -76,3 +76,10 @@
   (is-true (evenp 2))
   (is-false (evenp 23))
   (is-true (evenp 1024)))
+
+(test 3.8-palindromep
+  (is-true (palindrome-p (list)))
+  (is-true (palindrome-p (list 1 1)))
+  (is-false (palindrome-p (list 1 2)))
+  (is-false (palindrome-p (list 1 2 3)))
+  (is-true (palindrome-p (list 1 2 2 1))))

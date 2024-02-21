@@ -6,4 +6,5 @@
   (:export #:palindromize)
   (:export #:f-to-c #:c-to-f)
   (:export #:roots)
-  (:export #:evenp))
+  (:export #:evenp)
+  (:export #:palindrome-p))

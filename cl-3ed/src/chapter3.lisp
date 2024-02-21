@@ -36,3 +36,6 @@
 
 (defun evenp (num)
   (zerop (rem num 2)))
+
+(defun palindrome-p (lst)
+  (eval `(and ,@(mapcar (lambda (a b) (eql a b)) lst (reverse lst)))))
