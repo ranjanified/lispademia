@@ -1,4 +1,5 @@
 (defpackage #:cl-3ed/tests
+  (:shadowing-import-from #:cl-3ed #:first #:rest)
   (:use #:cl
         #:cl-3ed
         #:fiveam)
