@@ -54,3 +54,18 @@
 (test 3.5-c-to-f
   (is-true (= (c-to-f -40) -40))
   (is-true (= 98.6 (* (fround (c-to-f 37.00) 0.1) 0.1))))
+
+(test 3.6-roots
+  (is-true (multiple-value-bind (root1 root2) (roots 0.0 0.0 0.0)
+	     (and (zerop root1) (zerop root2))))
+  (is-true (multiple-value-bind (root1 root2) (roots 1.0 0.0 0.0)
+	     (and (zerop root1) (zerop root2))))
+  (is-true (multiple-value-bind (root1 root2) (roots 1.0 1.0 0.0)
+	     (and (zerop root1) (minusp root2) (= 1.0 (abs root2)))))
+  (is-true (multiple-value-bind (root1 root2) (roots 1.0 1.0 1.0)
+	     (and (= #C(-0.5 0.8660254) root1)
+		  (= #C(-0.5 -0.8660254) root2))))
+  (is-true (multiple-value-bind (root1 root2) (roots 1 -3 2)
+	     (and (= 2.0 root1) (= 1.0 root2))))
+  (is-true (multiple-value-bind (root1 root2) (roots 1 -9 20)
+	     (and (= 5.0 root1) (= 4.0 root2)))))

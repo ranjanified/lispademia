@@ -4,4 +4,5 @@
   (:export #:first #:rest #:insert)
   (:export #:rotate-l #:rotate-r)
   (:export #:palindromize)
-  (:export #:f-to-c #:c-to-f))
+  (:export #:f-to-c #:c-to-f)
+  (:export #:roots))
