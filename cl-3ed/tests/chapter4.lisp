@@ -25,3 +25,15 @@
   (is-true (equal (list 1 2 3) (squash (list 1 2 3))))
   (is-true (equal (list 1 2 3 4) (squash (list 1 (list 2 3) (list 4)))))
   (is-true (equal (list 1 2 3 4 5 6 7) (squash (list (list (list (list 1 2 3))) (list (list 4 5) (list 6 7)))))))
+
+(test 4.4-fibonacci
+  (is-true (zerop (fibonacci 0)))
+  (is-true (zerop (fibonacci 1)))
+  (is-true (= 1 (fibonacci 2)))
+  (is-true (= 1 (fibonacci 3)))
+  (is-true (= 2 (fibonacci 4)))
+  (is-true (= 3 (fibonacci 5)))
+  (is-true (= 5 (fibonacci 6)))
+  (is-true (= 8 (fibonacci 7)))
+  (is-true (= 13 (fibonacci 8)))
+  (is-true (= 21 (fibonacci 9))))

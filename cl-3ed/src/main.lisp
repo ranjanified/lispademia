@@ -17,4 +17,5 @@
   ;; chapter 4
   (:export #:mystery)
   (:export #:strange)
-  (:export #:squash))
+  (:export #:squash)
+  (:export #:fibonacci))

@@ -21,3 +21,13 @@
     ((null lst) nil)
     ((atom (first lst)) (cons (first lst) (squash (rest lst))))
     (t (append (squash (first lst)) (squash (rest lst))))))
+
+;; 4.4
+(defun fibonacci (fib-index)
+  (loop
+    :for count :from 1
+    :for fib0 := 0 :then fib1
+    :for fib1 := 1 :then curr-fib
+    :for curr-fib := fib0 :then (+ fib0 fib1)
+    :maximize curr-fib
+    :while (> fib-index count)))
