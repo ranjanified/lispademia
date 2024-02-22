@@ -15,4 +15,5 @@
   (:export #:circle)
 
   ;; chapter 4
-  (:export #:mystery))
+  (:export #:mystery)
+  (:export #:strange))
