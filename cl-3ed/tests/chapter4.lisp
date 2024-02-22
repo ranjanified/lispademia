@@ -37,3 +37,15 @@
   (is-true (= 8 (fibonacci 7)))
   (is-true (= 13 (fibonacci 8)))
   (is-true (= 21 (fibonacci 9))))
+
+(test 4.5-union
+  (is-true (null (union nil nil)))
+  (is-true (equal (list nil) (union nil (list nil))))
+  (is-true (equal (list nil) (union (list nil) nil)))
+  (is-true (equal (list 1) (union nil (list 1))))
+  (is-true (equal (list 1) (union (list 1) nil)))
+  (is-true (equal (list 1) (union (list 1) (list 1))))
+  (is-true (equal (list 1 4 5 3 2 6) (union (list 1 3 2 4) (list 5 3 2 6))))
+  (is-true (equal (list 1 2 (list 3 4) 3 4 (list 5 6)) (union (list 1 2 (list 3 4)) (list 3 4 (list 5 6)))))
+  (is-true (equal (list 2 1 (list 3 4) 5 6) (union (list 1 2 (list 3 4)) (list 2 1 (list 3 4) 5 6))))
+  (is-true (equal (list (list (list))) (union (list (list (list))) (list (list (list)))))))

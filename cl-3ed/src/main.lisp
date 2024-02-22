@@ -1,7 +1,7 @@
 (defpackage #:cl-3ed
   (:use #:cl)
-  (:shadow #:first #:rest #:evenp)
-  (:export #:first #:rest #:insert)
+  (:shadow #:first #:rest #:evenp #:union)
+  (:export #:first #:rest #:insert #:union)
   (:export #:rotate-l #:rotate-r)
   (:export #:palindromize)
   (:export #:f-to-c #:c-to-f)
@@ -18,4 +18,5 @@
   (:export #:mystery)
   (:export #:strange)
   (:export #:squash)
-  (:export #:fibonacci))
+  (:export #:fibonacci)
+  (:export #:union))

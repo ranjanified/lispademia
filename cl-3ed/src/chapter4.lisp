@@ -31,3 +31,11 @@
     :for curr-fib := fib0 :then (+ fib0 fib1)
     :maximize curr-fib
     :while (> fib-index count)))
+
+;; 4.5
+(defun union (set1 set2 &key (test #'equal))
+  (cond
+    ((null set1) set2)
+    ((null set2) set1)
+    ((member (first set1) set2 :test test) (union (rest set1) set2))
+    (t (cons (first set1) (union (rest set1) set2)))))
