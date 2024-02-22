@@ -14,3 +14,10 @@
     ((atom l) l)
     (t (cons (strange (first l))
 	     (strange (rest l))))))
+
+;; 4.3
+(defun squash (lst)
+  (cond
+    ((null lst) nil)
+    ((atom (first lst)) (cons (first lst) (squash (rest lst))))
+    (t (append (squash (first lst)) (squash (rest lst))))))

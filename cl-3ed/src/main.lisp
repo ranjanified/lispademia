@@ -16,4 +16,5 @@
 
   ;; chapter 4
   (:export #:mystery)
-  (:export #:strange))
+  (:export #:strange)
+  (:export #:squash))

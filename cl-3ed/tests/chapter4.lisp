@@ -18,3 +18,10 @@
   (is-true (equal (list 0) (strange (list 0))))
   (is-true (equal (list 0 1 2 3) (strange (list 0 1 2 3))))
   (is-true (equal (list 1 (list 2 3) (list (list 4 5))) (strange (list 1 (list 2 3) (list (list 4 5)))))))
+
+(test 4.3-squash
+  (is-true (null (squash nil)))
+  (is-true (equal (list nil) (squash (list nil))))
+  (is-true (equal (list 1 2 3) (squash (list 1 2 3))))
+  (is-true (equal (list 1 2 3 4) (squash (list 1 (list 2 3) (list 4)))))
+  (is-true (equal (list 1 2 3 4 5 6 7) (squash (list (list (list (list 1 2 3))) (list (list 4 5) (list 6 7)))))))
