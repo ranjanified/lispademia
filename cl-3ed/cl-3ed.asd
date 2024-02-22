@@ -6,7 +6,8 @@
   :components ((:module "src"
                 :components
                 ((:file "main")
-		 (:file "chapter3"))))
+		 (:file "chapter3")
+		 (:file "chapter4"))))
   :description "Lisp 3rd edition By Patrick H Winston"
   :in-order-to ((test-op (test-op "cl-3ed/tests"))))
 
@@ -19,6 +20,7 @@
                 :components
                 ((:file "main")
 		 (:file "chapter2")
-		 (:file "chapter3"))))
+		 (:file "chapter3")
+		 (:file "chapter4"))))
   :description "Test system for cl-3ed"
   :perform (test-op (op c) (symbol-call '#:cl-3ed/tests '#:run-tests)))

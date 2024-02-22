@@ -12,4 +12,7 @@
   (:export #:complex-p)
   (:export #:nilcar #:nilcdr)
   (:export #:check-temperature)
-  (:export #:circle))
+  (:export #:circle)
+
+  ;; chapter 4
+  (:export #:mystery))
