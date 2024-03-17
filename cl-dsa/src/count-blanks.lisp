@@ -1,10 +1,14 @@
-(defun count-blanks (value-str cnt)
-  (cond
-    ((null value-str) cnt)
-    ((member (first value-str) (list #\Space #\Tab)) (count-blanks (rest value-str) (1+ cnt)))
-    (t (count-blanks (rest value-str) cnt))))
+(in-package #:cl-dsa)
 
-(defun word-count (chr-lst)
+(defun count-blanks (value-str)
+  (labels ((cnt-blanks (val cnt)
+	     (cond
+	       ((null val) cnt)
+	       ((member (first val) (list #\Space #\Tab)) (cnt-blanks (rest val) (1+ cnt)))
+	       (t (cnt-blanks (rest val) cnt)))))
+    (cnt-blanks (coerce value-str 'list) 0)))
+
+(defun word-count ()
   (loop 
     with curr-char = nil and in-word = 1 and out-word = 0 
     and line-count = 0 and word-count = 0 and char-count = 0

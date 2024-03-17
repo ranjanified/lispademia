@@ -1,7 +1,6 @@
-(in-package :cl-pcl/tests/suite)
+(in-package #:cl-pcl/tests)
 
-(def-suite factory :in cd-records)
-(in-suite factory)
+(in-suite* factory :in cd-records)
 
 (test make-cd
   (let ((cd (make-cd nil nil nil nil))

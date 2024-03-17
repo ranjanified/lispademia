@@ -1,22 +1,28 @@
-(defsystem "cl-dsa"
+(defsystem #:cl-dsa
   :version "0.1.0"
-  :author ""
+  :author "Nalin Ranjan"
   :license ""
   :depends-on ()
   :components ((:module "src"
                 :components
                 ((:file "main")
-		 (:file "utils"))))
+		 (:file "utils")
+		 (:file "histogram")
+		 (:file "count-blanks")
+		 (:file "strings"))))
   :description ""
-  :in-order-to ((test-op (test-op "cl-dsa/tests"))))
+  :in-order-to ((test-op (test-op #:cl-dsa/tests))))
 
-(defsystem "cl-dsa/tests"
-  :author ""
+(defsystem #:cl-dsa/tests
+  :author "Nalin Ranjan"
   :license ""
-  :depends-on ("cl-dsa"
-               "fiveam")
+  :depends-on (#:cl-dsa
+               #:fiveam)
   :components ((:module "tests"
                 :components
-                ((:file "main"))))
+                ((:file "main")
+		 (:file "histogram")
+		 (:file "count-blanks")
+		 (:file "strings"))))
   :description "Test system for cl-dsa"
-  :perform (test-op (op c) (print c) (symbol-call :fiveam :run! 'cl-exercises-tests)))
+  :perform (test-op (op system) (symbol-call '#:cl-dsa/tests '#:run-tests)))

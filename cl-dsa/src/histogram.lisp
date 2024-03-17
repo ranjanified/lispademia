@@ -1,4 +1,7 @@
+(in-package #:cl-dsa)
+
 (defun print-histogram-vertical (item-counts)
+  (terpri)
   (loop repeat 1
 	with max-lines = (loop for l across item-counts maximize l)
 	do (loop for curr-line from max-lines downto 1

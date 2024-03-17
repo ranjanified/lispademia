@@ -1,5 +1,8 @@
-(defpackage cl-dsa
-  (:use :cl))
-(in-package :cl-dsa)
+(defpackage #:cl-dsa
+  (:use #:cl)
+  (:export #:print-histogram-vertical)
+  (:export #:count-blanks)
+  ;; (:export #:word-count)
 
-;; blah blah blah.
+  (:export #:strlen)
+  (:export #:strpos))

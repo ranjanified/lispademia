@@ -1,10 +1,16 @@
-(defpackage cl-dsa/tests
-  (:use :cl
-        :cl-dsa
-        :fiveam))
-(in-package :cl-dsa/tests)
+(defpackage #:cl-dsa/tests
+  (:use #:cl
+        #:cl-dsa
+        #:fiveam))
 
-;; NOTE: To run this test file, execute `(asdf:test-system :cl-dsa)' in your Lisp.
+(in-package #:cl-dsa/tests)
 
-(test test-target-1
-  (is-true "should (= 1 1) to be true"))
+(def-suite cl-dsa-tests)
+
+(defgeneric warmup-suite (suite))
+
+(defun run-warmups ())
+
+(defun run-tests ()
+  (run-warmups)
+  (run! 'cl-dsa-tests))

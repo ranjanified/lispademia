@@ -1,50 +1,42 @@
 (in-package :cl-aol)
 
-(defun digit-p (n)
-  ""
-  (check-type n standard-char)
-  (and (char>= n #\0) (char<= n #\9)))
+(defun digit-p (char-digit &optional (num-base 16))
+  "A | B | C | D ... | Z"
+  (check-type char-digit standard-char)
+  (and (digit-char-p char-digit num-base) t))
 
-(defun numeral-p (l)
+(defun atom-letter-p (atom-char)
+  (check-type atom-char standard-char)
+  (and (alpha-char-p atom-char) t))
+
+(defun numeral-p (num-str &optional (num-base 16))
   "<digit> | <numeral> <digit>"
-  (labels
-      ((is-it (l)
-	 (cond
-	   ((null l) t)
-	   ((and (digit-p (first l)) (is-it (rest l)))))))
-    (cond
-      ((null l) nil)
-      ((is-it l)))))
+  (cond
+    ((null num-str) nil)
+    ((null (rest num-str)) (and (digit-p (first num-str) num-base) t))
+    ((and (numeral-p (rest num-str) num-base) (digit-p (first num-str) num-base)))))
 
-(defun atom-letter-p (c)
-  ""
-  ;; built-in: alpha-char-p
-  (declare (type standard-char l))
-  (or (and (char>= c #\a) (char<= c #\z))
-      (and (char>= c #\A) (char<= c #\Z))))
 
-(defun literal-atom-p (l)
-  ""
-  (labels ((is-it (l)
+(defun literal-atom-p (char-str)
+  "<literal atom> ::= <atom letter> <literal atom> (<atom letter> | <digit>)"
+  (labels ((is-literal-atom (chars)
 	     (cond
-	       ((null l) t)
-	       ((atom-letter-p (first l)) (is-it (rest l)))
-	       ((digit-p (first l)) (is-it (rest l))))))
-    (cond
-      ((null l) nil)
-      ;; first one has to be a letter
-      ((atom-letter-p (first l)) (is-it l)))))
+	       ((null chars) nil)
+	       ((null (rest chars)) (or (digit-p (first chars))
+					(atom-letter-p (first chars))))
+	       ((and (is-literal-atom (rest chars)) (or (digit-p (first chars))
+						       (atom-letter-p (first chars))))))))
+    (and (atom-letter-p (first char-str))
+	 (is-literal-atom (rest char-str)))))
 
-(defun atom-p (l)
+(defun atom-p (atom-chars)
   "<atom> := <literal atom> | <numeral> | -<numeral>"
   (cond
-    ((null l) t)
-    ((or (literal-atom-p l)
+    ((null atom-chars) t)
+    ((or (literal-atom-p atom-chars)
 	 (cond
-	   ((char= (first l) #\-) (numeral-p (rest l)))
-	   ((numeral-p l)))))))
-
-
+	   ((char= (first atom-chars) #\-) (numeral-p (rest atom-chars)))
+	   ((numeral-p atom-chars)))))))
 
 (defun sexpr-p (l)
   (labels ((twist (l acc)

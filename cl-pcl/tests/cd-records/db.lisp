@@ -1,8 +1,6 @@
-(in-package :cl-pcl/tests/suite)
+(in-package #:cl-pcl/tests)
 
-;; (in-suite cd-records)
-(def-suite db :in cd-records)
-(in-suite db)
+(in-suite* db :in cd-records)
 
 (test clear-records
   (is-true (null (clear-records))))

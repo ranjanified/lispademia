@@ -1,10 +1,17 @@
-(defpackage cl-pcl/tests/suite
-  (:use :cl
-        :cl-pcl
-        :fiveam))
+(defpackage #:cl-pcl/tests
+  (:use #:cl
+        #:cl-pcl
+        #:fiveam)
+  (:export #:run-tests))
 
-;; NOTE: To run this test file, execute `(asdf:test-system :cl-pcl)' in your Lisp.
+(in-package #:cl-pcl/tests)
+(def-suite cl-pcl-tests)
 
-(in-package :cl-pcl/tests/suite)
+(defgeneric warmup-test-suite (suite))
 
-(def-suite cl-pcl)
+(defun run-warmups ()
+  (warmup-test-suite 'id3-parser))
+
+(defun run-tests ()
+  (run-warmups)
+  (run! 'cl-pcl-tests))

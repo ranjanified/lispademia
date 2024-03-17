@@ -32,7 +32,7 @@
     :maximize curr-fib
     :while (> fib-index count)))
 
-;; 4.5
+;; 4.5 - rudimentary. union with checking nested membership requires a different implementation
 (defun union (set1 set2 &key (test #'equal))
   (cond
     ((null set1) set2)
