@@ -6,4 +6,5 @@
 
   (:export #:strlen)
   (:export #:strpos)
-  (:export #:strcat))
+  (:export #:strcat)
+  (:export #:substr))

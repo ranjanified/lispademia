@@ -34,3 +34,16 @@
 	:do (setf (aref concatenated-arr (+ len-str1 index-string2))
 		  (aref string-2 index-string2))
 	:finally (return (setf string-1 concatenated-arr))))
+
+(defun substr (src-string start items-count substring)
+  (declare (type (or (simple-vector *) (simple-array character *)) src-string substring))
+  (declare (type (integer 0 *) start items-count))
+  (loop 
+    :with src-len := (strlen src-string) :and sub-len := (strlen substring)
+    :with substr-arr-len := (1+ (if (<= (+ start items-count) src-len) items-count 0))
+    :with substr-arr := (make-array (list substr-arr-len) :initial-element #\Nul)
+    :for src-index :from start :upto (+ start items-count)
+    :for substr-index := 0 :then (1+ substr-index)
+    :while (and (>= start 0) (< start src-len) (> items-count 0) (<= (+ start items-count) src-len))
+    :do (setf (aref substr-arr substr-index) (aref src-string src-index))
+    :finally (return (setf substring substr-arr))))
