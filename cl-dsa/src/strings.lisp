@@ -7,18 +7,18 @@
 	((char= (elt strings i) #\Nul) i))
     0))
 
-(defun strpos (string1 string2)
-  (declare (type (or (simple-vector *) (simple-array character *)) string1 string2))
-  (if (and (> (first (array-dimensions string1)) 0) (> (first (array-dimensions string2)) 0))
-      (progn
-	(loop
-	  :with length-1 := (strlen string1) :and length-2 := (strlen string2)  
-	  :for string1-index := 0 :then (1+ string1-index)
-	  :while (<= (+ string1-index length-2) length-1)
-	  :do (progn
-		(loop :for string1-curr-index := string1-index then (1+ string1-curr-index)
-		      :for string2-index := 0 then (1+ string2-index)
-		      :while (and (< string2-index length-2) (char= (elt string1 string1-curr-index)(elt string2 string2-index)))
-		      :when (= string2-index (1- length-2)) :do (return-from strpos string1-index))))
-	-1)
-      -1))
+(defun strpos (src-str sub-str)
+;;  (declare (type (or (simple-vector *) (simple-array character *)) src-str sub-str))
+  (progn
+    (when (and (> (first (array-dimensions src-str)) 0)
+	       (> (first (array-dimensions sub-str)) 0))
+      (loop
+	:with length-src-str := (strlen src-str) :and length-sub-str := (strlen sub-str)  
+	:for src-index := 0 :then (1+ src-index)
+	:while (<= (+ src-index length-sub-str) length-src-str)
+	:do (loop :for src-curr-index := src-index then (1+ src-curr-index)
+		  :for sub-index := 0 then (1+ sub-index)
+		  :while (and (< sub-index length-sub-str) (char= (elt src-str src-curr-index)
+								  (elt sub-str sub-index)))
+		  :when (= sub-index (1- length-sub-str)) :do (return-from strpos src-index)))))
+  -1)
