@@ -7,4 +7,7 @@
   (:export #:strlen)
   (:export #:strpos)
   (:export #:strcat)
-  (:export #:substr))
+  (:export #:substr)
+
+  (:export #:median)
+  (:export #:mode))

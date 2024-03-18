@@ -9,7 +9,8 @@
 		 (:file "utils")
 		 (:file "histogram")
 		 (:file "count-blanks")
-		 (:file "strings"))))
+		 (:file "strings")
+		 (:file "median-mode"))))
   :description ""
   :in-order-to ((test-op (test-op #:cl-dsa/tests))))
 
@@ -23,6 +24,7 @@
                 ((:file "main")
 		 (:file "histogram")
 		 (:file "count-blanks")
-		 (:file "strings"))))
+		 (:file "strings")
+		 (:file "median-mode"))))
   :description "Test system for cl-dsa"
   :perform (test-op (op system) (symbol-call '#:cl-dsa/tests '#:run-tests)))
