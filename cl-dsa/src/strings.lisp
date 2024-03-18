@@ -44,6 +44,6 @@
     :with substr-arr := (make-array (list substr-arr-len) :initial-element #\Nul)
     :for src-index :from start :upto (+ start items-count)
     :for substr-index := 0 :then (1+ substr-index)
-    :while (and (>= start 0) (< start src-len) (> items-count 0) (<= (+ start items-count) src-len))
+    :while (and (>= start 0) (< start src-len) (> items-count 0) (<= (+ start items-count) src-len) (< substr-index items-count))
     :do (setf (aref substr-arr substr-index) (aref src-string src-index))
     :finally (return (setf substring substr-arr))))
