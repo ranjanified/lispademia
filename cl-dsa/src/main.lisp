@@ -5,4 +5,5 @@
   ;; (:export #:word-count)
 
   (:export #:strlen)
-  (:export #:strpos))
+  (:export #:strpos)
+  (:export #:strcat))
