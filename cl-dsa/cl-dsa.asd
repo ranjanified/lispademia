@@ -10,7 +10,8 @@
 		 (:file "histogram")
 		 (:file "count-blanks")
 		 (:file "strings")
-		 (:file "median-mode"))))
+		 (:file "median-mode")
+		 (:file "weather-report"))))
   :description ""
   :in-order-to ((test-op (test-op #:cl-dsa/tests))))
 

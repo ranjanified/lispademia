@@ -10,4 +10,6 @@
   (:export #:substr)
 
   (:export #:median)
-  (:export #:mode))
+  (:export #:mode)
+
+  (:export #:weather-report))
