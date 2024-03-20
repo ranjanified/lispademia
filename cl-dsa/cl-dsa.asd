@@ -26,6 +26,7 @@
 		 (:file "histogram")
 		 (:file "count-blanks")
 		 (:file "strings")
-		 (:file "median-mode"))))
+		 (:file "median-mode")
+		 (:file "weather-report"))))
   :description "Test system for cl-dsa"
   :perform (test-op (op system) (symbol-call '#:cl-dsa/tests '#:run-tests)))
