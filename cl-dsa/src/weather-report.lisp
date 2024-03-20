@@ -3,10 +3,11 @@
 (defun weather-report (readings)
   ;; (declare (type (simple-array (simple-array (or (integer -90 -1) (integer 1 90) (single-float)) 2) *) readings))
   (prog* ((average-of-averages (lambda (averages)
-				(loop :for s :across averages
-				      :when s
-					:sum s :into sum-sum :and :count s :into count-count
-				      :finally (return (if (zerop count-count) nil (float (/ sum-sum count-count)))))))
+				 ;; (format t "Averages: ~a~&" averages)
+				 (loop :for s :across averages
+				       :when s
+					 :sum s :into sum-sum :and :count s :into count-count
+				       :finally (return (if (zerop count-count) nil (float (/ sum-sum count-count)))))))
 	 (average-readings (lambda (readings) (loop :for r :across readings
 						    :sum r :into sum
 						    :count r :into count
@@ -31,9 +32,10 @@
 						      (s-avg (funcall average-of-averages (coerce s-averages 'simple-vector))))
 						  (vector n-avg
 							  s-avg
-							  (if (> n-avg s-avg)
-							      "northern hemisphere"
-							      "southern hemisphere"))))))))
+							  (when (and n-avg s-avg)
+							    (if (> n-avg s-avg)
+								"northern hemisphere"
+								"southern hemisphere")))))))))
      ;; filter readings in northern and southern buckets
      (loop :for reading :across readings
 	   :do (vector-push (svref reading 1)
@@ -55,7 +57,7 @@
 									     (aref average-readings-table (1- index) 1)))))
      ;; Print the table and warmer hemisphere info
      (loop
-       :initially (format t "~:(~2@a~)~t~:(~16@a~)~t~:(~16@a~)~t~:(~16@a~)~&"
+       :initially (format t "~&~:(~2@a~)~t~:(~16@a~)~t~:(~16@a~)~t~:(~16@a~)~&"
 			  "latitude" "northern hemisphere" "southern hemisphere" "average-readings")
        :for index :from 0 :below (array-dimension average-readings-table 0)
        :do (format t "~2@a.~t~:@(~18@a~)~:@(~18@a~)~:@(~18@a~)~&"
@@ -64,7 +66,10 @@
 		   (or (aref average-readings-table index 1) "no data")
 		   (or (aref average-readings-table index 2) "no data"))
        :finally (let  ((calculated (funcall calculate-warmer average-readings-table)))
-		  (format t "Northern Average:~t~a~&Southern Average:~t~a~&Warmer:~t~:@(~a~)~&"
-			  (svref calculated 0)
-			  (svref calculated 1)
-			  (svref calculated 2))))))
+		  (format t "Northern Average:~t~:@(~a~)~&Southern Average:~t~:@(~a~)~&Warmer~16t:~t~:@(~a~)~&"
+			  (or (svref calculated 0) "not available")
+			  (or (svref calculated 1) "not available")
+			  (if (= (or (svref calculated 0) 0)
+				 (or (svref calculated 1) 0))
+			      "both hemispheres are equally warm"
+			      (or (svref calculated 2) "not available")))))))
