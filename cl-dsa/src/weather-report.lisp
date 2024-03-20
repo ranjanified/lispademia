@@ -3,7 +3,6 @@
 (defun weather-report (readings)
   ;; (declare (type (simple-array (simple-array (or (integer -90 -1) (integer 1 90) (single-float)) 2) *) readings))
   (prog* ((average-of-averages (lambda (averages)
-				 ;; (format t "Averages: ~a~&" averages)
 				 (loop :for s :across averages
 				       :when s
 					 :sum s :into sum-sum :and :count s :into count-count
