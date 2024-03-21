@@ -15,7 +15,8 @@
   (loop 
     :initially ;; Put the cards in the table
 	       (loop
-		 :initially (pprint-logical-block (*standard-output* nil)
+		 :initially (fresh-line)
+			    (pprint-logical-block (*standard-output* nil)
 			      (write-string (string-capitalize "department"))
 			      (pprint-tab :section 0 16)
 			      (loop :for i :from 1 :to (array-dimension sales-table 1)
@@ -33,7 +34,7 @@
     :with sales-table := (make-array '(20 10) :initial-element 0)
     :with store-total := 0
     :repeat 1
-    :do ;; print department-wise items and total sales
+    :do ;; print department-wise item sales and total sales
 	(loop :for department-index :from 0 :below (array-dimension sales-table 0)
 	      :for department-total := 0 :then 0
 	      :do (fresh-line)
