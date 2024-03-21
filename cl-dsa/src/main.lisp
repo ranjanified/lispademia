@@ -12,4 +12,6 @@
   (:export #:median)
   (:export #:mode)
 
-  (:export #:weather-report))
+  (:export #:weather-report)
+
+  (:export #:print-department-sales))

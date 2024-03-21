@@ -11,7 +11,8 @@
 		 (:file "count-blanks")
 		 (:file "strings")
 		 (:file "median-mode")
-		 (:file "weather-report"))))
+		 (:file "weather-report")
+		 (:file "department-sales"))))
   :description ""
   :in-order-to ((test-op (test-op #:cl-dsa/tests))))
 
