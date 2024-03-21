@@ -28,6 +28,7 @@
 		 (:file "count-blanks")
 		 (:file "strings")
 		 (:file "median-mode")
-		 (:file "weather-report"))))
+		 (:file "weather-report")
+		 (:file "department-sales"))))
   :description "Test system for cl-dsa"
   :perform (test-op (op system) (symbol-call '#:cl-dsa/tests '#:run-tests)))
