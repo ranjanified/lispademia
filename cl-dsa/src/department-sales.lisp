@@ -64,4 +64,5 @@
 							  :do (incf store-total (aref sales-table dept-index item-index)))))
 		     (pprint-tab :line (1+ item-index) 8))
 	       ;; print total
-	       (write-string (format nil "~a" store-total)))))
+	       (write-string (format nil "~a" store-total)))
+	     (fresh-line)))
