@@ -1,5 +1,5 @@
 (defsystem #:cl-dsa
-  :version "0.1.0"
+  :version "0.0.1"
   :author "Nalin Ranjan"
   :license ""
   :depends-on ()
@@ -12,7 +12,8 @@
 		 (:file "strings")
 		 (:file "median-mode")
 		 (:file "weather-report")
-		 (:file "department-sales"))))
+		 (:file "department-sales")
+		 (:file "chess"))))
   :description ""
   :in-order-to ((test-op (test-op #:cl-dsa/tests))))
 
@@ -29,6 +30,7 @@
 		 (:file "strings")
 		 (:file "median-mode")
 		 (:file "weather-report")
-		 (:file "department-sales"))))
+		 (:file "department-sales")
+		 (:file "chess"))))
   :description "Test system for cl-dsa"
   :perform (test-op (op system) (symbol-call '#:cl-dsa/tests '#:run-tests)))

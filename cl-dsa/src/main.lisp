@@ -14,4 +14,6 @@
 
   (:export #:weather-report)
 
-  (:export #:print-department-sales))
+  (:export #:print-department-sales)
+
+  (:export #:make-chess-board))
