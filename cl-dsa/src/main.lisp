@@ -16,4 +16,5 @@
 
   (:export #:print-department-sales)
 
-  (:export #:make-chess-board))
+  (:export #:make-chess-board)
+  (:export #:print-chess-board))

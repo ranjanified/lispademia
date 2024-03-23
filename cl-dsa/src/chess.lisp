@@ -4,6 +4,20 @@
 
 (in-package #:cl-dsa)
 
+(defun print-chess-board (chess-board)
+  (pprint-logical-block (*terminal-io* nil)
+    (pprint-indent :block 12 *terminal-io*)
+    (pprint-newline :mandatory *terminal-io*)
+    (loop
+      :with row-dimension := (array-dimension chess-board 0)
+      :and col-dimension := (array-dimension chess-board 1)
+      :for row-index :from 0 :below row-dimension
+      :do (loop :for col-index :from 0 :below col-dimension
+		:do (write-char (aref chess-board row-index col-index) *terminal-io*)
+		    (pprint-tab :section col-index 8 *terminal-io*))
+	  (pprint-newline :mandatory *terminal-io*)))
+  (values))
+
 (defun make-chess-board (&key (black-box #\b) (white-box #\w) (black-piece #\*) (white-piece #\!))
   (loop
     :with chess-board := (make-array '(8 8) :initial-element #\Space)
