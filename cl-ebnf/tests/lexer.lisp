@@ -308,3 +308,10 @@
 (test lex-defining-symbol
   (is-true (equal (lex "defining symbol = '=';")
 		  '((:unknown "defining") (:unknown "symbol") (:definition) (:quoted-symbol "=") (:terminator)))))
+
+(test definition-separator-symbol
+  (is-true (equal (lex "definition separator symbol = '|' | '/' | '!';")
+		  '((:unknown "definition") (:unknown "separator") (:unknown "symbol")
+		    (:definition)
+		    (:quoted-symbol "|") (:definition-separator) (:quoted-symbol "/") (:definition-separator) (:quoted-symbol "!")
+		    (:terminator)))))
