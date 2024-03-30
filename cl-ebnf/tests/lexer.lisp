@@ -304,3 +304,7 @@
 (test lex-concatenate-symbol
   (is-true (equal (lex "concatenate symbol = ',';")
 		  '((:unknown "concatenate") (:unknown "symbol") (:definition) (:quoted-symbol ",") (:terminator)))))
+
+(test lex-defining-symbol
+  (is-true (equal (lex "defining symbol = '=';")
+		  '((:unknown "defining") (:unknown "symbol") (:definition) (:quoted-symbol "=") (:terminator)))))
