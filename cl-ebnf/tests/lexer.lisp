@@ -344,6 +344,10 @@
   (is-true (equal (lex "first quote symbol = \"'\";")
 		  '((:unknown "first") (:unknown "quote") (:unknown "symbol") (:definition) (:quoted-symbol "'") (:terminator)))))
 
+(test lex-second-quote-symbol
+  (is-true (equal (lex "second quote symbol = '\"';")
+		  '((:unknown "second") (:unknown "quote") (:unknown "symbol") (:definition) (:quoted-symbol "\"") (:terminator)))))
+
 (test lex-repetition-symbol
   (is-true (equal (lex "repetition symbol = '*';")
 		  '((:unknown "repetition") (:unknown "symbol") (:definition) (:quoted-symbol "*") (:terminator)))))
