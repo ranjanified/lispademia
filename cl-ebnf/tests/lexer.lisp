@@ -292,3 +292,11 @@
 		    (:quoted-symbol "U") (:definition-separator) (:quoted-symbol "V") (:definition-separator) (:quoted-symbol "W")
 		    (:definition-separator) (:quoted-symbol "X") (:definition-separator) (:quoted-symbol "Y") (:definition-separator)
 		    (:quoted-symbol "Z")))))
+
+(test lex-decimal-digit
+  (is-true (equal (lex "decimal digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'")
+		  '((:unknown "decimal") (:unknown "digit") (:definition) (:quoted-symbol "0") (:definition-separator) (:quoted-symbol "1")
+		    (:definition-separator) (:quoted-symbol "2") (:definition-separator) (:quoted-symbol "3") (:definition-separator)
+		    (:quoted-symbol "4") (:definition-separator) (:quoted-symbol "5") (:definition-separator) (:quoted-symbol "6")
+		    (:definition-separator) (:quoted-symbol "7") (:definition-separator) (:quoted-symbol "8") (:definition-separator)
+		    (:quoted-symbol "9")))))
