@@ -95,7 +95,7 @@
 (defun read-group (stream)
   (declare (special group-level))
   (let ((*readtable* (copy-readtable *readtable*)))
-    (set-macro-character +end-group-symbol+ #'read-group-end)
+    (set-macro-character +end-group-symbol+ #'read-group-end nil *readtable*)
     (incf group-level)
     (list :group (lex-stream stream *readtable*))))
 
@@ -129,8 +129,7 @@
 			(list next-char (read-char stream nil))
 			(list next-char)) :into quoted-symbols
 	  :else :collect next-char :into quoted-symbols
-	  :finally (when next-char (read-char stream nil))
-		   (unless next-char (error 'malformed-token :token-type :quoted-symbol))
+	  :finally (unless next-char (error 'malformed-token :token-type :quoted-symbol))
 		   (return (coerce quoted-symbols 'string)))))
 
 (defun read-special-sequence (stream chr)

@@ -135,6 +135,11 @@
   (is-true (equal (lex "(1 2 3 (4))" ) '((:group ((:unknown "1") (:unknown "2") (:unknown "3") (:group ((:unknown "4"))))))))
   (is-true (equal (lex "(() 1 2 3)" ) '((:group ((:group nil) (:unknown "1") (:unknown "2") (:unknown "3"))))))
   (is-true (equal (lex "((1) (2 3))" ) '((:group ((:group ((:unknown "1"))) (:group ((:unknown "2") (:unknown "3"))))))))
+  (is-true (equal (lex "(\"0\")") '((:group ((:quoted-symbol "0"))))))
+  (is-true (equal (lex "(\" \" | \"0\")") '((:group ((:quoted-symbol " ") (:definition-separator) (:quoted-symbol "0"))))))
+  (is-true (equal (lex "(character - (\" \" | \"0\"))")
+		  '((:group ((:unknown "character") (:exception)
+			     (:group ((:quoted-symbol " ") (:definition-separator) (:quoted-symbol "0"))))))))
   (signals malformed-token (lex "((1 2 3) 4 5" ))
   (signals malformed-token (lex "((1 2 3) (4 5)" ))
   (signals malformed-token (lex "(((1 2 3) (4) 5)" )))
@@ -149,7 +154,19 @@
   (is-true (equal (lex "|" ) '((:definition-separator))))
   (is-true (equal (lex "||" ) '((:definition-separator)(:definition-separator))))
   (is-true (equal (lex "a | b" ) '((:unknown "a")(:definition-separator) (:unknown "b"))))
-  (is-true (equal (lex "a | b|" ) '((:unknown "a")(:definition-separator) (:unknown "b") (:definition-separator)))))
+  (is-true (equal (lex "a | b|" ) '((:unknown "a")(:definition-separator) (:unknown "b") (:definition-separator))))
+
+  ;; / as definition-separator symbol
+  (is-true (equal (lex "/" ) '((:definition-separator))))
+  (is-true (equal (lex "//" ) '((:definition-separator)(:definition-separator))))
+  (is-true (equal (lex "a / b" ) '((:unknown "a")(:definition-separator) (:unknown "b"))))
+  (is-true (equal (lex "a / b/" ) '((:unknown "a")(:definition-separator) (:unknown "b") (:definition-separator))))
+
+  ;; ! as definition-separator symbol
+  (is-true (equal (lex "!" ) '((:definition-separator))))
+  (is-true (equal (lex "!!" ) '((:definition-separator)(:definition-separator))))
+  (is-true (equal (lex "a ! b" ) '((:unknown "a")(:definition-separator) (:unknown "b"))))
+  (is-true (equal (lex "a ! b!" ) '((:unknown "a")(:definition-separator) (:unknown "b") (:definition-separator)))))
 
 (test lex-concatenate
   (is-true (equal (lex "," ) '((:concatenate))))
@@ -204,4 +221,28 @@
   (is-true (equal (lex "\"\\\"\"") '((:quoted-symbol "\\\""))))
   (signals malformed-token (lex "\""))
   (signals malformed-token (lex "asd\""))
-  (signals malformed-token (lex "\"asd\" bcg \"")))
+  (signals malformed-token (lex "\"asd\" bcg \""))
+
+  ;; ' as quoted-symbol
+  (is-true (equal (lex "''") '((:quoted-symbol ""))))
+  (is-true (equal (lex "'asd'") '((:quoted-symbol "asd"))))
+  (is-true (equal (lex "'asd bcg'") '((:quoted-symbol "asd bcg"))))
+  (is-true (equal (lex "'   asd bcg'") '((:quoted-symbol "   asd bcg"))))
+  (is-true (equal (lex "'asd bcg   '") '((:quoted-symbol "asd bcg   "))))
+  (is-true (equal (lex "'asd\\'bcg'") '((:quoted-symbol "asd\\'bcg")))) ; to be checked if escaped quotes are to be preserved or not
+  (is-true (equal (lex "'\\''") '((:quoted-symbol "\\'"))))
+  (signals malformed-token (lex "'"))
+  (signals malformed-token (lex "asd'"))
+  (signals malformed-token (lex "'asd' bcg '")))
+
+(test lex-mixed
+  (is-true (equal (lex "Fortran 77 continuation line = 5 * \" \", (character - (\" \" | \"0\")), 66 * [character] ;")
+		  '((:unknown "Fortran") (:unknown "77") (:unknown "continuation")
+		    (:unknown "line") (:definition) (:unknown "5") (:repetition)
+		    (:quoted-symbol " ") (:concatenate)
+		    (:group
+		     ((:unknown "character") (:exception)
+		      (:group
+		       ((:quoted-symbol " ") (:definition-separator) (:quoted-symbol "0")))))
+		    (:concatenate) (:unknown "66") (:repetition)
+		    (:option ((:unknown "character"))) (:terminator)))))
