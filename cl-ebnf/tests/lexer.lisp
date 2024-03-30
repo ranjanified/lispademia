@@ -316,6 +316,10 @@
 		    (:quoted-symbol "|") (:definition-separator) (:quoted-symbol "/") (:definition-separator) (:quoted-symbol "!")
 		    (:terminator)))))
 
+(test lex-start-comment-symbol
+  (is-true (equal (lex "start comment symbol = '(*';")
+		  '((:unknown "start") (:unknown "comment") (:unknown "symbol") (:definition) (:quoted-symbol "(*") (:terminator)))))
+
 (test lex-end-comment-symbol
   (is-true (equal (lex "end comment symbol = '*)';")
 		  '((:unknown "end") (:unknown "comment") (:unknown "symbol") (:definition) (:quoted-symbol "*)") (:terminator)))))
