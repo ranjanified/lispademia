@@ -323,3 +323,9 @@
 (test lex-end-group-symbol
   (is-true (equal (lex "end group symbol = ')';")
 		  '((:unknown "end") (:unknown "group") (:unknown "symbol") (:definition) (:quoted-symbol ")") (:terminator)))))
+
+(test lex-end-option-symbol
+  (is-true (equal (lex "end option symbol = ']' | '/)';")
+		  '((:unknown "end") (:unknown "option") (:unknown "symbol")
+		    (:definition)
+		    (:quoted-symbol "]") (:definition-separator) (:quoted-symbol "/)") (:terminator)))))
