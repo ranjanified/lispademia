@@ -319,3 +319,7 @@
 (test lex-end-comment-symbol
   (is-true (equal (lex "end comment symbol = '*)';")
 		  '((:unknown "end") (:unknown "comment") (:unknown "symbol") (:definition) (:quoted-symbol "*)") (:terminator)))))
+
+(test lex-end-group-symbol
+  (is-true (equal (lex "end group symbol = ')';")
+		  '((:unknown "end") (:unknown "group") (:unknown "symbol") (:definition) (:quoted-symbol ")") (:terminator)))))
