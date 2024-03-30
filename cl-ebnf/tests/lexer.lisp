@@ -332,6 +332,12 @@
   (is-true (equal (lex "end group symbol = ')';")
 		  '((:unknown "end") (:unknown "group") (:unknown "symbol") (:definition) (:quoted-symbol ")") (:terminator)))))
 
+(test lex-start-option-symbol
+  (is-true (equal (lex "start option symbol = '[' | '(/';")
+		  '((:unknown "start") (:unknown "option") (:unknown "symbol")
+		    (:definition)
+		    (:quoted-symbol "[") (:definition-separator) (:quoted-symbol "(/") (:terminator)))))
+
 (test lex-end-option-symbol
   (is-true (equal (lex "end option symbol = ']' | '/)';")
 		  '((:unknown "end") (:unknown "option") (:unknown "symbol")
