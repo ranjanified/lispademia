@@ -375,3 +375,11 @@
 (test lex-special-sequence-symbol
   (is-true (equal (lex "special sequence symbol = '?';")
 		  '((:unknown "special") (:unknown "sequence") (:unknown "symbol") (:definition) (:quoted-symbol "?") (:terminator)))))
+
+(test lex-terminator-symbol
+  (is-true (equal (lex "terminator symbol = ';' | '.';")
+		  '((:unknown "terminator") (:unknown "symbol")
+		    (:definition)
+		    (:quoted-symbol ";") (:definition-separator) (:quoted-symbol ".") (:terminator)))))
+
+
