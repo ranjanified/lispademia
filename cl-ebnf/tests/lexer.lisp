@@ -300,3 +300,7 @@
 		    (:quoted-symbol "4") (:definition-separator) (:quoted-symbol "5") (:definition-separator) (:quoted-symbol "6")
 		    (:definition-separator) (:quoted-symbol "7") (:definition-separator) (:quoted-symbol "8") (:definition-separator)
 		    (:quoted-symbol "9")))))
+
+(test lex-concatenate-symbol
+  (is-true (equal (lex "concatenate symbol = ',';")
+		  '((:unknown "concatenate") (:unknown "symbol") (:definition) (:quoted-symbol ",") (:terminator)))))
