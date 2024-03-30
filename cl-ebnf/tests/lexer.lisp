@@ -335,3 +335,11 @@
 		  '((:unknown "end") (:unknown "repeat") (:unknown "symbol")
 		    (:definition)
 		    (:quoted-symbol "}") (:definition-separator) (:quoted-symbol ":)") (:terminator)))))
+
+(test lex-except-symbol
+  (is-true (equal (lex "except symbol = '-';")
+		  '((:unknown "except") (:unknown "symbol") (:definition) (:quoted-symbol "-") (:terminator)))))
+
+(test lex-first-quote-symbol
+  (is-true (equal (lex "first quote symbol = \"'\";")
+		  '((:unknown "first") (:unknown "quote") (:unknown "symbol") (:definition) (:quoted-symbol "'") (:terminator)))))
