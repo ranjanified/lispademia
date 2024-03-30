@@ -351,3 +351,7 @@
 (test lex-repetition-symbol
   (is-true (equal (lex "repetition symbol = '*';")
 		  '((:unknown "repetition") (:unknown "symbol") (:definition) (:quoted-symbol "*") (:terminator)))))
+
+(test lex-special-sequence-symbol
+  (is-true (equal (lex "special sequence symbol = '?';")
+		  '((:unknown "special") (:unknown "sequence") (:unknown "symbol") (:definition) (:quoted-symbol "?") (:terminator)))))
