@@ -344,6 +344,12 @@
 		    (:definition)
 		    (:quoted-symbol "]") (:definition-separator) (:quoted-symbol "/)") (:terminator)))))
 
+(test lex-start-repeat-symbol
+  (is-true (equal (lex "start repeat symbol = '{' | '(:';")
+		  '((:unknown "start") (:unknown "repeat") (:unknown "symbol")
+		    (:definition)
+		    (:quoted-symbol "{") (:definition-separator) (:quoted-symbol "(:") (:terminator)))))
+
 (test lex-end-repeat-symbol
   (is-true (equal (lex "end repeat symbol = '}' | ':)';")
 		  '((:unknown "end") (:unknown "repeat") (:unknown "symbol")
