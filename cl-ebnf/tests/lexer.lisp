@@ -245,4 +245,50 @@
 		      (:group
 		       ((:quoted-symbol " ") (:definition-separator) (:quoted-symbol "0")))))
 		    (:concatenate) (:unknown "66") (:repetition)
+		    (:option ((:unknown "character"))) (:terminator))))
+
+  (is-true (equal (lex "Fortran 77 continuation line = character - \"C\", 4 * character, (character - (\" \" | \"0\")), 66 * [character] ;")
+		  '((:unknown "Fortran") (:unknown "77") (:unknown "continuation")
+		    (:unknown "line") (:definition) (:unknown "character") (:exception) (:quoted-symbol "C") (:concatenate)
+		    (:unknown "4") (:repetition) (:unknown "character") (:concatenate)
+		    (:group
+		     ((:unknown "character") (:exception)
+		      (:group
+		       ((:quoted-symbol " ") (:definition-separator) (:quoted-symbol "0")))))
+		    (:concatenate) (:unknown "66") (:repetition)
 		    (:option ((:unknown "character"))) (:terminator)))))
+
+(test lex-letter
+  (is-true (equal (lex (concatenate 'string
+				    "letter" " " "="
+				    "'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm'"
+				    " | "
+				    "'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'"
+				    " | "
+				    "'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M'"
+				    " | "
+				    "'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z'"
+				    ))
+		  '((:unknown "letter") (:definition)
+		    (:quoted-symbol "a") (:definition-separator) (:quoted-symbol "b") (:definition-separator) (:quoted-symbol "c")
+		    (:definition-separator) (:quoted-symbol "d") (:definition-separator) (:quoted-symbol "e") (:definition-separator)
+		    (:quoted-symbol "f") (:definition-separator) (:quoted-symbol "g") (:definition-separator) (:quoted-symbol "h")
+		    (:definition-separator) (:quoted-symbol "i") (:definition-separator) (:quoted-symbol "j") (:definition-separator)
+		    (:quoted-symbol "k") (:definition-separator) (:quoted-symbol "l") (:definition-separator) (:quoted-symbol "m")
+		    (:definition-separator) (:quoted-symbol "n") (:definition-separator) (:quoted-symbol "o") (:definition-separator)
+		    (:quoted-symbol "p") (:definition-separator) (:quoted-symbol "q") (:definition-separator) (:quoted-symbol "r")
+		    (:definition-separator) (:quoted-symbol "s") (:definition-separator) (:quoted-symbol "t") (:definition-separator)
+		    (:quoted-symbol "u") (:definition-separator) (:quoted-symbol "v") (:definition-separator) (:quoted-symbol "w")
+		    (:definition-separator) (:quoted-symbol "x") (:definition-separator) (:quoted-symbol "y") (:definition-separator)
+		    (:quoted-symbol "z") (:definition-separator)
+		    (:quoted-symbol "A") (:definition-separator) (:quoted-symbol "B") (:definition-separator) (:quoted-symbol "C")
+		    (:definition-separator) (:quoted-symbol "D") (:definition-separator) (:quoted-symbol "E") (:definition-separator)
+		    (:quoted-symbol "F") (:definition-separator) (:quoted-symbol "G") (:definition-separator) (:quoted-symbol "H")
+		    (:definition-separator) (:quoted-symbol "I") (:definition-separator) (:quoted-symbol "J") (:definition-separator)
+		    (:quoted-symbol "K") (:definition-separator) (:quoted-symbol "L") (:definition-separator) (:quoted-symbol "M")
+		    (:definition-separator) (:quoted-symbol "N") (:definition-separator) (:quoted-symbol "O") (:definition-separator)
+		    (:quoted-symbol "P") (:definition-separator) (:quoted-symbol "Q") (:definition-separator) (:quoted-symbol "R")
+		    (:definition-separator) (:quoted-symbol "S") (:definition-separator) (:quoted-symbol "T") (:definition-separator)
+		    (:quoted-symbol "U") (:definition-separator) (:quoted-symbol "V") (:definition-separator) (:quoted-symbol "W")
+		    (:definition-separator) (:quoted-symbol "X") (:definition-separator) (:quoted-symbol "Y") (:definition-separator)
+		    (:quoted-symbol "Z")))))
