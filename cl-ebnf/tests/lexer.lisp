@@ -384,7 +384,7 @@
 		    (:quoted-symbol ";") (:definition-separator) (:quoted-symbol ".") (:terminator)))))
 
 (test lex-other-character
-  (is (equal (lex "other character = ' ' | ':' | '+' | '_' | '%' | '@' | '&' | '#' | '$' | '<' | '>' | '^' | '`' | '\\' | '~';")
+  (is-true (equal (lex "other character = ' ' | ':' | '+' | '_' | '%' | '@' | '&' | '#' | '$' | '<' | '>' | '^' | '`' | '\\' | '~';")
 		  '((:unknown "other") (:unknown "character") (:definition) (:quoted-symbol " ") (:definition-separator) (:quoted-symbol ":")
 		    (:definition-separator) (:quoted-symbol "+") (:definition-separator) (:quoted-symbol "_") (:definition-separator)
 		    (:quoted-symbol "%") (:definition-separator) (:quoted-symbol "@") (:definition-separator) (:quoted-symbol "&")
@@ -392,4 +392,11 @@
 		    (:quoted-symbol "<") (:definition-separator) (:quoted-symbol ">") (:definition-separator) (:quoted-symbol "^")
 		    (:definition-separator) (:quoted-symbol "`") (:definition-separator) (:quoted-symbol "\\") (:definition-separator)
 		    (:quoted-symbol "~")
+		    (:terminator)))))
+
+(test lex-space-character
+  (is-true (equal (lex "space character = ' ';")
+		  '((:unknown "space") (:unknown "character")
+		    (:definition)
+		    (:quoted-symbol " ")
 		    (:terminator)))))
