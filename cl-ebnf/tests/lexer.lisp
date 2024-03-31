@@ -548,3 +548,19 @@
 		    (:exception)
 		    (:unknown "second") (:unknown "quote") (:unknown "symbol")
 		    (:terminator)))))
+
+(test lex-gap-separator
+  (is-true
+   (equal (Lex "gap separator = space character | horizontal tabulation character | new line | vertical tabulation character | form feed;")
+	  '((:unknown "gap") (:unknown "separator")
+	    (:definition)
+	    (:unknown "space") (:unknown "character")
+	    (:definition-separator)
+	    (:unknown "horizontal") (:unknown "tabulation") (:unknown "character")
+	    (:definition-separator)
+	    (:unknown "new") (:unknown "line")
+	    (:definition-separator)
+	    (:unknown "vertical") (:unknown "tabulation") (:unknown "character")
+	    (:definition-separator)
+	    (:unknown "form") (:unknown "feed")
+	    (:terminator)))))
