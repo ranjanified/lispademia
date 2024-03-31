@@ -530,3 +530,12 @@
 		    (:concatenate)
 		    (:unknown "second") (:unknown "quote") (:unknown "symbol")
 		    (:terminator)))))
+
+(test lex-first-terminal-character
+  (is-true (equal (lex "first terminal character = terminal character - first quote symbol ;")
+		  '((:unknown "first") (:unknown "terminal") (:unknown "character")
+		    (:definition)
+		    (:unknown "terminal") (:unknown "character")
+		    (:exception)
+		    (:unknown "first") (:unknown "quote") (:unknown "symbol")
+		    (:terminator)))))
