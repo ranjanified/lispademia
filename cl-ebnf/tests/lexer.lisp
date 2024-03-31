@@ -409,3 +409,18 @@
 					(:unknown "Horizontal") (:unknown "Tabulation")))
 		    (:terminator)))))
 
+(test lex-newline
+  (is-true (equal
+	    (lex
+	     "new line = { ? ISO 6429 character Carriage Return ? }, ? ISO 6429 character Line Feed ?, { ? ISO 6429 character Carriage Return ? } ;")
+	    '((:unknown "new") (:unknown "line")
+	      (:definition)
+	      (:repeat ((:special-sequence ((:unknown "ISO") (:unknown "6429") (:unknown "character")
+					    (:unknown "Carriage") (:unknown "Return")))))
+	      (:concatenate)
+	      (:special-sequence ((:unknown "ISO") (:unknown "6429") (:unknown "character")
+				  (:unknown "Line") (:unknown "Feed")))
+	      (:concatenate)
+	      (:repeat ((:special-sequence ((:unknown "ISO") (:unknown "6429") (:unknown "character")
+					    (:unknown "Carriage") (:unknown "Return")))))
+	      (:terminator)))))
