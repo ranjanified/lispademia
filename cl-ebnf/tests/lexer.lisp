@@ -539,3 +539,12 @@
 		    (:exception)
 		    (:unknown "first") (:unknown "quote") (:unknown "symbol")
 		    (:terminator)))))
+
+(test lex-second-terminal-character
+  (is-true (equal (lex "second terminal character = terminal character - second quote symbol ;")
+		  '((:unknown "second") (:unknown "terminal") (:unknown "character")
+		    (:definition)
+		    (:unknown "terminal") (:unknown "character")
+		    (:exception)
+		    (:unknown "second") (:unknown "quote") (:unknown "symbol")
+		    (:terminator)))))
