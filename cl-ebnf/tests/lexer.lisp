@@ -432,3 +432,11 @@
 		    (:special-sequence ((:unknown "ISO") (:unknown "6429") (:unknown "character")
 					(:unknown "Vertical") (:unknown "Tabulation")))
 		    (:terminator)))))
+
+(test lex-formfeed
+  (is-true (equal (lex "form feed = ? ISO 6429 character Form Feed ? ;")
+		  '((:unknown "form") (:unknown "feed")
+		    (:definition)
+		    (:special-sequence ((:unknown "ISO") (:unknown "6429") (:unknown "character")
+					(:unknown "Form") (:unknown "Feed")))
+		    (:terminator)))))
