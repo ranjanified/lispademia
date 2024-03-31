@@ -490,3 +490,16 @@
 		    (:definition-separator) (:unknown "terminator") (:unknown "symbol")
 		    (:definition-separator) (:unknown "other") (:unknown "character")
 		    (:terminator)))))
+
+(test lex-gap-free-symbol
+  (is-true (equal (lex "gap free symbol = terminal character - (first quote symbol | second quote symbol) | terminal string ;")
+		  '((:unknown "gap") (:unknown "free") (:unknown "symbol")
+		    (:definition)
+		    (:unknown "terminal") (:unknown "character")
+		    (:exception)
+		    (:group ((:unknown "first") (:unknown "quote") (:unknown "symbol")
+			     (:definition-separator)
+			     (:unknown "second") (:unknown "quote") (:unknown "symbol")))
+		    (:definition-separator)
+		    (:unknown "terminal") (:unknown "string")
+		    (:terminator)))))
