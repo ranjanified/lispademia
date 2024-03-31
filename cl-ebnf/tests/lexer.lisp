@@ -440,3 +440,53 @@
 		    (:special-sequence ((:unknown "ISO") (:unknown "6429") (:unknown "character")
 					(:unknown "Form") (:unknown "Feed")))
 		    (:terminator)))))
+
+(test lex-terminal-character
+  (is (equal (lex (concatenate 'string
+				    "terminal character"
+				    " = "
+				    "letter"
+				    " | decimal digit"
+				    " | concatenate symbol"
+				    " | defining symbol"
+				    " | definition separator symbol"
+				    " | start comment symbol"
+				    " | end comment symbol"
+				    " | start group symbol"
+				    " | end group symbol"
+				    " | start option symbol"
+				    " | end option symbol"
+				    " | start repeat symbol"
+				    " | end repeat symbol"
+				    " | except symbol"
+				    " | first quote symbol"
+				    " | second quote symbol"
+				    " | repetition symbol"
+				    " | special sequence symbol"
+				    " | terminator symbol"
+				    " | other character"
+				    " ;"
+				    ))
+		  '((:unknown "terminal") (:unknown "character")
+		    (:definition)
+		    (:unknown "letter")
+		    (:definition-separator) (:unknown "decimal") (:unknown "digit")
+		    (:definition-separator) (:unknown "concatenate") (:unknown "symbol")
+		    (:definition-separator) (:unknown "defining") (:unknown "symbol")
+		    (:definition-separator) (:unknown "definition") (:unknown "separator") (:unknown "symbol")
+		    (:definition-separator) (:unknown "start") (:unknown "comment") (:unknown "symbol")
+		    (:definition-separator) (:unknown "end") (:unknown "comment") (:unknown "symbol")
+		    (:definition-separator) (:unknown "start") (:unknown "group") (:unknown "symbol")
+		    (:definition-separator) (:unknown "end") (:unknown "group") (:unknown "symbol")
+		    (:definition-separator) (:unknown "start") (:unknown "option") (:unknown "symbol")
+		    (:definition-separator) (:unknown "end") (:unknown "option") (:unknown "symbol")
+		    (:definition-separator) (:unknown "start") (:unknown "repeat") (:unknown "symbol")
+		    (:definition-separator) (:unknown "end") (:unknown "repeat") (:unknown "symbol")
+		    (:definition-separator) (:unknown "except") (:unknown "symbol")
+		    (:definition-separator) (:unknown "first") (:unknown "quote") (:unknown "symbol")
+		    (:definition-separator) (:unknown "second") (:unknown "quote") (:unknown "symbol")
+		    (:definition-separator) (:unknown "repetition") (:unknown "symbol")
+		    (:definition-separator) (:unknown "special") (:unknown "sequence") (:unknown "symbol")
+		    (:definition-separator) (:unknown "terminator") (:unknown "symbol")
+		    (:definition-separator) (:unknown "other") (:unknown "character")
+		    (:terminator)))))
