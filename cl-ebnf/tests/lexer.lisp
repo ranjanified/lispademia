@@ -424,3 +424,11 @@
 	      (:repeat ((:special-sequence ((:unknown "ISO") (:unknown "6429") (:unknown "character")
 					    (:unknown "Carriage") (:unknown "Return")))))
 	      (:terminator)))))
+
+(test lex-vertical-tabulation
+  (is-true (equal (lex "vertical tabulation character = ? ISO 6429 character Vertical Tabulation ? ;")
+		  '((:unknown "vertical") (:unknown "tabulation") (:unknown "character")
+		    (:definition)
+		    (:special-sequence ((:unknown "ISO") (:unknown "6429") (:unknown "character")
+					(:unknown "Vertical") (:unknown "Tabulation")))
+		    (:terminator)))))
