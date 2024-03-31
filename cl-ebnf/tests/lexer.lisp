@@ -564,3 +564,46 @@
 	    (:definition-separator)
 	    (:unknown "form") (:unknown "feed")
 	    (:terminator)))))
+
+(test lex-commentless-symbol
+  (is-true
+   (equal (lex (concatenate
+		'string
+		"commentless symbol"
+		" = "
+		"terminal character"
+		" - "
+		"( "
+		"  letter | decimal digit | first quote symbol | second quote symbol | start comment symbol | end comment symbol"
+		"| special sequence symbol | other character"
+		" )"
+		"| meta identifier | integer | terminal string | special sequence"
+		" ;"))
+	  '((:unknown "commentless") (:unknown "symbol")
+	    (:definition)
+	    (:unknown "terminal") (:unknown "character")
+	    (:exception)
+	    (:group ((:unknown "letter")
+		     (:definition-separator)
+		     (:unknown "decimal") (:unknown "digit")
+		     (:definition-separator)
+		     (:unknown "first") (:unknown "quote") (:unknown "symbol")
+		     (:definition-separator)
+		     (:unknown "second") (:unknown "quote") (:unknown "symbol")
+		     (:definition-separator)
+		     (:unknown "start") (:unknown "comment") (:unknown "symbol")
+		     (:definition-separator)
+		     (:unknown "end") (:unknown "comment") (:unknown "symbol")
+		     (:definition-separator)
+		     (:unknown "special") (:unknown "sequence") (:unknown "symbol")
+		     (:definition-separator)
+		     (:unknown "other") (:unknown "character")))
+	    (:definition-separator)
+	    (:unknown "meta") (:unknown "identifier")
+	    (:definition-separator)
+	    (:unknown "integer")
+	    (:definition-separator)
+	    (:unknown "terminal") (:unknown "string")
+	    (:definition-separator)
+	    (:unknown "special") (:unknown "sequence")
+	    (:terminator)))))
