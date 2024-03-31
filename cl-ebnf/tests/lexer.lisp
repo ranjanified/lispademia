@@ -400,3 +400,12 @@
 		    (:definition)
 		    (:quoted-symbol " ")
 		    (:terminator)))))
+
+(test lex-horizontal-tabulation
+  (is-true (equal (lex "horizontal tabulation character = ? ISO 6429 character Horizontal Tabulation ? ;")
+		  '((:unknown "horizontal") (:unknown "tabulation") (:unknown "character")
+		    (:definition)
+		    (:special-sequence ((:unknown "ISO") (:unknown "6429") (:unknown "character")
+					(:unknown "Horizontal") (:unknown "Tabulation")))
+		    (:terminator)))))
+
