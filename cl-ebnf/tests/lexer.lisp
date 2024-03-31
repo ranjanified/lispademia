@@ -665,3 +665,14 @@
 		    (:definition-separator)
 		    (:unknown "commentless") (:unknown "symbol")
 		    (:terminator)))))
+
+(test lex-bracketed-textual-comment
+  (is-true (equal (lex "bracketed textual comment = start comment symbol, { comment symbol }, end comment symbol ;")
+		  '((:unknown "bracketed") (:unknown "textual") (:unknown "comment")
+		    (:definition)
+		    (:unknown "start") (:unknown "comment") (:unknown "symbol")
+		    (:concatenate)
+		    (:repeat ((:unknown "comment") (:unknown "symbol")))
+		    (:concatenate)
+		    (:unknown "end") (:unknown "comment") (:unknown "symbol")
+		    (:terminator)))))
