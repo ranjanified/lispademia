@@ -121,15 +121,22 @@
 (defun read-quoted-symbol (stream chr)
   (list :quoted-symbol
 	(loop
-	  :for next-char := (read-char stream nil)
-	  :while next-char
-	  :until (char= chr next-char)
-	  :if (char= next-char #\REVERSE_SOLIDUS)
-	    :append (if (peek-char nil stream nil)
-			(list next-char (read-char stream nil))
-			(list next-char)) :into quoted-symbols
-	  :else :collect next-char :into quoted-symbols
-	  :finally (unless next-char (error 'malformed-token :token-type :quoted-symbol))
+	  :for curr-char := (read-char stream nil)
+	  :while curr-char
+	  :until (char= chr curr-char)
+	  ;; :do (format t "curr-char: ~c~&" curr-char)
+	  ;; :if (char= curr-char #\REVERSE_SOLIDUS) ; REVERSE_SOLIDUS is \
+	  ;;   :append (let ((next-char (read-char stream nil)))
+	  ;; 	      (cond
+	  ;; 		((null next-char) (list curr-char))
+	  ;; 		((peek-char nil stream nil) (list curr-char next-char))
+	  ;; 		(t (unread-char next-char stream) (list curr-char))))
+	  ;;     :into quoted-symbols
+	  ;; :else
+	    :collect curr-char :into quoted-symbols
+	  :finally (unless curr-char (error 'malformed-token :token-type :quoted-symbol)) ; loop terminated due to end of stream
+		   ;; loop terminated due to matching quote found
+		   ;; (format t "read-quoted-symbol returning")
 		   (return (coerce quoted-symbols 'string)))))
 
 (defun read-special-sequence (stream chr)

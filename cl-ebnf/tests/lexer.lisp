@@ -217,8 +217,8 @@
   (is-true (equal (lex "\"asd bcg\"") '((:quoted-symbol "asd bcg"))))
   (is-true (equal (lex "\"   asd bcg\"") '((:quoted-symbol "   asd bcg"))))
   (is-true (equal (lex "\"asd bcg   \"") '((:quoted-symbol "asd bcg   "))))
-  (is-true (equal (lex "\"asd\\\"bcg\"") '((:quoted-symbol "asd\\\"bcg")))) ; to be checked if escaped quotes are to be preserved or not
-  (is-true (equal (lex "\"\\\"\"") '((:quoted-symbol "\\\""))))
+  (signals malformed-token (lex "\"asd\\\"bcg\"")) ; no escaped quote allowed
+  (signals malformed-token (lex "\"\\\"\"")) ; no escaped quote allowed
   (signals malformed-token (lex "\""))
   (signals malformed-token (lex "asd\""))
   (signals malformed-token (lex "\"asd\" bcg \""))
@@ -229,8 +229,9 @@
   (is-true (equal (lex "'asd bcg'") '((:quoted-symbol "asd bcg"))))
   (is-true (equal (lex "'   asd bcg'") '((:quoted-symbol "   asd bcg"))))
   (is-true (equal (lex "'asd bcg   '") '((:quoted-symbol "asd bcg   "))))
-  (is-true (equal (lex "'asd\\'bcg'") '((:quoted-symbol "asd\\'bcg")))) ; to be checked if escaped quotes are to be preserved or not
-  (is-true (equal (lex "'\\''") '((:quoted-symbol "\\'"))))
+  (is-true (equal (lex "'\\'") '((:quoted-symbol "\\"))))
+  (signals malformed-token (lex "'asd\\'bcg'")) ; no escaped quote allowed
+  (signals malformed-token (lex "'\\''")) ; no escaped quote allowed
   (signals malformed-token (lex "'"))
   (signals malformed-token (lex "asd'"))
   (signals malformed-token (lex "'asd' bcg '")))
@@ -382,4 +383,13 @@
 		    (:definition)
 		    (:quoted-symbol ";") (:definition-separator) (:quoted-symbol ".") (:terminator)))))
 
-
+(test lex-other-character
+  (is (equal (lex "other character = ' ' | ':' | '+' | '_' | '%' | '@' | '&' | '#' | '$' | '<' | '>' | '^' | '`' | '\\' | '~';")
+		  '((:unknown "other") (:unknown "character") (:definition) (:quoted-symbol " ") (:definition-separator) (:quoted-symbol ":")
+		    (:definition-separator) (:quoted-symbol "+") (:definition-separator) (:quoted-symbol "_") (:definition-separator)
+		    (:quoted-symbol "%") (:definition-separator) (:quoted-symbol "@") (:definition-separator) (:quoted-symbol "&")
+		    (:definition-separator) (:quoted-symbol "#") (:definition-separator) (:quoted-symbol "$") (:definition-separator)
+		    (:quoted-symbol "<") (:definition-separator) (:quoted-symbol ">") (:definition-separator) (:quoted-symbol "^")
+		    (:definition-separator) (:quoted-symbol "`") (:definition-separator) (:quoted-symbol "\\") (:definition-separator)
+		    (:quoted-symbol "~")
+		    (:terminator)))))
