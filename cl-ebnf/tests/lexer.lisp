@@ -645,3 +645,12 @@
 		    (:concatenate)
 		    (:unknown "special") (:unknown "sequence") (:unknown "symbol")
 		    (:terminator)))))
+
+(test lex-special-sequence-character
+  (is-true (equal (lex "special sequence character = terminal character - special sequence symbol ;")
+		  '((:unknown "special") (:unknown "sequence") (:unknown "character")
+		    (:definition)
+		    (:unknown "terminal") (:unknown "character")
+		    (:exception)
+		    (:unknown "special") (:unknown "sequence") (:unknown "symbol")
+		    (:terminator)))))
