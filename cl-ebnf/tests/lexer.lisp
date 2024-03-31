@@ -625,3 +625,12 @@
 		    (:concatenate)
 		    (:repeat ((:unknown "meta") (:unknown "identifier") (:unknown "character")))
 		    (:terminator)))))
+
+(test lex-meta-identifier-character
+  (is-true (equal (lex "meta identifier character = letter | decimal digit ;")
+		  '((:unknown "meta") (:unknown "identifier") (:unknown "character")
+		    (:definition)
+		    (:unknown "letter")
+		    (:definition-separator)
+		    (:unknown "decimal") (:unknown "digit")
+		    (:terminator)))))
