@@ -503,3 +503,30 @@
 		    (:definition-separator)
 		    (:unknown "terminal") (:unknown "string")
 		    (:terminator)))))
+
+(test lex-terminal-string
+  (is-true (equal (lex (concatenate 'string
+				    "terminal string"
+				    " = "
+				    "first quote symbol, first quote character, {first quote character}, first quote symbol"
+				    " | "
+				    "second quote symbol, second quote character, {second quote character}, second quote symbol"
+				    " ;"))
+		  '((:unknown "terminal") (:unknown "string")
+		    (:definition)
+		    (:unknown "first") (:unknown "quote")(:unknown "symbol")
+		    (:concatenate)
+		    (:unknown "first") (:unknown "quote") (:unknown "character")
+		    (:concatenate)
+		    (:repeat ((:unknown "first") (:unknown "quote") (:unknown "character")))
+		    (:concatenate)
+		    (:unknown "first") (:unknown "quote") (:unknown "symbol")
+		    (:definition-separator)
+		    (:unknown "second") (:unknown "quote")(:unknown "symbol")
+		    (:concatenate)
+		    (:unknown "second") (:unknown "quote") (:unknown "character")
+		    (:concatenate)
+		    (:repeat ((:unknown "second") (:unknown "quote") (:unknown "character")))
+		    (:concatenate)
+		    (:unknown "second") (:unknown "quote") (:unknown "symbol")
+		    (:terminator)))))
