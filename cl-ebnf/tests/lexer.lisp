@@ -607,3 +607,12 @@
 	    (:definition-separator)
 	    (:unknown "special") (:unknown "sequence")
 	    (:terminator)))))
+
+(test lex-integer
+  (is-true (equal (lex "integer = decimal digit, {decimal digit} ;")
+		  '((:unknown "integer")
+		    (:definition)
+		    (:unknown "decimal") (:unknown "digit")
+		    (:concatenate)
+		    (:repeat ((:unknown "decimal") (:unknown "digit")))
+		    (:terminator)))))
