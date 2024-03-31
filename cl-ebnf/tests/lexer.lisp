@@ -634,3 +634,14 @@
 		    (:definition-separator)
 		    (:unknown "decimal") (:unknown "digit")
 		    (:terminator)))))
+
+(test lex-special-sequence
+  (is-true (equal (lex "special sequence = special sequence symbol, { special sequence character }, special sequence symbol ;")
+		  '((:unknown "special") (:unknown "sequence")
+		    (:definition)
+		    (:unknown "special") (:unknown "sequence") (:unknown "symbol")
+		    (:concatenate)
+		    (:repeat ((:unknown "special") (:unknown "sequence") (:unknown "character")))
+		    (:concatenate)
+		    (:unknown "special") (:unknown "sequence") (:unknown "symbol")
+		    (:terminator)))))
