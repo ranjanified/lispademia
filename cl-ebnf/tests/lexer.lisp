@@ -654,3 +654,14 @@
 		    (:exception)
 		    (:unknown "special") (:unknown "sequence") (:unknown "symbol")
 		    (:terminator)))))
+
+(test lex-comment-symbol
+  (is-true (equal (lex "comment symbol = bracketed textual comment | other character | commentless symbol ;")
+		  '((:unknown "comment") (:unknown "symbol")
+		    (:definition)
+		    (:unknown "bracketed") (:unknown "textual") (:unknown "comment")
+		    (:definition-separator)
+		    (:unknown "other") (:unknown "character")
+		    (:definition-separator)
+		    (:unknown "commentless") (:unknown "symbol")
+		    (:terminator)))))
