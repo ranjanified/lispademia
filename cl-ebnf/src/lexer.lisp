@@ -3,11 +3,12 @@
 (defgeneric lex (token-source))
 
 (defmethod lex ((token-source string))
-  (progv '(group-level option-level repeat-level special-sequence-level) '(0 0 0 0) 
+  ;; with variables to track mandatory balanced lexicons
+  (progv '(group-level option-level repeat-level special-sequence-level) '(0 0 0 0)  
     (with-input-from-string (token-stream token-source)
       (let ((*readtable* (copy-readtable nil)))
 	(setf (readtable-case *readtable*) :preserve)
-	(set-macro-character #\( #'read-possibly-corg)
+	(set-macro-character #\LEFT_PARENTHESIS #'read-possibly-corg)
 	(set-macro-character +start-option-symbol+ #'read-option)
 	(set-macro-character +concatenate-symbol+ #'read-concatenate-symbol)
 	(set-macro-character +start-repeat-symbol+ #'read-repeat)
@@ -25,12 +26,11 @@
 	
 	(let ((tokens (lex-stream token-stream *readtable*)))
 	  (locally (declare (special group-level option-level repeat-level special-sequence-level))
-	    (cond
-	      ((not (zerop group-level)) (error 'malformed-token :token-type :ebnf-group))
-	      ((not (zerop option-level)) (error 'malformed-token :token-type :ebnf-option))
-	      ((not (zerop repeat-level)) (error 'malformed-token :token-type :ebnf-repeat))
-	      ((not (zerop special-sequence-level)) (error 'malformed-token :token-type :ebnf-special-sequence))
-	      (t tokens))))))))
+	    (assert-malformed-token group-level :token-type :ebnf-group)
+	    (assert-malformed-token option-level :token-type :ebnf-option)
+	    (assert-malformed-token repeat-level :token-type :ebnf-repeat)
+	    (assert-malformed-token special-sequence-level :token-type :ebnf-special-sequence)
+	    tokens))))))
 
 (defun lex-stream (token-stream with-readtable)
   (let ((*readtable* (copy-readtable with-readtable)))
@@ -124,19 +124,9 @@
 	  :for curr-char := (read-char stream nil)
 	  :while curr-char
 	  :until (char= chr curr-char)
-	  ;; :do (format t "curr-char: ~c~&" curr-char)
-	  ;; :if (char= curr-char #\REVERSE_SOLIDUS) ; REVERSE_SOLIDUS is \
-	  ;;   :append (let ((next-char (read-char stream nil)))
-	  ;; 	      (cond
-	  ;; 		((null next-char) (list curr-char))
-	  ;; 		((peek-char nil stream nil) (list curr-char next-char))
-	  ;; 		(t (unread-char next-char stream) (list curr-char))))
-	  ;;     :into quoted-symbols
-	  ;; :else
 	    :collect curr-char :into quoted-symbols
 	  :finally (unless curr-char (error 'malformed-token :token-type :quoted-symbol)) ; loop terminated due to end of stream
 		   ;; loop terminated due to matching quote found
-		   ;; (format t "read-quoted-symbol returning")
 		   (return (coerce quoted-symbols 'string)))))
 
 (defun read-special-sequence (stream chr)
@@ -169,3 +159,6 @@
 (defun read-definition-separator-symbol (stream chr)
   (declare (ignore stream chr))
   (list :definition-separator))
+
+(defun assert-malformed-token (bal-val &key token-type)
+  (assert (zerop bal-val) (bal-val) 'malformed-token :token-type token-type))

@@ -676,3 +676,28 @@
 		    (:concatenate)
 		    (:unknown "end") (:unknown "comment") (:unknown "symbol")
 		    (:terminator)))))
+
+(test lex-syntax
+  (is-true (equal (lex  (concatenate 'string
+				     "syntax"
+				     " = "
+				     "{ bracketed textual comment }"
+				     " , "
+				     "commentless symbol"
+				     " , "
+				     "{ bracketed textual comment }"
+				     " , "
+				     "{ commentless symbol, { bracketed textual comment }}"
+				     " ;"))
+		  '((:unknown "syntax")
+		    (:definition)
+		    (:repeat ((:unknown "bracketed") (:unknown "textual") (:unknown "comment")))
+		    (:concatenate)
+		    (:unknown "commentless") (:unknown "symbol")
+		    (:concatenate)
+		    (:repeat ((:unknown "bracketed") (:unknown "textual") (:unknown "comment")))
+		    (:concatenate)
+		    (:repeat ((:unknown "commentless") (:unknown "symbol")
+			      (:concatenate)
+			      (:repeat ((:unknown "bracketed") (:unknown "textual") (:unknown "comment")))))
+		    (:terminator)))))
