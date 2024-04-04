@@ -5,7 +5,8 @@
   :depends-on ()
   :components ((:module "src"
                 :components
-                ((:file "main"))))
+                ((:file "main")
+		 (:file "chapter-2"))))
   :description ""
   :in-order-to ((test-op (test-op #:cl-hackers-delight/tests))))
 

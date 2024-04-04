@@ -1,3 +1,4 @@
 (defpackage #:cl-hackers-delight
-  (:use #:cl))
+  (:use #:cl)
+  (:export #:turnoff-rightmost-1))
 
