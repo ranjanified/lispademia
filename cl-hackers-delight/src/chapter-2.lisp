@@ -8,3 +8,6 @@
 (defun turnon-rightmost-0 (num)
   "Turns on the rightmost 0 bit, producing all 1's if none. Formula: x | (x + 1)"
   (logior num (1+ num)))
+
+(defun turnoff-trailing-1s (num)
+  (logand num (1+ num)))
