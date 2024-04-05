@@ -11,4 +11,5 @@
 
 ;;; This can be used to determine if an unassigned integer is of the form 2^n - 1, 0, or all 1's
 (defun turnoff-trailing-1s (num)
+  "Turns off trailing 1's in a word, producing num if none"
   (logand num (1+ num)))
