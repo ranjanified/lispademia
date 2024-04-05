@@ -32,3 +32,7 @@
   "Create a word with 1's at the positions of the trailing 0's in word, and 0's elsewhere, producing 0 if none"
   ;; cl standard: (boole boole-andc1 word (1- word))
   (logand (lognot word) (1- word)))
+
+(defun word-with-0s-at-trailing-1s-and-0s-elsewhere (word)
+  "create a word with 0's at the poision of the trailing 1's in word, and 0's elsewhere, producing all 1's if none"
+  (logior (lognot word) (1+ word)))
