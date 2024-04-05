@@ -13,3 +13,7 @@
 (defun turnoff-trailing-1s (num)
   "Turns off trailing 1's in a word, producing num if none"
   (logand num (1+ num)))
+
+(defun turnon-trailing-0s (num)
+  "Turns on the trailing 0's in a word, producing num if none"
+  (logior num (1- num)))

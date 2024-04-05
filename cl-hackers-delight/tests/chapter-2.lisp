@@ -37,3 +37,15 @@
   (is-true (= #b1000 (turnoff-trailing-1s #b1011)))
   (is-true (= #b1100 (turnoff-trailing-1s #b1101)))
   (is-true (= #b0000 (turnoff-trailing-1s #b1111))))
+
+(test turnon-trailing-0s
+  (is-true (= #b-0001 (turnon-trailing-0s #b0000)))
+  (is-true (= #b0001 (turnon-trailing-0s #b0001)))
+  (is-true (= #b0011 (turnon-trailing-0s #b0010)))
+  (is-true (= #b0111 (turnon-trailing-0s #b0100)))
+  (is-true (= #b1111 (turnon-trailing-0s #b1000)))
+  (is-true (= #b0011 (turnon-trailing-0s #b0011)))
+  (is-true (= #b0101 (turnon-trailing-0s #b0101)))
+  (is-true (= #b1001 (turnon-trailing-0s #b1001)))
+  (is-true (= #b1011 (turnon-trailing-0s #b1010)))
+  (is-true (= #b1111 (turnon-trailing-0s #b1100))))
