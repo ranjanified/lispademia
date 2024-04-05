@@ -9,5 +9,6 @@
   "Turns on the rightmost 0 bit, producing all 1's if none. Formula: x | (x + 1)"
   (logior num (1+ num)))
 
+;;; This can be used to determine if an unassigned integer is of the form 2^n - 1, 0, or all 1's
 (defun turnoff-trailing-1s (num)
   (logand num (1+ num)))
