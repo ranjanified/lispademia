@@ -17,3 +17,7 @@
 (defun turnon-trailing-0s (num)
   "Turns on the trailing 0's in a word, producing num if none"
   (logior num (1- num)))
+
+(defun word-with-only-1-bit-in-rightmost-0-bit-position (word)
+  "Create a word with single 1-bit, at the position of the rightmost 0 bit in word, producing 0 if none"
+  (logand (lognot word) (1+ word)))

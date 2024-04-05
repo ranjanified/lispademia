@@ -49,3 +49,15 @@
   (is-true (= #b1001 (turnon-trailing-0s #b1001)))
   (is-true (= #b1011 (turnon-trailing-0s #b1010)))
   (is-true (= #b1111 (turnon-trailing-0s #b1100))))
+
+(test word-with-only-1-bit-in-rightmost-0-bit-position
+  (is-true (= #b0001 (word-with-only-1-bit-in-rightmost-0-bit-position #b0000)))
+  (is-true (= #b0010 (word-with-only-1-bit-in-rightmost-0-bit-position #b0001)))
+  (is-true (= #b0001 (word-with-only-1-bit-in-rightmost-0-bit-position #b0010)))
+  (is-true (= #b0001 (word-with-only-1-bit-in-rightmost-0-bit-position #b0100)))
+  (is-true (= #b0001 (word-with-only-1-bit-in-rightmost-0-bit-position #b1000)))
+  (is-true (= #b0100 (word-with-only-1-bit-in-rightmost-0-bit-position #b0011)))
+  (is-true (= #b0010 (word-with-only-1-bit-in-rightmost-0-bit-position #b0101)))
+  (is-true (= #b0010 (word-with-only-1-bit-in-rightmost-0-bit-position #b1101)))
+  (is-true (= #b0100 (word-with-only-1-bit-in-rightmost-0-bit-position #b1011)))
+  (is-true (= #b1000 (word-with-only-1-bit-in-rightmost-0-bit-position #b0111))))
