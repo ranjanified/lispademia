@@ -27,3 +27,8 @@
   "Create a word with single 0-bit, at the position of the rightmost 1-bit in word, producing all 1's if none"
   ;; cl standard: (boole boole-orc1 word (1- word)) achieves the same
   (logior (lognot word) (1- word)))
+
+(defun word-with-1s-at-tailing-0s-and-0s-elsewhere (word)
+  "Create a word with 1's at the positions of the trailing 0's in word, and 0's elsewhere, producing 0 if none"
+  ;; cl standard: (boole boole-andc1 word (1- word))
+  (logand (lognot word) (1- word)))
