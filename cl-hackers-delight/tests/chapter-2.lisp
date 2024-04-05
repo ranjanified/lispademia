@@ -61,3 +61,15 @@
   (is-true (= #b0010 (word-with-only-1-bit-in-rightmost-0-bit-position #b1101)))
   (is-true (= #b0100 (word-with-only-1-bit-in-rightmost-0-bit-position #b1011)))
   (is-true (= #b1000 (word-with-only-1-bit-in-rightmost-0-bit-position #b0111))))
+
+(test word-with-only-0-bit-in-rightmost-1-bit-position
+  (is-true (= #-b0001 (word-with-only-0-bit-in-rightmost-1-bit-position #b0000))) ; not 2's complement representation
+  (is-true (= #b-0010 (word-with-only-0-bit-in-rightmost-1-bit-position #b0001)))
+  (is-true (= #b-0011 (word-with-only-0-bit-in-rightmost-1-bit-position #b0010)))
+  (is-true (= #b-0101 (word-with-only-0-bit-in-rightmost-1-bit-position #b0100)))
+  (is-true (= #b-1001 (word-with-only-0-bit-in-rightmost-1-bit-position #b1000)))
+  (is-true (= #b-0010 (word-with-only-0-bit-in-rightmost-1-bit-position #b0011)))
+  (is-true (= #b-0010 (word-with-only-0-bit-in-rightmost-1-bit-position #b0101)))
+  (is-true (= #b-0010 (word-with-only-0-bit-in-rightmost-1-bit-position #b1101)))
+  (is-true (= #b-0010 (word-with-only-0-bit-in-rightmost-1-bit-position #b1011)))
+  (is-true (= #b-0010 (word-with-only-0-bit-in-rightmost-1-bit-position #b0111))))

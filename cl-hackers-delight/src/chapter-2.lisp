@@ -19,5 +19,11 @@
   (logior num (1- num)))
 
 (defun word-with-only-1-bit-in-rightmost-0-bit-position (word)
-  "Create a word with single 1-bit, at the position of the rightmost 0 bit in word, producing 0 if none"
+  "Create a word with single 1-bit, at the position of the rightmost 0-bit in word, producing all 0's if none"
+  ;; cl standard: (boole boole-andc1 word (1+ word)) achieves the same
   (logand (lognot word) (1+ word)))
+
+(defun word-with-only-0-bit-in-rightmost-1-bit-position (word)
+  "Create a word with single 0-bit, at the position of the rightmost 1-bit in word, producing all 1's if none"
+  ;; cl standard: (boole boole-orc1 word (1- word)) achieves the same
+  (logior (lognot word) (1- word)))
