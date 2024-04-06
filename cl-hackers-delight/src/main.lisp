@@ -7,5 +7,6 @@
   (:export #:word-with-1s-at-tailing-0s-and-0s-elsewhere)
   (:export #:word-with-0s-at-trailing-1s-and-0s-elsewhere)
   (:export #:isolate-the-rightmost-1)
-  (:export #:word-with-1s-in-position-of-rightmost-1-and-trailing-0s))
+  (:export #:word-with-1s-in-position-of-rightmost-1-and-trailing-0s)
+  (:export #:word-with-1s-in-positions-of-rightmost-0-and-trailing-1s))
 

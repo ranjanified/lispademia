@@ -121,3 +121,15 @@
   (is-true (= #b0111 (word-with-1s-in-position-of-rightmost-1-and-trailing-0s #b1100)))
   (is-true (= #b0001 (word-with-1s-in-position-of-rightmost-1-and-trailing-0s #b0101)))
   (is-true (= #b0001 (word-with-1s-in-position-of-rightmost-1-and-trailing-0s #b1111))))
+
+(test word-with-1s-in-positions-of-rightmost-0-and-trailing-1s
+  (is-true (= #b0001 (word-with-1s-in-positions-of-rightmost-0-and-trailing-1s #b0000)))
+  (is-true (= #b0011 (word-with-1s-in-positions-of-rightmost-0-and-trailing-1s #b0001)))
+  (is-true (= #b0001 (word-with-1s-in-positions-of-rightmost-0-and-trailing-1s #b0010)))
+  (is-true (= #b0001 (word-with-1s-in-positions-of-rightmost-0-and-trailing-1s #b0100)))
+  (is-true (= #b0001 (word-with-1s-in-positions-of-rightmost-0-and-trailing-1s #b1000)))
+  (is-true (= #b0111 (word-with-1s-in-positions-of-rightmost-0-and-trailing-1s #b0011)))
+  (is-true (= #b0111 (word-with-1s-in-positions-of-rightmost-0-and-trailing-1s #b1011)))
+  (is-true (= #b0001 (word-with-1s-in-positions-of-rightmost-0-and-trailing-1s #b1100)))
+  (is-true (= #b0011 (word-with-1s-in-positions-of-rightmost-0-and-trailing-1s #b0101)))
+  (is-true (= #b11111 (word-with-1s-in-positions-of-rightmost-0-and-trailing-1s #b1111))))
