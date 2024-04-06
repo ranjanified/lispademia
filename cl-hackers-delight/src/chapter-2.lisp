@@ -30,6 +30,8 @@
 
 (defun word-with-1s-at-tailing-0s-and-0s-elsewhere (word)
   "Create a word with 1's at the positions of the trailing 0's in word, and 0's elsewhere, producing 0 if none"
+  ;; (lognot (logior word (- word)) ; this one, or
+  ;; (1- (logand word (- word)) ; this one, or
   ;; cl standard: (boole boole-andc1 word (1- word))
   (logand (lognot word) (1- word)))
 
@@ -48,3 +50,9 @@
 (defun word-with-1s-in-positions-of-rightmost-0-and-trailing-1s (word)
   "create a word with 1's at the positions of the rightmost 0-bit and tailing 1's, producing all 1's if no 0-bit, and integer 1 if no trailing 1's"
   (logxor word (1+ word)))
+
+;;; These can be used to determine if a non-negative integer is of the form 2^j - 2^k for some j >= k >= 0
+(defun turnoff-rightmost-contiguous-string-of-1s (word)
+  "turn off the rightmost contiguous string of 1's"
+  ;; (logand (+ (logior word (1- word) 1) word) ; this or next
+  (logand word (+ (logand word (- word)) word)))
