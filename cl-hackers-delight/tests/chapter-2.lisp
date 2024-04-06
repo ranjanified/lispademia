@@ -109,3 +109,15 @@
   (is-true (= #b0010 (isolate-the-rightmost-1 #b0110)))
   (is-true (= #b0100 (isolate-the-rightmost-1 #b1100)))
   (is-true (= #b0010 (isolate-the-rightmost-1 #b1010))))
+
+(test word-with-1s-in-position-of-rightmost-1-and-trailing-0s
+  (is-true (= #b-0001 (word-with-1s-in-position-of-rightmost-1-and-trailing-0s #b0000)))
+  (is-true (= #b0001 (word-with-1s-in-position-of-rightmost-1-and-trailing-0s #b0001)))
+  (is-true (= #b0011 (word-with-1s-in-position-of-rightmost-1-and-trailing-0s #b0010)))
+  (is-true (= #b0111 (word-with-1s-in-position-of-rightmost-1-and-trailing-0s #b0100)))
+  (is-true (= #b1111 (word-with-1s-in-position-of-rightmost-1-and-trailing-0s #b1000)))
+  (is-true (= #b0001 (word-with-1s-in-position-of-rightmost-1-and-trailing-0s #b0011)))
+  (is-true (= #b0001 (word-with-1s-in-position-of-rightmost-1-and-trailing-0s #b1011)))
+  (is-true (= #b0111 (word-with-1s-in-position-of-rightmost-1-and-trailing-0s #b1100)))
+  (is-true (= #b0001 (word-with-1s-in-position-of-rightmost-1-and-trailing-0s #b0101)))
+  (is-true (= #b0001 (word-with-1s-in-position-of-rightmost-1-and-trailing-0s #b1111))))

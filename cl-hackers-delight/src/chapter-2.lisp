@@ -40,3 +40,7 @@
 (defun isolate-the-rightmost-1 (word)
   "isolate the rightmost 1-bit, producing 0 if none"
   (logand word (- word)))
+
+(defun word-with-1s-in-position-of-rightmost-1-and-trailing-0s (word)
+  "create a word with 1's at the positions of the rightmost 1-bit and tailing 0's, producing all 0's if no 1-bit, and integer 1 if no trailing 0's"
+  (logxor word (1- word)))
