@@ -5,5 +5,6 @@
   (:export #:word-with-only-1-bit-in-rightmost-0-bit-position)
   (:export #:word-with-only-0-bit-in-rightmost-1-bit-position)
   (:export #:word-with-1s-at-tailing-0s-and-0s-elsewhere)
-  (:export #:word-with-0s-at-trailing-1s-and-0s-elsewhere))
+  (:export #:word-with-0s-at-trailing-1s-and-0s-elsewhere)
+  (:export #:isolate-the-rightmost-1))
 

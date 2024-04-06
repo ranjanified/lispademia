@@ -97,3 +97,15 @@
   (is-true (= #b-0010 (word-with-0s-at-trailing-1s-and-0s-elsewhere #b1101)))
   (is-true (= #b-0100 (word-with-0s-at-trailing-1s-and-0s-elsewhere #b1011)))
   (is-true (= #b-1000 (word-with-0s-at-trailing-1s-and-0s-elsewhere #b0111))))
+
+(test isolate-the-rightmost-1
+  (is-true (= #b0000 (isolate-the-rightmost-1 #b0000)))
+  (is-true (= #b0001 (isolate-the-rightmost-1 #b0001)))
+  (is-true (= #b0010 (isolate-the-rightmost-1 #b0010)))
+  (is-true (= #b0100 (isolate-the-rightmost-1 #b0100)))
+  (is-true (= #b1000 (isolate-the-rightmost-1 #b1000)))
+  (is-true (= #b0001 (isolate-the-rightmost-1 #b0011)))
+  (is-true (= #b0001 (isolate-the-rightmost-1 #b0101)))
+  (is-true (= #b0010 (isolate-the-rightmost-1 #b0110)))
+  (is-true (= #b0100 (isolate-the-rightmost-1 #b1100)))
+  (is-true (= #b0010 (isolate-the-rightmost-1 #b1010))))
