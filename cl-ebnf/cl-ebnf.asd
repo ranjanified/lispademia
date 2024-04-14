@@ -9,7 +9,8 @@
 		 (:file "conditions")
 		 (:file "constants")
 		 (:file "predicates")
-		 (:file "lexer"))))
+		 (:file "lexer")
+		 (:file "clossy-lex"))))
   :description ""
   :in-order-to ((test-op (test-op #:cl-ebnf/tests))))
 
@@ -23,4 +24,4 @@
                 ((:file "main")
 		 (:file "lexer"))))
   :description "Test system for cl-ebnf"
-  :perform (test-op (op c) (symbol-call '#:cl-ebnf/tests '#:run-tests)))
+  :perform (test-op (op sys) (symbol-call '#:cl-ebnf/tests '#:run-tests)))
