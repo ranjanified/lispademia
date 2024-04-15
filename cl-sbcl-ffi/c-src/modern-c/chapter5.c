@@ -2,17 +2,17 @@
 
 float broker_commision(float trade_amount)
 {
-  if (trade_amount < 2500) {
-    return 30 + (0.017 * trade_amount);
-  } else if (trade_amount >= 2500 && trade_amount < 6250) {
-    return 56 + (0.0066 * trade_amount);
-  } else if (trade_amount >= 6250 && trade_amount < 20000) {
-    return 76 + (0.0034 * trade_amount);
-  } else if (trade_amount >= 20000 && trade_amount < 50000) {
-    return 100 + (0.0022 * trade_amount);
-  } else if (trade_amount >= 50000 && trade_amount < 500000) {
-    return 155 + (0.0011 * trade_amount);
+  if (trade_amount < 2500.00f) {
+    return 30.00f + (0.017f * trade_amount);
+  } else if (trade_amount >= 2500.00f && trade_amount < 6250.00f) {
+    return 56.00f + (0.0066f * trade_amount);
+  } else if (trade_amount >= 6250.00f && trade_amount < 20000.00f) {
+    return 76.00f + (0.0034f * trade_amount);
+  } else if (trade_amount >= 20000.00f && trade_amount < 50000.00f) {
+    return 100.00f + (0.0022f * trade_amount);
+  } else if (trade_amount >= 50000.00f && trade_amount < 500000.00f) {
+    return 155.00f + (0.0011f * trade_amount);
   } else {
-    return 255 + (0.0009 * trade_amount);
+    return 255.00f + (0.0009f * trade_amount);
   }
 }
