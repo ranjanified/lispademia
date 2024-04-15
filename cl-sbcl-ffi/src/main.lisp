@@ -20,4 +20,7 @@
    #:upc-check-digit
    #:reverse-digits
    #:convert-octal
+
+   ;; chapter 5
+   #:broker-commision
    ))

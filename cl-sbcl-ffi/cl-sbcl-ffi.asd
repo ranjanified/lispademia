@@ -10,7 +10,8 @@
 		  :components
 		  ((:file "chapter2")
 		   (:file "chapter3")
-		   (:file "chapter4"))))))
+		   (:file "chapter4")
+		   (:file "chapter5"))))))
   :Description ""
   :in-order-to ((load-op (load-op #:cl-sbcl-ffi/c-bridge))
 		(test-op (test-op #:cl-sbcl-ffi/tests))))
