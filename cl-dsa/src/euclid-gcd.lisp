@@ -1,8 +1,7 @@
 (in-package #:cl-dsa)
 
-(print "are we loading this?")
-
 (defun euclid-gcd (num1 num2)
+  (declare (type (unsigned-byte 32) num1 num2))
   (cond
     ((zerop num1) num2)
     ((zerop num2) num1)
