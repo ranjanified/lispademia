@@ -2,7 +2,7 @@
 #include<stddef.h>
 #include<mdc-5.h>
 #include<stdlib.h>
-
+#include<stdio.h>
 
 float broker_commision(float trade_amount)
 {
@@ -158,4 +158,23 @@ unsigned short count_digits(unsigned long number)
   } while (current_number > 0);
 
   return digits_counter;
+}
+
+char *format_time_12(unsigned short hour, unsigned int minutes)
+{
+  unsigned short hour_12 = 0;
+  char *buffer = malloc( sizeof (char) * 9);
+  char *format_string = "%02d:%02d AM%c";
+  
+  if (hour > 0) {
+    hour_12 = (hour + 12) % 12;
+    if (hour_12 == 0) {
+      hour_12 = 12;
+    }
+    if (hour >= 12) {
+      format_string = "%02d:%02d PM%c";
+    }
+  }
+  snprintf(buffer, 9, format_string, hour_12, minutes, '\0');
+  return buffer;
 }

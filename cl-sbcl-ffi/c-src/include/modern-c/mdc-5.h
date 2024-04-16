@@ -5,3 +5,5 @@ float broker_commision(float trade_amount);
 char* worded_number(unsigned short number);
 
 unsigned short count_digits(unsigned long number);
+
+char *format_time_12(unsigned short hour, unsigned int minutes);

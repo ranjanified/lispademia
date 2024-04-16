@@ -25,4 +25,5 @@
    #:broker-commision
    #:worded-number
    #:count-digits
+   #:format-time-12
    ))
