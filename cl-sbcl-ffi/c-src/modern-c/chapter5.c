@@ -178,3 +178,27 @@ char *format_time_12(unsigned short hour, unsigned int minutes)
   snprintf(buffer, 9, format_string, hour_12, minutes, '\0');
   return buffer;
 }
+
+int *min_max_quad(int a, int b, int c, int d)
+{
+  int *buffer = malloc( sizeof (int) * 2);
+  buffer[0] = a;
+  buffer[1] = a;
+  
+  if (b > buffer[0]) {
+    buffer[0] = b;
+  } else if (b < buffer[1]) {
+    buffer[1] = b;
+  }
+  if (c > buffer[0]) {
+    buffer[0] = c;
+  } else if (c < buffer[1]) {
+    buffer[1] = c;
+  }
+  if (d > buffer[0]) {
+    buffer[0] = d;
+  } else if (d < buffer[1]) {
+    buffer[1] = d;
+  }
+  return buffer;
+}

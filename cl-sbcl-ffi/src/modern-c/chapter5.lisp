@@ -24,3 +24,9 @@
 ;;;     (format t "Equivalent 12-hour time: ~a~%" time-string))
 ;;;   (free-alien 12-hour-time))
 (define-alien-routine "format_time_12" (* char) (hour unsigned-short) (minutes unsigned-short))
+
+;;; example call:
+;;; (with-alien ((min-max (* int) (cl-sbcl-ffi:min-max-quad 7 12 9 8)))
+;;;   (format t "max: ~a, min: ~a~%" (deref min-max 0) (deref min-max 1))
+;;;   (free-alien min-max))
+(define-alien-routine "min_max_quad" (* int) (a int) (b int) (c int) (d int))

@@ -26,4 +26,5 @@
    #:worded-number
    #:count-digits
    #:format-time-12
+   #:min-max-quad
    ))
