@@ -11,7 +11,10 @@
 		  ((:file "chapter2")
 		   (:file "chapter3")
 		   (:file "chapter4")
-		   (:file "chapter5"))))))
+		   (:file "chapter5")))
+		 (:module "c-algorithms"
+		  :components
+		  ((:file "chapter-1"))))))
   :Description ""
   :in-order-to ((load-op (load-op #:cl-sbcl-ffi/c-bridge))
 		(test-op (test-op #:cl-sbcl-ffi/tests))))

@@ -1,20 +1,20 @@
 .PHONY: clean
 
-SHELL        = /bin/sh
-CC           = gcc
-FLAGS        = -std=gnu99
-CFLAGS       = -fPIC -pedantic -Wall -Wextra -march=native -ggdb3 $(HEADER_INCLUDES) #// -Ic-src/include -Ic-src/include/modern-c
-LDFLAGS      = -shared
-DEBUGFLAGS   = -O0 -D _DEBUG
-RELEASEFLAGS = -O2 -D NDEBUG -combine -fwhole-program
+SHELL           = /bin/sh
+CC              = gcc
+FLAGS           = -std=gnu99
+CFLAGS          = -fPIC -pedantic -Wall -Wextra -march=native -ggdb3 $(HEADER_INCLUDES)
+LDFLAGS         = -shared
+DEBUGFLAGS      = -O0 -D _DEBUG
+RELEASEFLAGS    = -O2 -D NDEBUG -combine -fwhole-program
 
-PREFIX       = c-src
-OBJDIR       = $(PREFIX)/obj
-BINDIR       = $(PREFIX)/bin
+PREFIX          = c-src
+OBJDIR          = $(PREFIX)/obj
+BINDIR          = $(PREFIX)/bin
 
 TARGET          = libsbclffi.so
 SOURCES         = $(shell echo $(PREFIX)/*.c $(PREFIX)/**/*.c)
-HEADER_INCLUDES = $(shell echo -I$(PREFIX)/include -I$(PREFIX)/include/modern-c)
+HEADER_INCLUDES = $(shell echo -I$(PREFIX)/include -I$(PREFIX)/include/modern-c -I$(PREFIX)/include/c-algorithms)
 OBJECTS         = $(SOURCES:.c=.o)
 
 all: $(TARGET)

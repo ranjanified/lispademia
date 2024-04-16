@@ -26,5 +26,9 @@
    #:worded-number
    #:count-digits
    #:format-time-12
-   #:min-max-quad
+   #:min-max-quad)
+
+  (:export ; c-algorithms
+   ;; chapter 1
+   #:euclid-gcd
    ))
