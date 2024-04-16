@@ -24,4 +24,5 @@
    ;; chapter 5
    #:broker-commision
    #:worded-number
+   #:count-digits
    ))

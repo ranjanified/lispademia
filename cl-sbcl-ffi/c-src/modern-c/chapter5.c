@@ -2,7 +2,7 @@
 #include<stddef.h>
 #include<mdc-5.h>
 #include<stdlib.h>
-#include<stdio.h>
+
 
 float broker_commision(float trade_amount)
 {
@@ -145,4 +145,17 @@ char* worded_number(unsigned short number)
     errno = NUMBER_NOT_IN_RANGE;
     return NULL;
   }
+}
+
+unsigned short count_digits(unsigned long number)
+{
+  unsigned short digits_counter = 0;
+  unsigned long current_number = number;
+  
+  do {
+    current_number /= 10;
+    digits_counter++;
+  } while (current_number > 0);
+
+  return digits_counter;
 }
