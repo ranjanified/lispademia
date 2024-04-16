@@ -13,7 +13,8 @@
 		 (:file "median-mode")
 		 (:file "weather-report")
 		 (:file "department-sales")
-		 (:file "chess"))))
+		 (:file "chess")
+		 (:file "euclid-gcd"))))
   :description ""
   :in-order-to ((test-op (test-op #:cl-dsa/tests))))
 
@@ -31,6 +32,7 @@
 		 (:file "median-mode")
 		 (:file "weather-report")
 		 (:file "department-sales")
-		 (:file "chess"))))
+		 (:file "chess")
+		 (:file "euclid-gcd"))))
   :description "Test system for cl-dsa"
   :perform (test-op (op system) (symbol-call '#:cl-dsa/tests '#:run-tests)))

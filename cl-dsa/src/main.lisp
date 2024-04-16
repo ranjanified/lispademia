@@ -17,4 +17,6 @@
   (:export #:print-department-sales)
 
   (:export #:make-chess-board)
-  (:export #:print-chess-board))
+  (:export #:print-chess-board)
+
+  (:export #:euclid-gcd))
