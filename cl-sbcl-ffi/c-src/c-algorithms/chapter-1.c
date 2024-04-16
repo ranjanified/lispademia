@@ -2,14 +2,22 @@
 
 unsigned long euclid_gcd(unsigned long num1, unsigned long  num2)
 {
-  unsigned long temp = 0, u = num1, v = num2;
-  while (u > 0) {
-    if (u < v) {
-      temp = u;
-      u = v;
-      v = temp;
-    }
-    u = u - v;
+  unsigned long temp = 0;
+  if (num1 == 0) {
+    return num2;
   }
-  return v;
+  
+  if (num2 == 0) {
+    return num1;
+  }
+  
+  while (num1 > 0) {
+    if (num1 < num2) {
+      temp = num1;
+      num1 = num2;
+      num2 = temp;
+    }
+    num1 = num1 - num2;
+  }
+  return num2;
 }
