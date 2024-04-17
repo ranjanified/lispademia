@@ -31,4 +31,5 @@
   (:export ; c-algorithms
    ;; chapter 1
    #:euclid-gcd
+   #:reduce-fraction #:fraction
    ))
