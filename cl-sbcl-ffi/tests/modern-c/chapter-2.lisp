@@ -18,3 +18,9 @@
   (is-true (=     (dimensional-weight-of-box 12 10  8)  6.0))
   (is-true (=     (dimensional-weight-of-box 12 12 12) 11.0))
   (is-true (=     (dimensional-weight-of-box 12 15 18) 20.0)))
+
+(test fahrenheit-to-celsius
+  (is-true (string= (format nil "~6f" (fahrenheit-to-celsius   0.0)) "-17.78"))
+  (is-true (string= (format nil "~6f" (fahrenheit-to-celsius 100.0)) "37.778"))
+  (is-true (string= (format nil "~5f" (fahrenheit-to-celsius 212.0)) "100.0"))
+  (is-true (= (fahrenheit-to-celsius 98.6) 37.0)))
