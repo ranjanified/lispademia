@@ -45,3 +45,8 @@
 
   (with-fixture with-sphere-radius (1.0)
     (is-true (= volume 4.18))))
+
+(test taxed-dollars
+  (is-true (zerop (taxed-dollars 0.0 100.0)))
+  (is-true (=     (taxed-dollars 100.0 0.0) 100.0))
+  (is-true (=     (taxed-dollars 100.0 5.0) 105.0)))
