@@ -13,3 +13,5 @@
 ;;; 	  (slot fraction 'denominator)))
 (define-alien-type fraction (struct fraction (numerator int) (denominator int)))
 (define-alien-routine "reduce_fraction" void (curr-fraction (* fraction)))
+
+(define-alien-routine "convert_int" int (number-str c-string))

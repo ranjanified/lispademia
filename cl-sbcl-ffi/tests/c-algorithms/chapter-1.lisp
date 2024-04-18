@@ -60,3 +60,24 @@
   (with-fixture with-reduced-fraction (-5 -7)
     (is-true (and (= reduced-numerator   5)
 		  (= reduced-denominator 7)))))
+
+(def-fixture with-number-string (num-str)
+  (with-alien ((number-str c-string num-str))
+    (let ((converted-int (convert-int number-str)))
+      (&body))))
+
+(test convert-int
+  (with-fixture with-number-string ("0")
+    (is-true (zerop converted-int)))
+
+  (with-fixture with-number-string ("1")
+    (is-true (= converted-int 1)))
+
+  (with-fixture with-number-string ("10")
+    (is-true (= converted-int 10)))
+
+  (with-fixture with-number-string ("103")
+    (is-true (= converted-int 103)))
+
+  (with-fixture with-number-string ("17486")
+    (is-true (= converted-int 17486))))

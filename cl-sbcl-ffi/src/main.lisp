@@ -32,4 +32,5 @@
    ;; chapter 1
    #:euclid-gcd
    #:reduce-fraction #:fraction
+   #:convert-int
    ))

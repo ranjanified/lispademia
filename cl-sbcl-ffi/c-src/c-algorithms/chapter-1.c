@@ -1,5 +1,6 @@
-#include<stdlib.h>
-#include<calg-1.h>
+#include <stdlib.h>
+#include <math.h>
+#include <calg-1.h>
 
 unsigned long euclid_gcd(unsigned long num1, unsigned long  num2)
 {
@@ -33,4 +34,19 @@ void reduce_fraction(struct fraction *fraction)
     fraction->numerator = num_sign * denom_sign * (numerator / gcd_num_denom);
     fraction->denominator = denominator / gcd_num_denom;
   }
+}
+
+int convert_int(char *number_str)
+{
+  unsigned short str_len = 0, str_index = 0;
+  int accumulated_number = 0;
+  while (number_str[str_index++] != '\0') {
+    str_len++;
+  }
+  str_index = 0;
+  while (str_index < str_len) {
+    accumulated_number = accumulated_number + ((number_str[str_len - 1 - str_index] - '0') * pow(10, str_index));
+    ++str_index;
+  }
+  return accumulated_number;
 }
