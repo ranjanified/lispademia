@@ -15,3 +15,5 @@
 (define-alien-routine "reduce_fraction" void (curr-fraction (* fraction)))
 
 (define-alien-routine "convert_int" int (number-str c-string))
+
+(define-alien-routine "binary" (* char) (number int))

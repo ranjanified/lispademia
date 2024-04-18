@@ -33,4 +33,5 @@
    #:euclid-gcd
    #:reduce-fraction #:fraction
    #:convert-int
+   #:binary
    ))

@@ -81,3 +81,40 @@
 
   (with-fixture with-number-string ("17486")
     (is-true (= converted-int 17486))))
+
+(def-fixture with-int-binary (num)
+  (with-alien ((binary-string (* char) (binary num)))
+    (with-alien ((converted-binary c-string binary-string))
+      (&body))
+    (free-alien binary-string)))
+
+(test binary
+  (with-fixture with-int-binary (0)
+    (is-true (string= converted-binary "0")))
+
+  (with-fixture with-int-binary (1)
+    (is-true (string= converted-binary "1")))
+
+  (with-fixture with-int-binary (2)
+    (is-true (string= converted-binary "10")))
+
+  (with-fixture with-int-binary (3)
+    (is-true (string= converted-binary "11")))
+
+  (with-fixture with-int-binary (4)
+    (is-true (string= converted-binary "100")))
+
+  (with-fixture with-int-binary (5)
+    (is-true (string= converted-binary "101")))
+
+  (with-fixture with-int-binary (6)
+    (is-true (string= converted-binary "110")))
+
+  (with-fixture with-int-binary (7)
+    (is-true (string= converted-binary "111")))
+
+  (with-fixture with-int-binary (8)
+    (is-true (string= converted-binary "1000")))
+
+  (with-fixture with-int-binary (9)
+    (is-true (string= converted-binary "1001"))))

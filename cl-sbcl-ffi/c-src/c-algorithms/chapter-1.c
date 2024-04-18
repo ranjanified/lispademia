@@ -50,3 +50,27 @@ int convert_int(char *number_str)
   }
   return accumulated_number;
 }
+
+char *binary(int num)
+{
+  char *buffer = malloc( sizeof (char) * 64);
+  int current_number = num;
+  unsigned char temp = '\0';
+  unsigned int divisor = 0;
+  unsigned short remainder = 0, digit_index = 0, reverse_index = 0;
+  do {
+    divisor = current_number / 2;
+    remainder = current_number % 2;
+    buffer[digit_index++] = remainder + '0';
+    current_number = divisor;
+  } while (divisor > 0);
+  
+  buffer[digit_index] = '\0';
+  
+  while (reverse_index < digit_index) {
+    temp = buffer[reverse_index];
+    buffer[reverse_index++] = buffer[--digit_index];
+    buffer[digit_index] = temp;
+  }
+  return buffer;
+}
