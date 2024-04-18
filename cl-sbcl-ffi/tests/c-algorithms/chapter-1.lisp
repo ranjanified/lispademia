@@ -2,6 +2,13 @@
 
 (in-suite* chapter-1 :in c-algorithms)
 
+(test euclid-gcd
+  (is-true (zerop (euclid-gcd 0  0)))
+  (is-true (=     (euclid-gcd 3  0) 3))
+  (is-true (=     (euclid-gcd 0  3) 3))
+  (is-true (=     (euclid-gcd 17 5) 1))
+  (is-true (=     (euclid-gcd 6 18) 6)))
+
 (def-fixture with-reduced-fraction (numerator denominator)
   ;; a local alien which should be garbage collected by Lisp,
   ;; no need to (free-alien ...) this one
