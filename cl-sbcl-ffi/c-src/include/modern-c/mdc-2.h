@@ -5,7 +5,7 @@
 
 #define PI 3.14159f
 
-void print_pun();
+char *print_pun();
 
 float dimensional_weight_of_box (unsigned int length, unsigned int width, unsigned int height);
 

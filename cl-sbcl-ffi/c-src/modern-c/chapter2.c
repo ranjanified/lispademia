@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <mdc-2.h>
 
-void print_pun() {
-  printf("To C, or not to C: that is the question.\n"); 
+char *print_pun() {
+  char *buffer = malloc( sizeof(char) * 50); 
+  snprintf(buffer, 50, "To C, or not to C: that is the question.%c", '\0');
+  return buffer;
 }
 
 float dimensional_weight_of_box (unsigned int length, unsigned int width, unsigned int height) {

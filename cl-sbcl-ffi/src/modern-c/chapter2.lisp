@@ -1,6 +1,6 @@
 (in-package #:cl-sbcl-ffi)
 
-(define-alien-routine "print_pun" void)
+(define-alien-routine "print_pun" (* char))
 
 (define-alien-routine "dimensional_weight_of_box" float (length unsigned-int) (width unsigned-int) (height unsigned-int))
 

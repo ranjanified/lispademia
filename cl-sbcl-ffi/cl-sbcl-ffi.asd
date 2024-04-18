@@ -39,6 +39,9 @@
   :components ((:module "tests"
                 :components
                 ((:file "main")
+		 (:module "modern-c"
+		  :components
+		  ((:file "chapter-2")))
 		 (:module "c-algorithms"
 		  :components
 		  ((:file "chapter-1"))))))

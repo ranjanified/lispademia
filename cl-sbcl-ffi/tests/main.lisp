@@ -8,6 +8,7 @@
 (def-suite cl-sbcl-ffi)
 
 (def-suite c-algorithms :in cl-sbcl-ffi)
+(def-suite modern-c :in cl-sbcl-ffi)
 
 (defgeneric warmup-suite (suite))
 
