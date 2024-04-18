@@ -5,7 +5,8 @@
 
 (in-package #:cl-dsa/tests)
 
-(def-suite cl-dsa-tests)
+(def-suite cl-dsa)
+(def-suite c-algorithms :in cl-dsa)
 
 (defgeneric warmup-suite (suite))
 
@@ -13,4 +14,4 @@
 
 (defun run-tests ()
   (run-warmups)
-  (run! 'cl-dsa-tests))
+  (run! 'cl-dsa))

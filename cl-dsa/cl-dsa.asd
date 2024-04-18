@@ -17,7 +17,8 @@
 		 (:module "c-algorithms"
 		  :components
 		  ((:file "euclid-gcd")
-		   (:file "reduce-fraction"))))))
+		   (:file "reduce-fraction")
+		   (:file "convert"))))))
   :description ""
   :in-order-to ((test-op (test-op #:cl-dsa/tests))))
 
@@ -38,7 +39,6 @@
 		 (:file "chess")
 		 (:module "c-algorithms"
 		  :components
-		  ((:file "euclid-gcd")
-		   (:file "reduce-fraction"))))))
+		  ((:file "chapter-1"))))))
   :description "Test system for cl-dsa"
   :perform (test-op (op system) (symbol-call '#:cl-dsa/tests '#:run-tests)))

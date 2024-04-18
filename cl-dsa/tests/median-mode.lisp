@@ -1,6 +1,6 @@
 (in-package #:cl-dsa/tests)
 
-(in-suite* median-mode :in cl-dsa-tests)
+(in-suite* median-mode :in cl-dsa)
 
 (test median
   (is-true (null (median #())))
@@ -11,7 +11,7 @@
 
 (test mode
   (is-true (null (mode #())))
-  (is-true (= (mode #(1)) 1))
+  (is-true (=    (mode #(1)) 1))
   (is-true (null (mode #(1 2))))
-  (is-true (= (mode #(1 1 2)) 1))
-  (is-true (= (mode #(7 6 8 7 9 7 8 5 5 4 7 8 9)) 7)))
+  (is-true (=    (mode #(1 1 2)) 1))
+  (is-true (=    (mode #(7 6 8 7 9 7 8 5 5 4 7 8 9)) 7)))

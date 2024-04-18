@@ -1,6 +1,6 @@
 (in-package #:cl-dsa/tests)
 
-(in-suite* department-sales :in cl-dsa-tests)
+(in-suite* department-sales :in cl-dsa)
 
 (test print-department-sales
   (finishes (print-department-sales #()))

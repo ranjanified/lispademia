@@ -1,6 +1,6 @@
 (in-package #:cl-dsa/tests)
 
-(in-suite* weather-report :in cl-dsa-tests)
+(in-suite* weather-report :in cl-dsa)
 
 (test print-report
   (finishes (weather-report #()))

@@ -1,12 +1,12 @@
 (in-package #:cl-dsa/tests)
 
-(in-suite* strings :in cl-dsa-tests)
+(in-suite* strings :in cl-dsa)
 
 (test strlen
   (is-true (zerop (strlen "")))
   (is-true (zerop (strlen (make-array '(0)))))
-  (is-true (= 1 (strlen (make-array '(2) :initial-contents '(#\a #\Nul)))))
-  (is-true (= 5 (strlen (make-array '(6) :initial-contents '(#\n #\a #\l #\i #\n #\Nul))))))
+  (is-true (= 1   (strlen (make-array '(2) :initial-contents '(#\a #\Nul)))))
+  (is-true (= 5   (strlen (make-array '(6) :initial-contents '(#\n #\a #\l #\i #\n #\Nul))))))
 
 (test strpos
   (let ((string1 (make-array '(0)))
