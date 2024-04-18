@@ -3,9 +3,9 @@
 (in-suite* c-algorithms :in cl-dsa-tests)
 
 (def-fixture with-reduced-fraction (fraction)
-  (let* ((reduced-fraction         (reduce-fraction      fraction))
-	 (reduced-numerator        (fraction-numerator   reduced-fraction))
-	 (reduced-denominator      (fraction-denominator reduced-fraction)))
+  (reduce-fraction      fraction)
+  (let* ((reduced-numerator        (fraction-numerator   fraction))
+	 (reduced-denominator      (fraction-denominator fraction)))
     (&body)))
 
 (test reduce-fraction

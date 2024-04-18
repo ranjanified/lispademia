@@ -12,7 +12,6 @@
 	 (denom-sign    (if (minusp denominator) -1 1))
 	 (gcd-num-denom (euclid-gcd (abs numerator) (abs denominator))))
     
-    (if (zerop gcd-num-denom)
-	fraction
-	(make-fraction :numerator   (* num-sign denom-sign (abs (round numerator gcd-num-denom)))
-		       :denominator (abs (round denominator gcd-num-denom))))))
+    (unless (zerop gcd-num-denom)
+      (setf (fraction-numerator fraction)   (* num-sign denom-sign (abs (round numerator gcd-num-denom))))
+      (setf (fraction-denominator fraction) (abs (round denominator gcd-num-denom))))))
