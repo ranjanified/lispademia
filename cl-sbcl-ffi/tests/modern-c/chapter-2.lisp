@@ -19,8 +19,29 @@
   (is-true (=     (dimensional-weight-of-box 12 12 12) 11.0))
   (is-true (=     (dimensional-weight-of-box 12 15 18) 20.0)))
 
+(def-fixture with-fahrenheit (fahr)
+  (let ((celsius (/ (ffloor (* (fahrenheit-to-celsius fahr) 100)) 100)))
+    (&body)))
+
 (test fahrenheit-to-celsius
-  (is-true (string= (format nil "~6f" (fahrenheit-to-celsius   0.0)) "-17.78"))
-  (is-true (string= (format nil "~6f" (fahrenheit-to-celsius 100.0)) "37.778"))
-  (is-true (string= (format nil "~5f" (fahrenheit-to-celsius 212.0)) "100.0"))
-  (is-true (= (fahrenheit-to-celsius 98.6) 37.0)))
+  (with-fixture with-fahrenheit (0.0)
+    (is-true (= celsius -17.78)))
+  
+  (with-fixture with-fahrenheit (100.0)
+    (is-true (= celsius 37.77)))
+  
+  (with-fixture with-fahrenheit (212.0)
+    (is-true (= celsius 100.00)))
+  
+  (with-fixture with-fahrenheit (98.6)
+    (is-true (= celsius 37.00))))
+
+(def-fixture with-sphere-radius (radius)
+  (let ((volume (/ (ffloor (* (sphere-volume radius) 100)) 100)))
+    (&body)))
+
+(test sphere-volume
+  (is-true (zerop (sphere-volume 0.0)))
+
+  (with-fixture with-sphere-radius (1.0)
+    (is-true (= volume 4.18))))
