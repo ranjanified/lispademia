@@ -25,13 +25,12 @@ unsigned long euclid_gcd(unsigned long num1, unsigned long  num2)
 
 void reduce_fraction(struct fraction *fraction)
 {
-  int numerator = fraction->numerator, denominator = fraction->denominator;
-  int gcd_num_denom = euclid_gcd(numerator, denominator);
-  unsigned short num_sign = numerator < 0 ? -1 : 1;
-  unsigned short denom_sign = denominator < 0 ? -1 : 1;
+  unsigned int numerator = abs(fraction->numerator), denominator = abs(fraction->denominator);
+  unsigned int gcd_num_denom = euclid_gcd(numerator, denominator);
+  short num_sign = fraction->numerator < 0 ? -1 : 1, denom_sign = fraction->denominator < 0 ? -1 : 1;
 
   if (gcd_num_denom != 0) {
-    fraction->numerator = num_sign * denom_sign * (abs(numerator) / gcd_num_denom);
-    fraction->denominator = abs(denominator) / gcd_num_denom;
+    fraction->numerator = num_sign * denom_sign * (numerator / gcd_num_denom);
+    fraction->denominator = denominator / gcd_num_denom;
   }
 }

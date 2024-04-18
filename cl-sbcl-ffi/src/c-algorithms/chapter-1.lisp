@@ -12,4 +12,4 @@
 ;;; 	  (slot fraction 'denominator))
 ;;;   (free-alien fraction)))
 (define-alien-type fraction (struct fraction (numerator int) (denominator int)))
-(define-alien-routine "reduce_fraction" void (fraction (* fraction)))
+(define-alien-routine "reduce_fraction" void (curr-fraction (* fraction)))

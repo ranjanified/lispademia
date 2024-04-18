@@ -38,6 +38,9 @@
   :depends-on (#:cl-sbcl-ffi)
   :components ((:module "tests"
                 :components
-                ((:file "main"))))
+                ((:file "main")
+		 (:module "c-algorithms"
+		  :components
+		  ((:file "chapter-1"))))))
   :description "Test system for cl-sbcl-ffi"
   :perform (test-op (op c) (symbol-call '#:cl-sbcl-ffi/tests '#:run-tests)))
