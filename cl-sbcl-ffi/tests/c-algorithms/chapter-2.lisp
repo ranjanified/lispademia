@@ -125,3 +125,15 @@
 
   (with-fixture with-int-binary (9)
     (is-true (string= converted-binary "1001"))))
+
+(def-fixture with-largest-pair-of-gcd-1 ()
+  (with-alien ((largest-pair (* unsigned-long) (largest-pair-with-gcd-1)))
+    (let ((first-of-pair (deref largest-pair 0))
+	  (second-of-pair (deref largest-pair 1)))
+      (&body))
+    (free-alien largest-pair)))
+
+(test largest-pair-with-gcd-1
+  (with-fixture with-largest-pair-of-gcd-1 ()
+    (is-true (and (= first-of-pair  4294967295) ;; ulong_max from limits.h
+		  (= second-of-pair 4294967294)))))

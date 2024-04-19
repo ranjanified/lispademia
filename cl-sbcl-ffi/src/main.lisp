@@ -35,4 +35,5 @@
    #:convert-int
    #:binary
    #:gcd-triplet
+   #:largest-pair-with-gcd-1
    ))

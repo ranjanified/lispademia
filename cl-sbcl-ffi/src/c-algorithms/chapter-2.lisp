@@ -19,3 +19,5 @@
 (define-alien-routine "binary" (* char) (number int))
 
 (define-alien-routine "gcd_triplet" unsigned-int (a unsigned-int) (b unsigned-int) (c unsigned-int))
+
+(define-alien-routine "largest_pair_with_gcd_1" (* unsigned-long))

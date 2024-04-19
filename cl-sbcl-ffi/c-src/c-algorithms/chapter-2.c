@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <calg-2.h>
+#include <limits.h>
 
 unsigned long euclid_gcd(unsigned long num1, unsigned long  num2)
 {
@@ -80,3 +81,13 @@ char *binary(int num)
   return buffer;
 }
 
+unsigned long *largest_pair_with_gcd_1()
+{
+  // GCD of 2 consecutive numbers is always 1.
+  unsigned long *buffer = malloc( sizeof (unsigned long) * 2);
+  
+  buffer[0] = ULONG_MAX;
+  buffer[1] = ULONG_MAX - 1;
+
+  return buffer;
+}
