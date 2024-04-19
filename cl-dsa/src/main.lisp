@@ -19,11 +19,12 @@
   (:export #:make-chess-board)
   (:export #:print-chess-board)
 
-  (:export #:euclid-gcd #:fraction #:make-fraction #:fraction-numerator #:fraction-denominator #:reduce-fraction)
-
   ;; c-algorithms
   (:export
-   ;; chapter 1
+   ;; chapter 2
+   #:euclid-gcd #:fraction #:make-fraction #:fraction-numerator #:fraction-denominator
+   #:reduce-fraction
    #:convert-int
    #:binary
+   #:gcd-triplet
    ))

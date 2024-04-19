@@ -1,5 +1,9 @@
 (in-package #:cl-dsa)
 
+(defun gcd-triplet (a b c)
+  (declare (type (integer 0 *) a b c))
+  (euclid-gcd (euclid-gcd a b) c))
+
 (defun binary (num)
   (declare (type integer num))
   (loop

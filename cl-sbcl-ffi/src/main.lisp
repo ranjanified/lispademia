@@ -29,7 +29,7 @@
    #:min-max-quad)
 
   (:export ; c-algorithms
-   ;; chapter 1
+   ;; chapter 2
    #:euclid-gcd
    #:reduce-fraction #:fraction
    #:convert-int

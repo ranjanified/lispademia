@@ -1,6 +1,6 @@
 (in-package #:cl-dsa/tests)
 
-(in-suite* chapter-2 :in c-algorithms)
+(in-suite* calg-chapter-2 :in c-algorithms)
 
 (test euclid-gcd
   (is-true (zerop (euclid-gcd 0  0)))
@@ -8,6 +8,13 @@
   (is-true (=     (euclid-gcd 0  3) 3))
   (is-true (=     (euclid-gcd 17 5) 1))
   (is-true (=     (euclid-gcd 6 18) 6)))
+
+(test gcd-triplet
+  (is-true (zerop (gcd-triplet 0  0 0)))
+  (is-true (=     (gcd-triplet 3  0 0) 3))
+  (is-true (=     (gcd-triplet 0  3 3) 3))
+  (is-true (=     (gcd-triplet 15 5 3) 1))
+  (is-true (=     (gcd-triplet 6 18 3) 3)))
 
 (def-fixture with-reduced-fraction (fraction)
   (reduce-fraction fraction)
