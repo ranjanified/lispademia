@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <math.h>
-#include <calg-1.h>
+#include <calg-2.h>
 
 unsigned long euclid_gcd(unsigned long num1, unsigned long  num2)
 {

@@ -14,7 +14,7 @@
 		   (:file "chapter5")))
 		 (:module "c-algorithms"
 		  :components
-		  ((:file "chapter-1"))))))
+		  ((:file "chapter-2"))))))
   :Description ""
   :in-order-to ((load-op (load-op #:cl-sbcl-ffi/c-bridge))
 		(test-op (test-op #:cl-sbcl-ffi/tests))))
@@ -44,6 +44,6 @@
 		  ((:file "chapter-2")))
 		 (:module "c-algorithms"
 		  :components
-		  ((:file "chapter-1"))))))
+		  ((:file "chapter-2"))))))
   :description "Test system for cl-sbcl-ffi"
   :perform (test-op (op c) (symbol-call '#:cl-sbcl-ffi/tests '#:run-tests)))
