@@ -45,3 +45,15 @@
   (is-true (=     (convert-int   "1") 1))
   (is-true (=     (convert-int  "10") 10))
   (is-true (=     (convert-int "101") 101)))
+
+(test binary
+  (is-true (string= (binary 0) "0"))
+  (is-true (string= (binary 1) "1"))
+  (is-true (string= (binary 2) "10"))
+  (is-true (string= (binary 3) "11"))
+  (is-true (string= (binary 4) "100"))
+  (is-true (string= (binary 5) "101"))
+  (is-true (string= (binary 6) "110"))
+  (is-true (string= (binary 7) "111"))
+  (is-true (string= (binary 8) "1000"))
+  (is-true (string= (binary 9) "1001")))

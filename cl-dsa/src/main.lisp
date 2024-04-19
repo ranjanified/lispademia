@@ -25,4 +25,5 @@
   (:export
    ;; chapter 1
    #:convert-int
+   #:binary
    ))

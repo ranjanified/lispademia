@@ -18,7 +18,8 @@
 		  :components
 		  ((:file "euclid-gcd")
 		   (:file "reduce-fraction")
-		   (:file "convert"))))))
+		   (:file "convert")
+		   (:file "chapter-1"))))))
   :description ""
   :in-order-to ((test-op (test-op #:cl-dsa/tests))))
 
