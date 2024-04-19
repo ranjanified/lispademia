@@ -17,3 +17,5 @@
 (define-alien-routine "convert_int" int (number-str c-string))
 
 (define-alien-routine "binary" (* char) (number int))
+
+(define-alien-routine "gcd_triplet" unsigned-int (a unsigned-int) (b unsigned-int) (c unsigned-int))

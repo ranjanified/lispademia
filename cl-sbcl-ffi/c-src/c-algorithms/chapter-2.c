@@ -24,6 +24,11 @@ unsigned long euclid_gcd(unsigned long num1, unsigned long  num2)
   return num2;
 }
 
+unsigned long gcd_triplet(unsigned long a, unsigned long b, unsigned long c)
+{
+  return euclid_gcd(euclid_gcd(a, b), c);
+}
+
 void reduce_fraction(struct fraction *fraction)
 {
   unsigned int numerator = abs(fraction->numerator), denominator = abs(fraction->denominator);
@@ -74,3 +79,4 @@ char *binary(int num)
   }
   return buffer;
 }
+

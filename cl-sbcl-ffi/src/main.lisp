@@ -34,4 +34,5 @@
    #:reduce-fraction #:fraction
    #:convert-int
    #:binary
+   #:gcd-triplet
    ))

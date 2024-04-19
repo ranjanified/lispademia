@@ -9,6 +9,13 @@
   (is-true (=     (euclid-gcd 17 5) 1))
   (is-true (=     (euclid-gcd 6 18) 6)))
 
+(test gcd-triplet
+  (is-true (zerop (gcd-triplet 0  0 0)))
+  (is-true (=     (gcd-triplet 3  0 0) 3))
+  (is-true (=     (gcd-triplet 0  3 3) 3))
+  (is-true (=     (gcd-triplet 15 5 3) 1))
+  (is-true (=     (gcd-triplet 6 18 3) 3)))
+
 (def-fixture with-reduced-fraction (numerator denominator)
   ;; a local alien which should be garbage collected by Lisp,
   ;; no need to (free-alien ...) this one
