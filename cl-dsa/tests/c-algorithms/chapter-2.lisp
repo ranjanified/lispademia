@@ -1,6 +1,6 @@
 (in-package #:cl-dsa/tests)
 
-(in-suite* chapter-1 :in c-algorithms)
+(in-suite* chapter-2 :in c-algorithms)
 
 (test euclid-gcd
   (is-true (zerop (euclid-gcd 0  0)))

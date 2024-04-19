@@ -6,9 +6,10 @@
 (in-package #:cl-sbcl-ffi/tests)
 
 (def-suite cl-sbcl-ffi)
-
-(def-suite c-algorithms :in cl-sbcl-ffi)
 (def-suite modern-c :in cl-sbcl-ffi)
+(def-suite c-algorithms :in cl-sbcl-ffi)
+
+;; (in-suite cl-sbcl-ffi)
 
 (defgeneric warmup-suite (suite))
 

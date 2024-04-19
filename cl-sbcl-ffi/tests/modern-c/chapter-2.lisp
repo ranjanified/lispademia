@@ -1,6 +1,6 @@
 (in-package #:cl-sbcl-ffi/tests)
 
-(in-suite* chapter-2 :in modern-c)
+(in-suite* modc-chapter-2 :in modern-c)
 
 (def-fixture with-pun ()
   (with-alien ((pun-str (* char) (print-pun)))

@@ -1,6 +1,6 @@
 (in-package #:cl-sbcl-ffi/tests)
 
-(in-suite* chapter-1 :in c-algorithms)
+(in-suite* calg-chapter-2 :in c-algorithms)
 
 (test euclid-gcd
   (is-true (zerop (euclid-gcd 0  0)))
