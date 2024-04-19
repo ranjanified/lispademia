@@ -71,3 +71,8 @@
   (is-true (string= (binary 7) "111"))
   (is-true (string= (binary 8) "1000"))
   (is-true (string= (binary 9) "1001")))
+
+(test largest-pair-with-gcd-1
+  (let ((largest-pair (largest-pair-with-gcd-1)))
+    (is-true (= (first largest-pair) most-positive-fixnum)
+	     (= (second largest-pair) (1- most-positive-fixnum)))))

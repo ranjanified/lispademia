@@ -13,10 +13,5 @@
     :finally (return (coerce (reverse (if (zerop num) '(#\0) bits)) 'string))))
 
 (defun largest-pair-with-gcd-1 ()
-  (loop
-    :for number-1 := most-positive-fixnum :then (1- number-1)
-    :for number-2 := (1- number-1)        :then (1- number-2)
-    :for gcd := (euclid-gcd-fast number-1 number-2)
-    :while (> gcd 1)
-    :until (> number-2 0)
-    :finally (return (vector number-1 number-2))))
+  ;; gcd of any 2 consecutive numbers is 1
+  (list most-positive-fixnum (1- most-positive-fixnum)))
