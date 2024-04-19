@@ -9,6 +9,13 @@
   (is-true (=     (euclid-gcd 17 5) 1))
   (is-true (=     (euclid-gcd 6 18) 6)))
 
+(test euclid-gcd-fast
+  (is-true (zerop (euclid-gcd-fast 0  0)))
+  (is-true (=     (euclid-gcd-fast 3  0) 3))
+  (is-true (=     (euclid-gcd-fast 0  3) 3))
+  (is-true (=     (euclid-gcd-fast 17 5) 1))
+  (is-true (=     (euclid-gcd-fast 6 18) 6)))
+
 (test gcd-triplet
   (is-true (zerop (gcd-triplet 0  0 0)))
   (is-true (=     (gcd-triplet 3  0 0) 3))

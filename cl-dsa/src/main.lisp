@@ -22,9 +22,9 @@
   ;; c-algorithms
   (:export
    ;; chapter 2
-   #:euclid-gcd #:fraction #:make-fraction #:fraction-numerator #:fraction-denominator
-   #:reduce-fraction
+   #:euclid-gcd #:euclid-gcd-fast
+   #:fraction #:make-fraction #:fraction-numerator #:fraction-denominator #:reduce-fraction
    #:convert-int
    #:binary
    #:gcd-triplet
-   ))
+   #:largest-pair-with-gcd-1))
