@@ -1,5 +1,6 @@
 (defpackage #:cl-dsa
   (:use #:cl)
+  (:export #:sieve-primes)
   (:export #:print-histogram-vertical)
   (:export #:count-blanks)
   ;; (:export #:word-count)
