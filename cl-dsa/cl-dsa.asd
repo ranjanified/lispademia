@@ -14,6 +14,7 @@
 		 (:file "weather-report")
 		 (:file "department-sales")
 		 (:file "chess")
+		 (:file "char-map")
 		 (:module "c-algorithms"
 		  :components
 		  ((:file "euclid-gcd")
@@ -38,6 +39,7 @@
 		 (:file "weather-report")
 		 (:file "department-sales")
 		 (:file "chess")
+		 (:file "char-map")
 		 (:module "c-algorithms"
 		  :components
 		  ((:file "chapter-2"))))))
