@@ -36,4 +36,7 @@
    #:binary
    #:gcd-triplet
    #:largest-pair-with-gcd-1
+
+   ;; chapter 3
+   #:sieve-primes
    ))
