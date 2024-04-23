@@ -1,5 +1,7 @@
 (defpackage #:cl-sbcl-ffi/tests
-  (:use #:cl #:sb-alien
+  (:use #:cl
+	#:sb-alien
+	#:sb-sys
         #:cl-sbcl-ffi
 	#:fiveam))
 

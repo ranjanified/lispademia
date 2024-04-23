@@ -31,3 +31,38 @@ unsigned int *sieve_primes(unsigned int primes_upto, unsigned int *primes_count)
   }
   return primes_buffer;
 }
+
+struct node *list_initialize()
+{
+  struct node *head, *tail;
+
+  head = malloc(sizeof *head);
+  tail = malloc(sizeof *tail);
+
+  head->key = -10;
+  head->next = tail;
+  tail->next = tail;
+
+  return head;
+}
+
+struct node *delete_next(struct node *node)
+{
+  struct node *deleted_node = node->next;
+  node->next = node->next->next;
+
+  return deleted_node;
+}
+
+struct node *insert_after(struct node *node, int key)
+{
+  struct node *new_node;
+
+  new_node = malloc(sizeof *new_node);
+  new_node->key = key;
+
+  new_node->next = node->next;
+  node->next = new_node;
+
+  return new_node;
+}

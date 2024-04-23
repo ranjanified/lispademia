@@ -39,4 +39,7 @@
 
    ;; chapter 3
    #:sieve-primes
+   #:list-initialize
+   #:delete-next
+   #:insert-after
    ))

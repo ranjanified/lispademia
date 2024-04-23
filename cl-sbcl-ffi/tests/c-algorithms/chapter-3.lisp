@@ -61,3 +61,23 @@
 				   821 823 827 829 839 853 857 859 863 877 881 883 887 907 911 919 929 937 941
 				   947 953 967 971 977 983 991 997)))
     (is-true (= primes-count 168))))
+
+(def-fixture with-list-initialized ()
+  (with-alien ((head (* (struct cl-sbcl-ffi::node))
+		     (list-initialize))
+	       (key int
+		    (slot head 'cl-sbcl-ffi::key))
+	       (tail (* (struct cl-sbcl-ffi::node))
+		     (slot head 'cl-sbcl-ffi::next))
+	       (tail-next (* (struct cl-sbcl-ffi::node))
+			  (slot tail 'cl-sbcl-ffi::next)))
+    (&body)
+    (free-alien tail)
+    (free-alien head)))
+
+(test list-initialize
+  (with-fixture with-list-initialized ()
+    (is-true (= key -10))
+    (is-false (null tail))
+    (is-false (null tail-next))
+    (is-true (sap= (alien-sap tail) (alien-sap tail-next)))))
