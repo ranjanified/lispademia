@@ -4,7 +4,7 @@
 unsigned int *sieve_primes(unsigned int primes_upto, unsigned int *primes_count)
 {
   unsigned int buffer[(primes_upto + 1)];
-  unsigned int index = 0, run_index = 0, count = 0;
+  unsigned int index = 0, run_index = 0;
 
   for (buffer[0] = 0, buffer[1] = 0, index = 2; index <= primes_upto; index++) {
     buffer[index] = 1;
@@ -18,17 +18,16 @@ unsigned int *sieve_primes(unsigned int primes_upto, unsigned int *primes_count)
   
   for(index = 1; index <= primes_upto; index++) {
     if (buffer[index] == 1) {
-      ++count;
+      ++(*primes_count);
     }
   }
   
-  unsigned int *primes_buffer = malloc (sizeof (unsigned int) * (count));
-  count = 0;
+  unsigned int *primes_buffer = malloc (sizeof (unsigned int) * (*primes_count));
+  *primes_count = 0;
   for(index = 1; index <= primes_upto; index++) {
     if (buffer[index] == 1) {
-      primes_buffer[count++] = index;
+      primes_buffer[(*primes_count)++] = index;
     }
   }
-  *primes_count = count;
   return primes_buffer;
 }
