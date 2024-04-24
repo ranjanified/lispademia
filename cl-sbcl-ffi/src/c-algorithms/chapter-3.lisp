@@ -14,17 +14,17 @@
 (define-alien-routine "sieve_primes" (* unsigned-int) (primes-upto unsigned-int) (primes-count unsigned-int :in-out))
 
 
-(define-alien-type nil
+(define-alien-type singly-linkedlist-node
     (struct node
 	    (key int)
 	    (next (* (struct node)))))
 
 ;;; Example Call:
-;;; (with-alien ((head (* (struct cl-sbcl-ffi::node)) 
+;;; (with-alien ((head (* singly-linkedlist-node)) 
 ;;; 		       (cl-sbcl-ffi:list-initialize)))
-;;;   (format t "~a~%" (slot head 'cl-sbcl-ffi::key))
-;;;   (free-alien (slot head 'cl-sbcl-ffi::next))
+;;;   (format t "~a~%" (slot head 'cl-sbcl-ffi:key))
+;;;   (free-alien (slot head 'cl-sbcl-ffi:next))
 ;;;   (free-alien head))
-(define-alien-routine "list_initialize" (* (struct node)))
-(define-alien-routine "delete_next"     (* (struct node)) (node (* (struct node))))
-(define-alien-routine "insert_after"    (* (struct node)) (node (* (struct node))) (key int))
+(define-alien-routine "list_initialize" (* singly-linkedlist-node))
+(define-alien-routine "delete_next"     (* singly-linkedlist-node) (node (* singly-linkedlist-node)))
+(define-alien-routine "insert_after"    (* singly-linkedlist-node) (node (* singly-linkedlist-node)) (key int))

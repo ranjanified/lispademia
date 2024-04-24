@@ -63,21 +63,21 @@
     (is-true (= primes-count 168))))
 
 (def-fixture with-list-initialized ()
-  (with-alien ((head (* (struct cl-sbcl-ffi::node))
+  (with-alien ((head (* singly-linkedlist-node)
 		     (list-initialize))
-	       (key int
-		    (slot head 'cl-sbcl-ffi::key))
-	       (tail (* (struct cl-sbcl-ffi::node))
-		     (slot head 'cl-sbcl-ffi::next))
-	       (tail-next (* (struct cl-sbcl-ffi::node))
-			  (slot tail 'cl-sbcl-ffi::next)))
+	       (head-key int
+		    (slot head 'key))
+	       (tail (* singly-linkedlist-node)
+		     (slot head 'next))
+	       (tail-next (* singly-linkedlist-node)
+			  (slot tail 'next)))
     (&body)
     (free-alien tail)
     (free-alien head)))
 
 (test list-initialize
   (with-fixture with-list-initialized ()
-    (is-true (= key -10))
+    (is-true (= head-key -10))
     (is-false (null tail))
     (is-false (null tail-next))
     (is-true (sap= (alien-sap tail) (alien-sap tail-next)))))

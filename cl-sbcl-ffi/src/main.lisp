@@ -39,6 +39,8 @@
 
    ;; chapter 3
    #:sieve-primes
+   #:singly-linkedlist-node
+   #:next #:key
    #:list-initialize
    #:delete-next
    #:insert-after
