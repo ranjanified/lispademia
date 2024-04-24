@@ -81,3 +81,30 @@
     (is-false (null tail))
     (is-false (null tail-next))
     (is-true (sap= (alien-sap tail) (alien-sap tail-next)))))
+
+(def-fixture with-keys (&rest keys)
+  (flet ((next-node (node) (slot node 'next))
+	 (node-key (node) (slot node 'key)))
+    (with-alien ((head (* singly-linkedlist-node)
+		       (list-initialize))
+		 (tail (* singly-linkedlist-node)
+		       (slot head 'next)))
+      (loop
+	:for key :in keys
+	:do (insert-after head key))
+      (&body)
+      ;; free the nodes - head, tail, and all constituents
+      (loop
+	:repeat (length keys)
+	:for curr-node := (next-node head) :then (next-node curr-node)
+	:do (free-alien curr-node))
+      (free-alien tail)
+      (free-alien head))))
+
+(test insert-after
+  (with-fixture with-keys (20 30 40 50)
+    (is-true (= (node-key (next-node head)) 50))
+    (is-true (= (node-key (next-node (next-node head))) 40))
+    (is-true (= (node-key (next-node (next-node (next-node head)))) 30))
+    (is-true (= (node-key (next-node (next-node (next-node (next-node head))))) 20))
+    (is-true (sap= (alien-sap (next-node (next-node (next-node (next-node (next-node head)))))) (alien-sap tail)))))
