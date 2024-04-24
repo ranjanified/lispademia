@@ -95,8 +95,8 @@
       (&body)
       ;; free the nodes - head, tail, and all constituents
       (loop
-	:repeat (length keys)
 	:for curr-node := (next-node head) :then (next-node curr-node)
+	:until (sap= (alien-sap curr-node) (alien-sap tail))
 	:do (free-alien curr-node))
       (free-alien tail)
       (free-alien head))))
@@ -108,3 +108,12 @@
     (is-true (= (node-key (next-node (next-node (next-node head)))) 30))
     (is-true (= (node-key (next-node (next-node (next-node (next-node head))))) 20))
     (is-true (sap= (alien-sap (next-node (next-node (next-node (next-node (next-node head)))))) (alien-sap tail)))))
+
+(test delete-next
+  (with-fixture with-keys (10 20 30 40)
+    (is-true (= (node-key (delete-next head)) 40))
+    (is-true (= (node-key (delete-next head)) 30))
+    (is-true (= (node-key (delete-next head)) 20))
+    (is-true (= (node-key (delete-next head)) 10))
+
+    (is-true (sap= (alien-sap (delete-next head)) (alien-sap tail)))))
