@@ -76,7 +76,8 @@
       ;; free the nodes - head, tail, and all constituents
       (loop
 	:for curr-node := (next-node head) :then (next-node curr-node)
-	:until (sap= (alien-sap curr-node) (alien-sap tail))
+	:until (sap= (alien-sap curr-node)
+		     (alien-sap tail))
 	:do (free-alien curr-node))
       (free-alien tail)
       (free-alien head))))
@@ -86,8 +87,10 @@
     (is-false (null head))
     (is-false (null tail))
     (is-false (null (next-node tail)))
-    (is-false (sap= (alien-sap head) (alien-sap tail)))
-    (is-true  (sap= (alien-sap tail) (alien-sap (next-node tail))))))
+    (is-false (sap= (alien-sap head)
+		    (alien-sap tail)))
+    (is-true  (sap= (alien-sap tail)
+		    (alien-sap (next-node tail))))))
 
 (test insert-after
   (with-fixture with-keys (20 30 40 50)
@@ -95,7 +98,8 @@
     (is-true (= (node-key (next-node (next-node head))) 40))
     (is-true (= (node-key (next-node (next-node (next-node head)))) 30))
     (is-true (= (node-key (next-node (next-node (next-node (next-node head))))) 20))
-    (is-true (sap= (alien-sap (next-node (next-node (next-node (next-node (next-node head)))))) (alien-sap tail)))))
+    (is-true (sap= (alien-sap (next-node (next-node (next-node (next-node (next-node head))))))
+		   (alien-sap tail)))))
 
 (test delete-next
   (with-fixture with-keys (10 20 30 40)
@@ -103,4 +107,5 @@
     (is-true (= (node-key (delete-next head)) 30))
     (is-true (= (node-key (delete-next head)) 20))
     (is-true (= (node-key (delete-next head)) 10))
-    (is-true (sap= (alien-sap (delete-next head)) (alien-sap tail)))))
+    (is-true (sap= (alien-sap (delete-next head))
+		   (alien-sap tail)))))
