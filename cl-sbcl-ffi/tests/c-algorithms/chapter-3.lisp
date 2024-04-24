@@ -62,26 +62,6 @@
 				   947 953 967 971 977 983 991 997)))
     (is-true (= primes-count 168))))
 
-(def-fixture with-list-initialized ()
-  (with-alien ((head (* singly-linkedlist-node)
-		     (list-initialize))
-	       (head-key int
-		    (slot head 'key))
-	       (tail (* singly-linkedlist-node)
-		     (slot head 'next))
-	       (tail-next (* singly-linkedlist-node)
-			  (slot tail 'next)))
-    (&body)
-    (free-alien tail)
-    (free-alien head)))
-
-(test list-initialize
-  (with-fixture with-list-initialized ()
-    (is-true (= head-key -10))
-    (is-false (null tail))
-    (is-false (null tail-next))
-    (is-true (sap= (alien-sap tail) (alien-sap tail-next)))))
-
 (def-fixture with-keys (&rest keys)
   (flet ((next-node (node) (slot node 'next))
 	 (node-key (node) (slot node 'key)))
@@ -101,6 +81,14 @@
       (free-alien tail)
       (free-alien head))))
 
+(test list-initialize
+  (with-fixture with-keys ()
+    (is-false (null head))
+    (is-false (null tail))
+    (is-false (null (next-node tail)))
+    (is-false (sap= (alien-sap head) (alien-sap tail)))
+    (is-true  (sap= (alien-sap tail) (alien-sap (next-node tail))))))
+
 (test insert-after
   (with-fixture with-keys (20 30 40 50)
     (is-true (= (node-key (next-node head)) 50))
@@ -115,5 +103,4 @@
     (is-true (= (node-key (delete-next head)) 30))
     (is-true (= (node-key (delete-next head)) 20))
     (is-true (= (node-key (delete-next head)) 10))
-
     (is-true (sap= (alien-sap (delete-next head)) (alien-sap tail)))))
