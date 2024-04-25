@@ -66,3 +66,26 @@ struct node *insert_after(struct node *node, int key)
 
   return new_node;
 }
+
+void singly_ll_initialize()
+{
+  singly_ll_head = 0;
+  singly_ll_tail = 1;
+  singly_ll_current = 2;
+
+  singly_ll_nexts[singly_ll_head] = singly_ll_tail;
+  singly_ll_nexts[singly_ll_tail] = singly_ll_tail;
+}
+
+void singly_ll_delete_next(unsigned int node)
+{
+  singly_ll_nexts[node] = singly_ll_nexts[singly_ll_nexts[node]];
+}
+
+unsigned int singly_ll_insert_after(unsigned int node, int key)
+{
+  singly_ll_keys[singly_ll_current] = key;
+  singly_ll_nexts[singly_ll_current] = singly_ll_nexts[node];
+  singly_ll_nexts[node] = singly_ll_current;
+  return singly_ll_current++;
+}

@@ -40,8 +40,10 @@
    ;; chapter 3
    #:sieve-primes
    #:singly-linkedlist-node
-   #:next #:key
-   #:list-initialize
-   #:delete-next
-   #:insert-after
+   #:key #:singly-ll-keys
+   #:next #:singly-ll-nexts
+   #:singly-ll-head #:singly-ll-tail #:singly-ll-current
+   #:list-initialize #:singly-ll-initialize
+   #:delete-next #:singly-ll-delete-next
+   #:insert-after #:singly-ll-insert-after
    ))

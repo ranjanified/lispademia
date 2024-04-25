@@ -28,3 +28,13 @@
 (define-alien-routine "list_initialize" (* singly-linkedlist-node))
 (define-alien-routine "delete_next"     (* singly-linkedlist-node) (node (* singly-linkedlist-node)))
 (define-alien-routine "insert_after"    (* singly-linkedlist-node) (node (* singly-linkedlist-node)) (key int))
+
+(define-alien-variable "singly_ll_keys" (array int 102))
+(define-alien-variable "singly_ll_nexts" (array int 102))
+(define-alien-variable "singly_ll_head" unsigned-int)
+(define-alien-variable "singly_ll_tail" unsigned-int)
+(define-alien-variable "singly_ll_current" unsigned-int)
+
+(define-alien-routine "singly_ll_initialize" void)
+(define-alien-routine "singly_ll_delete_next" void (node unsigned-int))
+(define-alien-routine "singly_ll_insert_after" unsigned-int (node unsigned-int) (key int))

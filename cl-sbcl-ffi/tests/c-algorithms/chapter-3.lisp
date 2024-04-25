@@ -109,3 +109,44 @@
     (is-true (= (node-key (delete-next head)) 10))
     (is-true (sap= (alien-sap (delete-next head))
 		   (alien-sap tail)))))
+
+(def-fixture with-singly-ll (&rest keys)
+  (flet ((node-key (node) (deref singly-ll-keys node))
+	 (next-node (node) (deref singly-ll-nexts node)))
+    (loop
+      :for index :from 0 :below 102
+      :do (setf (deref singly-ll-keys index) 0)
+	  (setf (deref singly-ll-nexts index) 0))
+    (singly-ll-initialize)
+    (loop
+      :for key :in keys
+      :for current-node := singly-ll-head :then (next-node current-node) 
+      :do (singly-ll-insert-after current-node key))
+    (let ((head singly-ll-head)
+	  (tail singly-ll-tail)
+	  (current singly-ll-current))
+      (&body))))
+
+(test singly-ll-initialize
+  (with-fixture with-singly-ll ()
+    (is-true (zerop head))
+    (is-true (= tail 1))
+    (is-true (= current 2))
+    (is-true (= (next-node tail) tail))
+    (is-true (= (next-node head) tail))))
+
+(test singly-ll-delete-next
+  (with-fixture with-singly-ll (10 20)
+    (singly-ll-delete-next head)
+    (is-true (= current 4))
+    (is-true (= (next-node tail) tail))
+    (is-false (= (next-node head) tail))
+    (is-true (= (node-key (next-node head)) 20))))
+
+(test singly-ll-insert-after
+  (with-fixture with-singly-ll (40 50 60)
+    (is-true (= current 5))
+    (is-true (= (node-key (next-node head)) 40))
+    (is-true (= (node-key (next-node (next-node head))) 50))
+    (is-true (= (node-key (next-node (next-node (next-node head)))) 60))
+    (is-true (= (next-node (next-node (next-node (next-node head)))) tail))))
