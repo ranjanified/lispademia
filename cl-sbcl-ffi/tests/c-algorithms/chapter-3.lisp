@@ -71,7 +71,8 @@
 		       (slot head 'next)))
       (loop
 	:for key :in keys
-	:do (insert-after head key))
+	:for current-node := head :then (next-node current-node)
+	:do (insert-after current-node key))
       (&body)
       ;; free the nodes - head, tail, and all constituents
       (loop
@@ -94,19 +95,19 @@
 
 (test insert-after
   (with-fixture with-keys (20 30 40 50)
-    (is-true (= (node-key (next-node head)) 50))
-    (is-true (= (node-key (next-node (next-node head))) 40))
-    (is-true (= (node-key (next-node (next-node (next-node head)))) 30))
-    (is-true (= (node-key (next-node (next-node (next-node (next-node head))))) 20))
+    (is-true (= (node-key (next-node head)) 20))
+    (is-true (= (node-key (next-node (next-node head))) 30))
+    (is-true (= (node-key (next-node (next-node (next-node head)))) 40))
+    (is-true (= (node-key (next-node (next-node (next-node (next-node head))))) 50))
     (is-true (sap= (alien-sap (next-node (next-node (next-node (next-node (next-node head))))))
 		   (alien-sap tail)))))
 
 (test delete-next
   (with-fixture with-keys (10 20 30 40)
-    (is-true (= (node-key (delete-next head)) 40))
-    (is-true (= (node-key (delete-next head)) 30))
-    (is-true (= (node-key (delete-next head)) 20))
     (is-true (= (node-key (delete-next head)) 10))
+    (is-true (= (node-key (delete-next head)) 20))
+    (is-true (= (node-key (delete-next head)) 30))
+    (is-true (= (node-key (delete-next head)) 40))
     (is-true (sap= (alien-sap (delete-next head))
 		   (alien-sap tail)))))
 
