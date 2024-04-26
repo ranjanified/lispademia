@@ -17,3 +17,12 @@ void singly_ll_delete_next(unsigned int node);
 unsigned int singly_ll_insert_after(unsigned int node, int key);
 
 unsigned int *sieve_primes(unsigned int primes_upto, unsigned int *primes_count);
+
+struct stack {
+  struct node *head;
+  struct node *tail;
+};
+
+struct stack *stack_initialize();
+struct node *stack_push(struct stack *stack, int key);
+int stack_pop(struct stack *stack);

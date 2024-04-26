@@ -151,3 +151,47 @@
     (is-true (= (node-key (next-node (next-node head))) 50))
     (is-true (= (node-key (next-node (next-node (next-node head)))) 60))
     (is-true (= (next-node (next-node (next-node (next-node head)))) tail))))
+
+(def-fixture with-stack (&rest keys)
+  (flet ((next-node (node) (slot node 'next)))
+    (with-alien ((stack (* stack-struct)
+			(stack-initialize))
+		 (head (* singly-linkedlist-node)
+		       (slot stack 'head))
+		 (tail (* singly-linkedlist-node)
+		       (slot stack 'tail)))
+      (loop
+	:for key :in keys
+	:do (stack-push stack key))
+
+      (&body)
+
+      (loop
+	:for current-node := (next-node head) :then (next-node current-node)
+	:until (sap= (alien-sap current-node) (alien-sap tail))
+	:do (free-alien current-node))
+      (free-alien head)
+      (free-alien tail)
+      (free-alien stack))))
+
+(test stack-initialize
+  (with-fixture with-stack ()
+    (is-false (null stack))
+    (is-false (null head))
+    (is-false (null tail))))
+
+(test stack-push
+  (with-fixture with-stack ()
+    (stack-push stack 10)
+    (stack-push stack -20)
+    (stack-push stack 30)
+    (is-true (= (stack-pop stack) 30))
+    (is-true (= (stack-pop stack) -20))
+    (is-true (= (stack-pop stack) 10))))
+
+(test stack-pop
+  (with-fixture with-stack (10 20 30 40)
+    (is-true (= (stack-pop stack) 40))
+    (is-true (= (stack-pop stack) 30))
+    (is-true (= (stack-pop stack) 20))
+    (is-true (= (stack-pop stack) 10))))

@@ -38,3 +38,12 @@
 (define-alien-routine "singly_ll_initialize" void)
 (define-alien-routine "singly_ll_delete_next" void (node unsigned-int))
 (define-alien-routine "singly_ll_insert_after" unsigned-int (node unsigned-int) (key int))
+
+(define-alien-type stack-struct
+    (struct stack
+	    (head (* singly-linkedlist-node))
+	    (tail (* singly-linkedlist-node))))
+
+(define-alien-routine "stack_initialize" (* stack-struct))
+(define-alien-routine "stack_push" (* singly-linkedlist-node) (stack (* stack-struct)) (key int))
+(define-alien-routine "stack_pop" int (stack (* stack-struct)))

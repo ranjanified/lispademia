@@ -89,3 +89,42 @@ unsigned int singly_ll_insert_after(unsigned int node, int key)
   singly_ll_nexts[node] = singly_ll_current;
   return singly_ll_current++;
 }
+
+struct stack *stack_initialize()
+{
+  struct node *head = malloc(sizeof(struct node));
+  struct node *tail = malloc(sizeof(struct node));
+
+  struct stack *stack_start = malloc(sizeof(struct node));
+
+  head->key = 0;
+  tail->key = 0;
+
+  head->next = tail;
+  tail->next = tail;
+  
+  stack_start->head = head;
+  stack_start->tail = tail;
+  
+  return stack_start;
+}
+
+struct node *stack_push(struct stack *stack, int key)
+{
+  struct node *new_key_node = malloc(sizeof(struct node));
+  new_key_node->key = key;
+
+  new_key_node->next = stack->head->next;
+  stack->head->next = new_key_node;
+
+  return new_key_node;
+}
+
+int stack_pop(struct stack *stack)
+{
+  struct node *key_node = stack->head->next;
+  int key = key_node->key;
+  stack->head->next = key_node->next;
+  free(key_node);
+  return key;
+}
