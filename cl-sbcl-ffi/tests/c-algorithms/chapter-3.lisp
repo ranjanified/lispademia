@@ -163,15 +163,13 @@
       (loop
 	:for key :in keys
 	:do (stack-push stack key))
-
       (&body)
-
       (loop
 	:for current-node := (next-node head) :then (next-node current-node)
-	:until (sap= (alien-sap current-node) (alien-sap tail))
+	:until (stack-empty stack)
 	:do (free-alien current-node))
-      (free-alien head)
       (free-alien tail)
+      (free-alien head)
       (free-alien stack))))
 
 (test stack-initialize
@@ -195,3 +193,26 @@
     (is-true (= (stack-pop stack) 30))
     (is-true (= (stack-pop stack) 20))
     (is-true (= (stack-pop stack) 10))))
+
+(test stack-empty
+  ;; from c return values: 1 designates true, 0 designates false
+  (with-fixture with-stack ()
+    (is-true (= 1 (stack-empty stack))))
+
+  (with-fixture with-stack (1 2 3)
+    (is-true (zerop (stack-empty stack))))
+
+  (with-fixture with-stack (1 2 3)
+    (stack-pop stack)
+    (stack-pop stack)
+    (is-true (zerop (stack-empty stack))))
+
+  (with-fixture with-stack ()
+    (stack-push stack 20)
+    (is-true (zerop (stack-empty stack))))
+
+  (with-fixture with-stack (10 20)
+    (stack-pop stack)
+    (stack-pop stack)
+    (is-true (= 1 (stack-empty stack)))))
+

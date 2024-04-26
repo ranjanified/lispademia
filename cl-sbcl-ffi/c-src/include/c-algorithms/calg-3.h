@@ -26,3 +26,4 @@ struct stack {
 struct stack *stack_initialize();
 struct node *stack_push(struct stack *stack, int key);
 int stack_pop(struct stack *stack);
+int stack_empty(struct stack *stack);

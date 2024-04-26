@@ -128,3 +128,8 @@ int stack_pop(struct stack *stack)
   free(key_node);
   return key;
 }
+
+int stack_empty(struct stack *stack)
+{
+  return stack->head->next == stack->tail;
+}

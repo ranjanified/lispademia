@@ -47,5 +47,5 @@
    #:delete-next #:singly-ll-delete-next
    #:insert-after #:singly-ll-insert-after
    #:head #:tail #:stack-struct
-   #:stack-initialize #:stack-push #:stack-pop
+   #:stack-initialize #:stack-push #:stack-pop #:stack-empty
    ))
