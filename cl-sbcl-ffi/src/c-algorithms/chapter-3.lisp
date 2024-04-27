@@ -48,3 +48,4 @@
 (define-alien-routine "stack_push" (* singly-linkedlist-node) (stack (* stack-struct)) (key int))
 (define-alien-routine "stack_pop" int (stack (* stack-struct)))
 (define-alien-routine "stack_empty" int (stack (* stack-struct)))
+(define-alien-routine "stack_contents" (* char) (stack (* stack-struct)))

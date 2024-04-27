@@ -216,3 +216,46 @@
     (stack-pop stack)
     (is-true (= 1 (stack-empty stack)))))
 
+
+(test sample-stack
+  (with-fixture with-stack ()
+    (loop
+      :for code :in (mapcar #'char-code (coerce "A*SA*M*P*L*ES*T***A*CK**" 'list))
+      :if (= code (char-code #\*))
+	:do (stack-pop stack)
+      :else
+	:do (stack-push stack code)
+      :finally
+	 (is-true (stack-empty stack)))))
+
+(def-fixture with-stack-contents (content-str)
+  (flet ((content-string (stack)
+	   (with-alien ((contents (* char)
+				  (stack-contents stack)))
+	     (with-alien ((contents-str c-string contents))
+	       (free-alien contents)
+	       contents-str))))
+    (let* ((stack (stack-initialize))
+	   (contents (loop
+		       :for code :in (mapcar #'char-code (coerce content-str 'list))
+		       :if (= code (char-code #\*))
+			 :do (stack-pop stack)
+			 :and :collect (content-string stack) :into contents
+		       :else
+			 :do (stack-push stack code)
+			 :and :collect (content-string stack) :into contents
+		       :finally (return contents))))
+      (&body)
+      (free-alien stack))))
+
+(test stack-contents
+  (with-fixture with-stack-contents ("EAS*Y**QUE***ST***I*ON**")
+    (is-false (null stack))
+    (is-true (stack-empty stack))
+    (is-true (= (length contents) 24))
+    (is-true (equal contents
+		    (list "E" "AE" "SAE" "AE" "YAE" 
+			  "AE" "E" "QE" "UQE" "EUQE" 
+			  "UQE" "QE" "E" "SE" "TSE" 
+			  "SE" "E" "" "I" "" "O" "NO" 
+			  "O" "")))))

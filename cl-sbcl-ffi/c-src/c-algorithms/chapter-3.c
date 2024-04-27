@@ -133,3 +133,18 @@ int stack_empty(struct stack *stack)
 {
   return stack->head->next == stack->tail;
 }
+
+char *stack_contents(struct stack *stack)
+{
+  char *buffer = malloc(sizeof(char *));
+  struct node *curr_node = stack->head->next;
+  unsigned int index = 0;
+  
+  while(curr_node != stack->tail) {
+    buffer[index++] = curr_node->key;
+    curr_node = curr_node->next;
+  }
+  buffer[index] = '\0';
+  
+  return buffer;
+}
