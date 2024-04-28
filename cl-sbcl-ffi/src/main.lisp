@@ -49,4 +49,6 @@
    #:head #:tail #:stack-struct
    #:stack-initialize #:stack-push #:stack-pop #:stack-empty
    #:stack-contents
+
+   #:infix-postfix
    ))

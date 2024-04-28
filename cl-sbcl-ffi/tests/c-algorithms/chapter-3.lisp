@@ -259,3 +259,40 @@
 			  "UQE" "QE" "E" "SE" "TSE" 
 			  "SE" "E" "" "I" "" "O" "NO" 
 			  "O" "")))))
+
+(def-fixture with-infix (infix)
+  (with-alien ((postfix-str (* char) (cl-sbcl-ffi:infix-postfix infix))
+	       (postfix c-string postfix-str))
+    (&body)
+    (free-alien postfix-str)))
+
+(test infix-postfix
+  (with-fixture with-infix ("")
+    (is-true (string-equal postfix "")))
+
+ (with-fixture with-infix ("A+B")
+   (is-true (string-equal postfix "AB+")))
+
+  (with-fixture with-infix ("(A+B)")
+    (is-true (string-equal postfix "AB+")))
+
+  (with-fixture with-infix ("A+B-C")
+    (is-true (string-equal postfix "ABC-+")))
+
+  (with-fixture with-infix ("(A+B-C)")
+    (is-true (string-equal postfix "ABC-+")))
+
+  (with-fixture with-infix ("A+(B-C)")
+    (is-true (string-equal postfix "ABC-+")))
+
+  (with-fixture with-infix ("(A+B)-C")
+    (is-true (string-equal postfix "AB+C-")))
+
+  (with-fixture with-infix ("(A+B)*(C-D)")
+    (is-true (string-equal postfix "AB+CD-*")))
+
+  (with-fixture with-infix ("A$B*C-D+E/F/(G-H)")
+    (is-true (string-equal postfix "ABCDEFGH-//+-*$")))
+
+  (with-fixture with-infix ("A-B/((C*D)$E)")
+    (is-true (string-equal postfix "ABCD*E$/-"))))

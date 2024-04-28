@@ -148,3 +148,60 @@ char *stack_contents(struct stack *stack)
   
   return buffer;
 }
+
+void stack_uninitialize(struct stack *stack)
+{
+  free(stack->tail);
+  free(stack->head);
+  free(stack);
+}
+
+int stack_top(struct stack *stack)
+{
+  int top = stack_pop(stack);
+  stack_push(stack, top);
+  return top;
+}
+
+short is_operator(char op)
+{
+  short index = -1;
+  char ops[5] = {'-', '+', '*', '/', '$'};
+  for(short i = 0; i < 5; i++) {
+    if (ops[i] == op) {
+      index = i;
+      break;
+    }
+  }
+  return index > -1;
+}
+
+char *infix_postfix(char *infix)
+{
+  struct stack *stack = stack_initialize();
+  char *postfix_string = malloc(sizeof(char *));
+  unsigned int next_char = 0, postfix_index = 0;
+  char next_symbol = '\0';
+
+  while((next_symbol = infix[next_char++]) != '\0') {
+    if (next_symbol == ')') {
+      postfix_string[postfix_index++] = stack_pop(stack);
+    } else {
+      if(is_operator(next_symbol)) {
+	stack_push(stack, next_symbol);
+      } else {
+	if(next_symbol != '(') {
+	  postfix_string[postfix_index++] = next_symbol;
+	}
+      }
+    }
+  }
+  
+  while(!stack_empty(stack)) {
+    postfix_string[postfix_index++] = stack_pop(stack);;
+  }
+  
+  stack_uninitialize(stack);
+  postfix_string[postfix_index] = '\0';
+  return postfix_string; 
+}
