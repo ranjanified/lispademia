@@ -164,13 +164,7 @@
 	:for key :in keys
 	:do (stack-push stack key))
       (&body)
-      (loop
-	:for current-node := (next-node head) :then (next-node current-node)
-	:until (stack-empty stack)
-	:do (free-alien current-node))
-      (free-alien tail)
-      (free-alien head)
-      (free-alien stack))))
+      (stack-uninitialize stack))))
 
 (test stack-initialize
   (with-fixture with-stack ()
@@ -200,21 +194,21 @@
     (is-true (= 1 (stack-empty stack))))
 
   (with-fixture with-stack (1 2 3)
-    (is-true (zerop (stack-empty stack))))
+    (is (= (stack-empty stack) 0)))
 
   (with-fixture with-stack (1 2 3)
-    (stack-pop stack)
-    (stack-pop stack)
-    (is-true (zerop (stack-empty stack))))
+    (is-true (= (stack-pop stack) 3))
+    (is-true (= (stack-pop stack) 2))
+    (is-true (= (stack-empty stack) 0)))
 
   (with-fixture with-stack ()
     (stack-push stack 20)
-    (is-true (zerop (stack-empty stack))))
+    (is-true (= (stack-empty stack) 0)))
 
   (with-fixture with-stack (10 20)
-    (stack-pop stack)
-    (stack-pop stack)
-    (is-true (= 1 (stack-empty stack)))))
+    (is-true (= (stack-pop stack) 20))
+    (is-true (= (stack-pop stack) 10))
+    (is-true (= (stack-empty stack) 1))))
 
 
 (test sample-stack
@@ -246,7 +240,7 @@
 			 :and :collect (content-string stack) :into contents
 		       :finally (return contents))))
       (&body)
-      (free-alien stack))))
+      (stack-uninitialize stack))))
 
 (test stack-contents
   (with-fixture with-stack-contents ("EAS*Y**QUE***ST***I*ON**")
@@ -296,3 +290,56 @@
 
   (with-fixture with-infix ("A-B/((C*D)$E)")
     (is-true (string-equal postfix "ABCD*E$/-"))))
+
+(def-fixture with-queue (&rest keys)
+  (flet ((next-node (node) (slot node 'next)))
+    (with-alien ((queue (* queue-struct)
+			(queue-initialize))
+		 (head (* singly-linkedlist-node)
+		       (slot queue 'head))
+		 (tail (* singly-linkedlist-node)
+		       (slot queue 'tail)))
+      (loop
+	:for key :in keys
+	:do (queue-insert queue key))
+      (&body)
+      ;; this is possible only in Lisp side, that we are able to call a next-node on key-node
+      ;; even though we had called a free-alien on key-node prior to it.
+      ;; And there is a good reason for this to be able to happen ... keep guessing.
+      (loop
+	:for key-node := (next-node head) :then (next-node key-node)
+	:until (sap= (alien-sap key-node) (alien-sap tail))
+	:do (free-alien key-node))
+      (free-alien tail)
+      (free-alien head)
+      (free-alien queue))))
+
+(test queue-initialize
+  (with-fixture with-queue ()
+    (is-true queue)
+    (is-true head)
+    (is-true tail)
+    (is-true (= (queue-empty queue) 1))))
+
+(test queue-insert
+  (with-fixture with-queue (1 2 3 4)
+    (is-true (= 1 (queue-remove queue)))
+    (is-true (= 2 (queue-remove queue)))
+    (is-true (= 3 (queue-remove queue)))
+    (is-true (= 4 (queue-remove queue)))
+    (is-true (=   (queue-empty queue) 1))))
+
+(test queue-remove
+  (with-fixture with-queue ()
+    (is-true (= (queue-remove queue) -1))
+    (is-true (= (queue-empty  queue) 1)))
+
+  (with-fixture with-queue (1 2 5)
+    (is-true (= (queue-remove queue) 1))
+    (is-true (= (queue-empty  queue) 0)))
+  
+  (with-fixture with-queue (1 2 3)
+    (is-true (= 1 (queue-remove queue)))
+    (is-true (= 2 (queue-remove queue)))
+    (is-true (= 3 (queue-remove queue)))
+    (is-true (=   (queue-empty queue) 1))))

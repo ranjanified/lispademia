@@ -30,12 +30,15 @@ int stack_pop(struct stack *);
 int stack_empty(struct stack *);
 char *stack_contents(struct stack *);
 void stack_uninitialize(struct stack *);
-/*
-typedef struct arr_stack {
-  unsigned int keys[STACK_MAX_SIZE];
-  unsigned int top;
-  unsigned int nexts[STACK_MAX_SIZE];
-} STACK_USING_ARRAY;
-*/
 
 char *infix_postfix(char *);
+
+typedef struct queue {
+  struct node *head;
+  struct node *tail;
+} queue;
+
+queue *queue_initialize();
+struct node *queue_insert(queue *, int);
+int queue_remove(queue *);
+unsigned short queue_empty(queue *);

@@ -49,5 +49,15 @@
 (define-alien-routine "stack_pop" int (stack (* stack-struct)))
 (define-alien-routine "stack_empty" int (stack (* stack-struct)))
 (define-alien-routine "stack_contents" (* char) (stack (* stack-struct)))
+(define-alien-routine "stack_uninitialize" void (stack (* stack-struct))) 
 
 (define-alien-routine "infix_postfix" (* char) (infix c-string))
+
+(define-alien-type queue-struct
+    (struct queue
+	    (head (* singly-linkedlist-node))
+	    (tail (* singly-linkedlist-node))))
+(define-alien-routine "queue_initialize" (* queue-struct))
+(define-alien-routine "queue_insert" (* singly-linkedlist-node) (queue (* queue-struct)) (key int))
+(define-alien-routine "queue_remove" int (queue (* queue-struct)))
+(define-alien-routine "queue_empty" unsigned-short (queue (* queue-struct)))

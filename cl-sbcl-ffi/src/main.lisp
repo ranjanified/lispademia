@@ -47,8 +47,11 @@
    #:delete-next #:singly-ll-delete-next
    #:insert-after #:singly-ll-insert-after
    #:head #:tail #:stack-struct
-   #:stack-initialize #:stack-push #:stack-pop #:stack-empty
+   #:stack-initialize #:stack-uninitialize #:stack-push #:stack-pop #:stack-empty
    #:stack-contents
 
    #:infix-postfix
+
+   #:queue-initialize #:queue-insert #:queue-remove #:queue-empty
+   #:queue-struct
    ))

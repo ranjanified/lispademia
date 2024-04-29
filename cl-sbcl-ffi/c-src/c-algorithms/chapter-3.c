@@ -151,6 +151,17 @@ char *stack_contents(struct stack *stack)
 
 void stack_uninitialize(struct stack *stack)
 {
+  struct node *head = stack->head;
+  struct node *tail = stack->tail;
+  struct node *curr_node = head->next;
+  struct node *next_node = curr_node;
+
+  while(curr_node != tail) {
+    next_node = curr_node->next;
+    free(curr_node);
+    curr_node = next_node;
+  }
+  
   free(stack->tail);
   free(stack->head);
   free(stack);
@@ -204,4 +215,54 @@ char *infix_postfix(char *infix)
   stack_uninitialize(stack);
   postfix_string[postfix_index] = '\0';
   return postfix_string; 
+}
+
+queue *queue_initialize()
+{
+  struct node *head = malloc(sizeof(struct node));
+  struct node *tail = malloc(sizeof(struct node));
+  struct queue *queue_start = malloc(sizeof(struct queue));
+  
+  head->key = -1;
+  tail->key = -1;
+
+  head->next = tail;
+  tail->next = tail;
+
+  queue_start->head = head;
+  queue_start->tail = tail;
+
+  return queue_start;
+}
+
+struct node *queue_insert(queue *queue, int key)
+{
+  struct node *key_node = malloc(sizeof(struct node));
+  key_node->key = key;
+
+  struct node *curr_node = queue->head;
+  while(curr_node->next != queue->tail) {
+    curr_node = curr_node->next;
+  }
+  key_node->next = curr_node->next;
+  curr_node->next = key_node;
+  
+  return key_node;
+}
+
+int queue_remove(queue *queue)
+{
+  struct node *key_node = queue->head->next;
+  if(key_node != queue->tail) {
+    int key = key_node->key;
+    queue->head->next = key_node->next;
+    free(key_node);
+    return key;
+  }
+  return queue->tail->key;
+}
+
+unsigned short queue_empty(queue *queue)
+{
+  return queue->head->next == queue->tail;
 }
