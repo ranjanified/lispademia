@@ -61,3 +61,6 @@
 (define-alien-routine "queue_insert" (* singly-linkedlist-node) (queue (* queue-struct)) (key int))
 (define-alien-routine "queue_remove" int (queue (* queue-struct)))
 (define-alien-routine "queue_empty" unsigned-short (queue (* queue-struct)))
+
+(define-alien-routine "fill_having_gcd_1" (* (* unsigned-short)) (rows unsigned-short) (columns unsigned-short))
+(define-alien-routine "free_fill_array_having_gcd_1" void (fill-array (* (* unsigned-short))) (rows unsigned-short))

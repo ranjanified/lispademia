@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <calg-2.h>
 #include <calg-3.h>
+#include <stdio.h>
 
 unsigned int *sieve_primes(unsigned int primes_upto, unsigned int *primes_count)
 {
@@ -265,4 +267,48 @@ int queue_remove(queue *queue)
 unsigned short queue_empty(queue *queue)
 {
   return queue->head->next == queue->tail;
+}
+
+unsigned short **allocate_2d_array(int rows, int cols) {
+  // Allocate memory for the rows.
+  unsigned short **array = malloc(rows * sizeof(unsigned short *));
+
+  // For each row, allocate memory for the columns.
+  for (int i = 0; i < rows; i++) {
+    array[i] = malloc(cols * sizeof(unsigned short));
+  }
+
+  // Return the array.
+  return array;
+}
+
+void free_2d_array(unsigned short **array, int rows) {
+  // For each row, free the memory allocated for the columns.
+  for (int i = 0; i < rows; i++) {
+    free(array[i]);
+  }
+
+  // Free the memory allocated for the rows.
+  free(array);
+}
+
+unsigned short **fill_having_gcd_1(unsigned short rows, unsigned short columns)
+{
+  unsigned short **gcd_array =  allocate_2d_array(rows, columns); // malloc(sizeof(unsigned short *) * rows);
+
+  for(unsigned short i = 0; i < rows; i++) {
+    gcd_array[i] = malloc(sizeof(unsigned short) * columns);
+  }
+    
+  for(unsigned short i = 0; i < rows; i++) {
+    for(unsigned short j = 0; j < columns; j++) {
+      gcd_array[i][j] = euclid_gcd(i, j) == 1 ? 1 : 0;
+    }
+  }
+  return gcd_array;
+}
+
+void free_fill_array_having_gcd_1(unsigned short **fill_array, unsigned short rows)
+{
+  free_2d_array(fill_array, rows);
 }

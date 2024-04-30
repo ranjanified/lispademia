@@ -54,4 +54,6 @@
 
    #:queue-initialize #:queue-insert #:queue-remove #:queue-empty
    #:queue-struct
+
+   #:fill-having-gcd-1 #:free-fill-array-having-gcd-1
    ))

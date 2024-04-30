@@ -343,3 +343,22 @@
     (is-true (= 2 (queue-remove queue)))
     (is-true (= 3 (queue-remove queue)))
     (is-true (=   (queue-empty queue) 1))))
+
+(def-fixture with-fill-array (rows columns)
+  (with-alien ((fill-array (* (* unsigned-short))
+			   (fill-having-gcd-1 rows columns)))
+    (flet ((item-at (row col) (deref (deref fill-array row) col)))
+      (&body)
+      ;; we still have to understand why free-alien of rows was unreliable and flaky
+      ;; with dynamically allocated 2d arrays on c side
+      (free-fill-array-having-gcd-1 fill-array rows))))
+
+(test fill-having-gcd-1
+  (with-fixture with-fill-array (1 1)
+    (is-true (zerop (item-at 0 0))))
+
+  (with-fixture with-fill-array (2 2)
+    (is-true (zerop (item-at 0 0)))
+    (is-true (= (item-at 0 1) 1))
+    (is-true (= (item-at 1 0) 1))
+    (is-true (= (item-at 1 1) 1))))

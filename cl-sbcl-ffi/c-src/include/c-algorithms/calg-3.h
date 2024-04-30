@@ -42,3 +42,6 @@ queue *queue_initialize();
 struct node *queue_insert(queue *, int);
 int queue_remove(queue *);
 unsigned short queue_empty(queue *);
+
+unsigned short **fill_having_gcd_1(unsigned short, unsigned short);
+void free_fill_array_having_gcd_1(unsigned short **, unsigned short);
