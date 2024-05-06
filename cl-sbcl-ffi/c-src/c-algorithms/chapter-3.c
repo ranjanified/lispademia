@@ -2,6 +2,7 @@
 #include <calg-2.h>
 #include <calg-3.h>
 #include <stdio.h>
+#include <logger.h>
 
 unsigned int *sieve_primes(unsigned int primes_upto, unsigned int *primes_count)
 {
@@ -68,6 +69,18 @@ struct node *insert_after(struct node *node, int key)
 
   return new_node;
 }
+
+short list_empty(struct node *node)
+{
+  return node->next == node->next->next;
+}
+
+int singly_ll_keys[MAX_SINGLY_LL_NODES + 2];
+int singly_ll_nexts[MAX_SINGLY_LL_NODES + 2];
+unsigned int singly_ll_head;
+unsigned int singly_ll_tail;
+unsigned int singly_ll_current;
+
 
 void singly_ll_initialize()
 {
@@ -269,40 +282,43 @@ unsigned short queue_empty(queue *queue)
   return queue->head->next == queue->tail;
 }
 
-unsigned short **allocate_2d_array(int rows, int cols) {
+unsigned short **allocate_2d_array(unsigned short rows, unsigned short cols) {
   // Allocate memory for the rows.
   unsigned short **array = malloc(rows * sizeof(unsigned short *));
 
   // For each row, allocate memory for the columns.
-  for (int i = 0; i < rows; i++) {
+  for (unsigned short i = 0; i < rows; i++) {
     array[i] = malloc(cols * sizeof(unsigned short));
+    for(unsigned short j = 0; j < cols; j++) {
+      array[i][j] = 0;
+    }
+    write_stdout("c: allocated row %d at %p", i, (void *)array[i]);
   }
 
+  write_stdout("c: allocated 2d array at %p", (void *)array);
   // Return the array.
   return array;
 }
 
-void free_2d_array(unsigned short **array, int rows) {
+void free_2d_array(unsigned short **array, unsigned short rows) {
   // For each row, free the memory allocated for the columns.
-  for (int i = 0; i < rows; i++) {
+  for (unsigned short i = 0; i < rows; i++) {
+    write_stdout("c: freeing row %d at %p", i, (void *)array[i]);
     free(array[i]);
   }
 
   // Free the memory allocated for the rows.
+  write_stdout("c: freeing 2d array at %p", (void *)array);
   free(array);
 }
 
 unsigned short **fill_having_gcd_1(unsigned short rows, unsigned short columns)
 {
   unsigned short **gcd_array =  allocate_2d_array(rows, columns); // malloc(sizeof(unsigned short *) * rows);
-
-  for(unsigned short i = 0; i < rows; i++) {
-    gcd_array[i] = malloc(sizeof(unsigned short) * columns);
-  }
-    
+  
   for(unsigned short i = 0; i < rows; i++) {
     for(unsigned short j = 0; j < columns; j++) {
-      gcd_array[i][j] = euclid_gcd(i, j) == 1 ? 1 : 0;
+      gcd_array[i][j] = (unsigned short)(euclid_gcd(i, j) == 1 ? 1 : 0);
     }
   }
   return gcd_array;
@@ -311,4 +327,24 @@ unsigned short **fill_having_gcd_1(unsigned short rows, unsigned short columns)
 void free_fill_array_having_gcd_1(unsigned short **fill_array, unsigned short rows)
 {
   free_2d_array(fill_array, rows);
+}
+
+void move_next_to_front(struct node *head, int node_key)
+{
+  struct node *curr_node = head;
+  struct node *next_node = head->next;
+  unsigned short is_part_of = 0;
+
+  while(!is_part_of && (curr_node != curr_node->next)) {
+    if(curr_node->key == node_key) {
+      is_part_of = 1;
+      next_node = curr_node->next;
+      if(next_node != next_node->next) {
+	curr_node->next = next_node->next;
+	next_node->next = head->next;
+	head->next = next_node;
+      }
+    }
+    curr_node = curr_node->next;
+  }
 }

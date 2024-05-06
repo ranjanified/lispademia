@@ -1,5 +1,7 @@
 (in-package #:cl-sbcl-ffi/tests)
 
+(declaim (optimize (debug 3)))
+
 (in-suite* calg-chapter-3 :in c-algorithms)
 
 (def-fixture with-sieve-primes-upto (primes-upto)
@@ -79,9 +81,17 @@
 	:for curr-node := (next-node head) :then (next-node curr-node)
 	:until (sap= (alien-sap curr-node)
 		     (alien-sap tail))
-	:do (free-alien curr-node))
+	:do ;; (format t "~&freeing key-node~%")
+	    (free-alien curr-node)
+	    ;; (format t "~&freed key-node~%")
+	)
+      ;; (format t "~&freeing tail-node~%")
       (free-alien tail)
-      (free-alien head))))
+      ;; (format t "~&freed tail-node~%")
+      ;; (format t "freeing head-node~%")
+      (free-alien head)
+      ;; (format t "~&freed head-node~%")
+      )))
 
 (test list-initialize
   (with-fixture with-keys ()
@@ -345,13 +355,24 @@
     (is-true (=   (queue-empty queue) 1))))
 
 (def-fixture with-fill-array (rows columns)
+  ;; (sb-sys:without-gcing)
   (with-alien ((fill-array (* (* unsigned-short))
 			   (fill-having-gcd-1 rows columns)))
     (flet ((item-at (row col) (deref (deref fill-array row) col)))
+      ;; (sb-ext:finalize (item-at 0 0) (lambda () (format t "~&gc 0 0~%")))
+      (format t "~&lisp: allocated fill-array at: ~a~%" (alien-sap fill-array))
       (&body)
+      ;; (loop :for r :from 0 :below rows
+      ;; 	    :do (loop :for c :from 0 :below columns
+      ;; 		      :do (format t "~&Row: ~a, Column: ~a, Value: ~a~%" r c (item-at r c))))
+
       ;; we still have to understand why free-alien of rows was unreliable and flaky
-      ;; with dynamically allocated 2d arrays on c side
-      (free-fill-array-having-gcd-1 fill-array rows))))
+      ;; with dynamically allocated 2d arrays on c side.
+      ;; Even with free on c side, it is non-deterministically erroring FOREIGN-HEAP-CORRUPTION
+      (format t "~&lisp: freeing array at: ~a~%" (alien-sap fill-array) ;; (sb-sys:sap-ref-word (alien-sap fill-array) 0)
+      )
+      (free-fill-array-having-gcd-1 fill-array rows)
+      (format t "~&lisp: freed array~%"))))
 
 (test fill-having-gcd-1
   (with-fixture with-fill-array (1 1)
@@ -362,3 +383,8 @@
     (is-true (= (item-at 0 1) 1))
     (is-true (= (item-at 1 0) 1))
     (is-true (= (item-at 1 1) 1))))
+
+(test move-next-to-front
+  (with-fixture with-keys ()
+    (move-next-to-front head 10)
+    (is-true (sap= (alien-sap tail) (alien-sap (next-node head))))))

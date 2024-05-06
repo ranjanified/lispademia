@@ -21,3 +21,4 @@
   (run-warmups)
   (run! 'cl-sbcl-ffi))
 
+(setf stdout-format (alien-sap (alien-callable-function 'stdout-formatter)))

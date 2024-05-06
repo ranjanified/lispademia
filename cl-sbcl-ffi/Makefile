@@ -14,7 +14,7 @@ BINDIR          = $(PREFIX)/bin
 
 TARGET          = libsbclffi.so
 SOURCES         = $(shell echo $(PREFIX)/*.c $(PREFIX)/**/*.c)
-HEADER_INCLUDES = $(shell echo -I$(PREFIX)/include -I$(PREFIX)/include/modern-c -I$(PREFIX)/include/c-algorithms)
+HEADER_INCLUDES = $(shell echo -I$(PREFIX)/include -I$(PREFIX)/include/utils -I$(PREFIX)/include/modern-c -I$(PREFIX)/include/c-algorithms)
 OBJECTS         = $(SOURCES:.c=.o)
 
 all: $(TARGET)

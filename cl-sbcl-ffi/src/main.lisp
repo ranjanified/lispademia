@@ -56,4 +56,17 @@
    #:queue-struct
 
    #:fill-having-gcd-1 #:free-fill-array-having-gcd-1
+   #:move-next-to-front
+
+   #:stdout-format #:stdout-formatter
    ))
+
+(in-package #:cl-sbcl-ffi)
+
+(define-alien-variable stdout-format (* (function void c-string)))
+
+(define-alien-callable stdout-formatter void ((fmt-str c-string))
+  (format t "~&~a~%" fmt-str))
+
+
+

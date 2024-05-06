@@ -64,3 +64,5 @@
 
 (define-alien-routine "fill_having_gcd_1" (* (* unsigned-short)) (rows unsigned-short) (columns unsigned-short))
 (define-alien-routine "free_fill_array_having_gcd_1" void (fill-array (* (* unsigned-short))) (rows unsigned-short))
+
+(define-alien-routine "move_next_to_front" void (head (* singly-linkedlist-node)) (node-key int))
