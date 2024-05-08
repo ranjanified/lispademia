@@ -43,6 +43,7 @@ struct node *list_initialize()
   tail = malloc(sizeof *tail);
 
   head->key = -10;
+  tail->key = -10;
   head->next = tail;
   tail->next = tail;
 
@@ -59,9 +60,7 @@ struct node *delete_next(struct node *node)
 
 struct node *insert_after(struct node *node, int key)
 {
-  struct node *new_node;
-
-  new_node = malloc(sizeof *new_node);
+  struct node *new_node =  malloc(sizeof(struct node));
   new_node->key = key;
 
   new_node->next = node->next;
@@ -112,8 +111,8 @@ struct stack *stack_initialize()
 
   struct stack *stack_start = malloc(sizeof(struct node));
 
-  head->key = 0;
-  tail->key = 0;
+  head->key = -10;
+  tail->key = -10;
 
   head->next = tail;
   tail->next = tail;
@@ -127,11 +126,11 @@ struct stack *stack_initialize()
 struct node *stack_push(struct stack *stack, int key)
 {
   struct node *new_key_node = malloc(sizeof(struct node));
+
   new_key_node->key = key;
-
   new_key_node->next = stack->head->next;
-  stack->head->next = new_key_node;
 
+  stack->head->next = new_key_node;
   return new_key_node;
 }
 
@@ -149,9 +148,9 @@ int stack_empty(struct stack *stack)
   return stack->head->next == stack->tail;
 }
 
-char *stack_contents(struct stack *stack)
+int *stack_contents(struct stack *stack, unsigned int *len)
 {
-  char *buffer = malloc(sizeof(char *));
+  int *buffer = malloc(sizeof(int *));
   struct node *curr_node = stack->head->next;
   unsigned int index = 0;
   
@@ -159,19 +158,17 @@ char *stack_contents(struct stack *stack)
     buffer[index++] = curr_node->key;
     curr_node = curr_node->next;
   }
-  buffer[index] = '\0';
   
+  *len = index;
   return buffer;
 }
 
 void stack_uninitialize(struct stack *stack)
 {
-  struct node *head = stack->head;
-  struct node *tail = stack->tail;
-  struct node *curr_node = head->next;
+  struct node *curr_node = stack->head->next;
   struct node *next_node = curr_node;
 
-  while(curr_node != tail) {
+  while(curr_node != stack->tail) {
     next_node = curr_node->next;
     free(curr_node);
     curr_node = next_node;

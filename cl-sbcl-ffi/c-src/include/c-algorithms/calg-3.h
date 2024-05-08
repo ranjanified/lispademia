@@ -34,7 +34,7 @@ struct stack *stack_initialize(void);
 struct node *stack_push(struct stack *, int);
 int stack_pop(struct stack *);
 int stack_empty(struct stack *);
-char *stack_contents(struct stack *);
+int *stack_contents(struct stack *, unsigned int *);
 void stack_uninitialize(struct stack *);
 
 char *infix_postfix(char *);
