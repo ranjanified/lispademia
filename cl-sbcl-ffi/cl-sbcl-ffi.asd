@@ -40,12 +40,12 @@
   :components ((:module "tests"
                 :components
                 ((:file "main")
-		 ;; (:module "modern-c"
-		 ;;  :components
-		 ;;  ((:file "chapter-2")))
+		 (:module "modern-c"
+		  :components
+		  ((:file "chapter-2")))
 		 (:module "c-algorithms"
 		  :components
-		  (;; (:file "chapter-2")
+		  ((:file "chapter-2")
 		   (:file "chapter-3"))))))
   :description "Test system for cl-sbcl-ffi"
   :perform (test-op (op c) (symbol-call '#:cl-sbcl-ffi/tests '#:run-tests)))

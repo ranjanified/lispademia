@@ -60,7 +60,7 @@ struct node *delete_next(struct node *node)
 
 struct node *insert_after(struct node *node, int key)
 {
-  struct node *new_node =  malloc(sizeof(struct node));
+  struct node *new_node =  malloc(sizeof *new_node);
   new_node->key = key;
 
   new_node->next = node->next;
