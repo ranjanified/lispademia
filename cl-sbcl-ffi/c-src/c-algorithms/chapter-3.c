@@ -150,10 +150,21 @@ int stack_empty(struct stack *stack)
 
 int *stack_contents(struct stack *stack, unsigned int *len)
 {
-  int *buffer = malloc(sizeof(int *));
   struct node *curr_node = stack->head->next;
   unsigned int index = 0;
-  
+
+  // this is inefficient
+  while(curr_node != stack->tail) {
+    index++;
+    curr_node = curr_node->next;
+  }
+
+  int *buffer = malloc(sizeof(*buffer) * index);
+
+  // collect stack contents
+  // this doesn't alter the stack
+  index = 0;
+  curr_node = stack->head->next;
   while(curr_node != stack->tail) {
     buffer[index++] = curr_node->key;
     curr_node = curr_node->next;
@@ -186,7 +197,7 @@ int stack_top(struct stack *stack)
   return top;
 }
 
-short is_operator(char op)
+unsigned short is_operator(char op)
 {
   short index = -1;
   char ops[5] = {'-', '+', '*', '/', '$'};
@@ -201,39 +212,53 @@ short is_operator(char op)
 
 char *infix_postfix(char *infix)
 {
-  struct stack *stack = stack_initialize();
-  char *postfix_string = malloc(sizeof(char *));
-  unsigned int next_char = 0, postfix_index = 0;
+  struct stack *operator_stack = stack_initialize();
+  struct stack *postfix_string_stack = stack_initialize();
+  unsigned int next_char = 0, postfix_length = 0;
   char next_symbol = '\0';
 
+  // warmup the corresponding stacks
   while((next_symbol = infix[next_char++]) != '\0') {
     if (next_symbol == ')') {
-      postfix_string[postfix_index++] = stack_pop(stack);
+      stack_push(postfix_string_stack, stack_pop(operator_stack));
     } else {
       if(is_operator(next_symbol)) {
-	stack_push(stack, next_symbol);
+	stack_push(operator_stack, next_symbol);
+	postfix_length++;
       } else {
 	if(next_symbol != '(') {
-	  postfix_string[postfix_index++] = next_symbol;
+	  stack_push(postfix_string_stack, next_symbol);
+	  postfix_length++;
 	}
       }
     }
   }
   
-  while(!stack_empty(stack)) {
-    postfix_string[postfix_index++] = stack_pop(stack);;
+  while(!stack_empty(operator_stack)) {
+    next_symbol = stack_pop(operator_stack);
+    stack_push(postfix_string_stack, next_symbol);
   }
+
+  // Time to prepare the postfix string
+  char *postfix_string = malloc(sizeof(*postfix_string) * (postfix_length + 1));
+
+  /* postfix string , start */
+  postfix_string[postfix_length--] = '\0';
+  while(!stack_empty(postfix_string_stack)) {
+    postfix_string[postfix_length--] = stack_pop(postfix_string_stack);
+  }
+  /* postfix string, end*/
   
-  stack_uninitialize(stack);
-  postfix_string[postfix_index] = '\0';
+  stack_uninitialize(operator_stack);
+  stack_uninitialize(postfix_string_stack);
   return postfix_string; 
 }
 
 queue *queue_initialize()
 {
-  struct node *head = malloc(sizeof(struct node));
-  struct node *tail = malloc(sizeof(struct node));
-  struct queue *queue_start = malloc(sizeof(struct queue));
+  struct node *head = malloc(sizeof(*head));
+  struct node *tail = malloc(sizeof(*tail));
+  struct queue *queue_start = malloc(sizeof(*queue_start));
   
   head->key = -1;
   tail->key = -1;
@@ -281,18 +306,18 @@ unsigned short queue_empty(queue *queue)
 
 unsigned short **allocate_2d_array(unsigned short rows, unsigned short cols) {
   // Allocate memory for the rows.
-  unsigned short **array = malloc(rows * sizeof(unsigned short *));
+  unsigned short **array = malloc(rows * sizeof(*array));
 
   // For each row, allocate memory for the columns.
   for (unsigned short i = 0; i < rows; i++) {
-    array[i] = malloc(cols * sizeof(unsigned short));
+    array[i] = malloc(cols * sizeof(*array[i]));
     for(unsigned short j = 0; j < cols; j++) {
       array[i][j] = 0;
     }
-    write_stdout("c: allocated row %d at %p", i, (void *)array[i]);
+    // write_stdout("c: allocated row %d at %p", i, (void *)array[i]);
   }
 
-  write_stdout("c: allocated 2d array at %p", (void *)array);
+  // write_stdout("c: allocated 2d array at %p", (void *)array);
   // Return the array.
   return array;
 }
@@ -300,12 +325,12 @@ unsigned short **allocate_2d_array(unsigned short rows, unsigned short cols) {
 void free_2d_array(unsigned short **array, unsigned short rows) {
   // For each row, free the memory allocated for the columns.
   for (unsigned short i = 0; i < rows; i++) {
-    write_stdout("c: freeing row %d at %p", i, (void *)array[i]);
+    // write_stdout("c: freeing row %d at %p", i, (void *)array[i]);
     free(array[i]);
   }
 
   // Free the memory allocated for the rows.
-  write_stdout("c: freeing 2d array at %p", (void *)array);
+  // write_stdout("c: freeing 2d array at %p", (void *)array);
   free(array);
 }
 

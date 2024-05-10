@@ -73,25 +73,19 @@
 		       (slot head 'next)))
       (loop
 	:for key :in keys
-	:for current-node := head :then (next-node current-node)
-	:do (insert-after current-node key))
+	:for curr-node := head :then (next-node curr-node)
+	:do (insert-after curr-node key))
       (&body)
       ;; free the nodes - head, tail, and all constituents
       (loop
 	:for curr-node := (next-node head) :then (next-node curr-node)
 	:until (sap= (alien-sap curr-node)
 		     (alien-sap tail))
-	:do ;; (format t "~&freeing key-node~%")
-	    (free-alien curr-node)
-	    ;; (format t "~&freed key-node~%")
-	)
-      ;; (format t "~&freeing tail-node~%")
+	:collect curr-node :into key-nodes
+	:finally (loop :for key-node :in (reverse key-nodes)
+		       :do (free-alien key-node)))
       (free-alien tail)
-      ;; (format t "~&freed tail-node~%")
-      ;; (format t "freeing head-node~%")
-      (free-alien head)
-      ;; (format t "~&freed head-node~%")
-      )))
+      (free-alien head))))
 
 (test list-initialize
   (with-fixture with-keys ()
@@ -235,27 +229,24 @@
 (def-fixture with-stack-contents (content-str)
   (flet ((content-string (stack)
 	   (with-alien ((len unsigned-int 0)
-			(contents (* int)
+			(stack-contents (* int)
 				  (stack-contents stack (addr len))))
-	     ;; (format t "~&stack-contents length: ~a~%" len)
 	     (loop :for i :from 0 :below len
-		   :collect (code-char (deref contents i)) :into s-contents
-		   :finally (format t "~&freeing alien: ~a~%" (alien-sap contents))
-			    (free-alien contents)
-			    (setf contents nil)
-			    (return (coerce s-contents 'string))))))
-    (let* ((stack (stack-initialize))
-	   (contents (loop
-		       :for code :in (mapcar #'char-code (coerce content-str 'list))
-		       :if (= code (char-code #\*))
-			 :do (stack-pop stack)
-			 :and :collect (content-string stack) :into contents
-		       :else
-			 :do (stack-push stack code)
-			 :and :collect (content-string stack) :into contents
-		       :finally (return contents))))
-      (&body)
-      ;; (format t "~&are we doing this?~%")
+		   :collect (code-char (deref stack-contents i)) :into s-contents
+		   :finally (free-alien stack-contents)
+		            (return (coerce s-contents 'string))))))
+    (with-alien ((stack (* stack-struct)
+			(stack-initialize)))
+      (let ((contents (loop
+			:for code :in (mapcar #'char-code (coerce content-str 'list))
+			:if (= code (char-code #\*))
+			  :do (stack-pop stack)
+			  :and :collect (content-string stack) :into stack-content
+			:else
+			  :do (stack-push stack code)
+			  :and :collect (content-string stack) :into stack-content
+			:finally (return stack-content))))
+	(&body))
       (stack-uninitialize stack))))
 
 (test stack-contents
@@ -271,13 +262,13 @@
 			  "O" "")))))
 
 (def-fixture with-infix (infix)
-  (with-alien ((postfix-str (* char) (cl-sbcl-ffi:infix-postfix infix))
+  (with-alien ((postfix-str (* char) (infix-postfix infix))
 	       (postfix c-string postfix-str))
     (&body)
     (free-alien postfix-str)))
 
 (test infix-postfix
-  (with-fixture with-infix ("")
+ (with-fixture with-infix ("")
     (is-true (string-equal postfix "")))
 
  (with-fixture with-infix ("A+B")
@@ -319,13 +310,13 @@
 	:for key :in keys
 	:do (queue-insert queue key))
       (&body)
-      ;; this is possible only in Lisp side, that we are able to call a next-node on key-node
-      ;; even though we had called a free-alien on key-node prior to it.
-      ;; And there is a good reason for this to be able to happen ... keep guessing.
       (loop
-	:for key-node := (next-node head) :then (next-node key-node)
-	:until (sap= (alien-sap key-node) (alien-sap tail))
-	:do (free-alien key-node))
+	:for curr-node := (next-node head) :then (next-node curr-node)
+	:until (sap= (alien-sap curr-node)
+		     (alien-sap tail))
+	:collect curr-node :into key-nodes
+	:finally (loop :for key-node :in (reverse key-nodes)
+		       :do (free-alien key-node)))
       (free-alien tail)
       (free-alien head)
       (free-alien queue))))
@@ -361,24 +352,11 @@
     (is-true (=   (queue-empty queue) 1))))
 
 (def-fixture with-fill-array (rows columns)
-  ;; (sb-sys:without-gcing)
   (with-alien ((fill-array (* (* unsigned-short))
 			   (fill-having-gcd-1 rows columns)))
     (flet ((item-at (row col) (deref (deref fill-array row) col)))
-      ;; (sb-ext:finalize (item-at 0 0) (lambda () (format t "~&gc 0 0~%")))
-      (format t "~&lisp: allocated fill-array at: ~a~%" (alien-sap fill-array))
       (&body)
-      ;; (loop :for r :from 0 :below rows
-      ;; 	    :do (loop :for c :from 0 :below columns
-      ;; 		      :do (format t "~&Row: ~a, Column: ~a, Value: ~a~%" r c (item-at r c))))
-
-      ;; we still have to understand why free-alien of rows was unreliable and flaky
-      ;; with dynamically allocated 2d arrays on c side.
-      ;; Even with free on c side, it is non-deterministically erroring FOREIGN-HEAP-CORRUPTION
-      (format t "~&lisp: freeing array at: ~a~%" (alien-sap fill-array) ;; (sb-sys:sap-ref-word (alien-sap fill-array) 0)
-      )
-      (free-fill-array-having-gcd-1 fill-array rows)
-      (format t "~&lisp: freed array~%"))))
+      (free-fill-array-having-gcd-1 fill-array rows))))
 
 (test fill-having-gcd-1
   (with-fixture with-fill-array (1 1)
